@@ -1,4 +1,4 @@
-package com.example.riverpod_clean_architecture
+package com.example.doit_doit
 
 import io.flutter.embedding.android.FlutterActivity
 
