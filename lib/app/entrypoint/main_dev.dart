@@ -1,10 +1,7 @@
-import 'package:flutter/material.dart';
-import '../environment/app.dart';
 import '../environment/flavors.dart';
 
 Future<void> main() async {
-  F.init();
-  F.appFlavor = Flavor.dev;
-
-  runApp(const App());
+  // F.appFlavor = Flavor.dev;
+  // TODO : Logger로 dev임을 전달
+  F.runFlavoredApp();
 }
