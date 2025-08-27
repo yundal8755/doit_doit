@@ -24,16 +24,14 @@ abstract class AppTextStyle {
         fontWeight: FontWeight.w700,
       );
 
-  static final TextStyle highlight = pretendardBoldStyle(32, 36);
-  static final TextStyle h1 = pretendardBoldStyle(24, 33);
-  static final TextStyle h2 = pretendardBoldStyle(20, 27);
-  static final TextStyle h3 = pretendardSemiBoldStyle(18, 24);
-  static final TextStyle title1 = pretendardBoldStyle(16, 22);
-  static final TextStyle title2 = pretendardSemiBoldStyle(16, 22);
-  static final TextStyle title3 = pretendardBoldStyle(14, 20);
-  static final TextStyle body1 = pretendardSemiBoldStyle(14, 20);
-  static final TextStyle body2 = pretendardMediumStyle(14, 20);
-  static final TextStyle body3 = pretendardMediumStyle(13, 18);
-  static final TextStyle alert1 = pretendardSemiBoldStyle(12, 17);
-  static final TextStyle alert2 = pretendardStyle(12, 17);
+  // bold
+  static final TextStyle bold2028 = pretendardBoldStyle(20, 28);
+
+  // semi-bold
+  static final TextStyle semi1828 = pretendardBoldStyle(18, 28);
+  static final TextStyle semi1421 = pretendardBoldStyle(14, 21);
+
+  // medium
+  static final TextStyle med1421 = pretendardBoldStyle(14, 21);
+  static final TextStyle med1216 = pretendardSemiBoldStyle(12, 16);
 }

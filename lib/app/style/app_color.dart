@@ -1,64 +1,31 @@
 import 'package:flutter/material.dart';
 
 abstract class AppColor {
-  static const white = Color(0xffffffff);
-  static const black = Color(0xff000000);
-  static const green = Color(0xff1DB177);
-  static const bsBackground = Color(0xff202027);
-  static const bsIndicator = Color(0xff3C3C47);
+  // Base
+  static const white = Color(0xFFFFFFFF);
+  static const black = Color(0xFF000000);
 
-  static const background = Color(0xffF3F4F5);
+  // Gray
+  static const gray900 = Color(0xFF111827); // 진한 회색 (텍스트 주)
+  static const gray800 = Color(0xFF374151); // 중간 진한 회색
+  static const gray700 = Color(0xFF4B5563); // 회색
+  static const gray600 = Color(0xFF6B7280); // 밝은 회색
+  static const gray500 = Color(0xFF767676); // 회색 (세컨드 텍스트)
+  static const gray400 = Color(0xFF9CA3AF); // 연한 회색
+  static const gray300 = Color(0xFFE5E7EB); // 테두리/구분선
+  static const gray200 = Color(0xFFF3F4F6); // 배경용
+  static const gray100 = Color(0xFFF9FAFB); // 더 밝은 배경
+  static const gray050 = Color(0xFFFEF2F2); // 거의 흰색 배경
 
-  static const kakao = Color(0xffFEE601);
-  static const naver = Color(0xff02C75C);
+  // Primary (브랜드 메인 컬러 - 파랑/보라)
+  static const primary500 = Color(0xFF6366F1); // Indigo (메인)
+  static const primary600 = Color(0xFF2563EB); // 파랑
 
-  static const gray010 = Color(0xFFFCFCFC);
-  static const gray020 = Color(0xFFFAFAFA);
-  static const gray030 = Color(0xFFF5F5F5);
-  static const gray040 = Color(0xFFEEEEEE);
-  static const gray050 = Color(0xFFE0E0E0);
-  static const gray060 = Color(0xFF9E9E9E);
-  static const gray070 = Color(0xFF616161);
-  static const gray080 = Color(0xFF424242);
-  static const gray090 = Color(0xFF212121);
+  // Success (초록 계열)
+  static const success500 = Color(0xFF16A34A); // 기본 성공
+  static const success600 = Color(0xFF22C55E); // 강조 성공
 
-  static const neutral010 = Color(0xFFF7F9FA);
-  static const neutral025 = Color(0xFFF5F6F7);
-  static const neutral050 = Color(0xFFF1F2F3);
-  static const neutral100 = Color(0xFFE1E2E5);
-  static const neutral200 = Color(0xFFB5B9C2);
-  static const neutral300 = Color(0xFFA3A5AE);
-  static const neutral400 = Color(0xFF838A9A);
-  static const neutral500 = Color(0xFF626576);
-  static const neutral700 = Color(0xFF383B45);
-  static const neutral900 = Color(0xFF090A0B);
-
-  static const primary050 = Color(0xFFFFF3F4);
-  static const primary100 = Color(0xFFFFE8E8);
-  static const primary200 = Color(0xFFFFD1D2);
-  static const primary400 = Color(0xFFFF8182);
-  static const primary500 = Color(0xFFFF595B);
-  static const primary600 = Color(0xFFE04E50);
-  static const primary700 = Color(0xFFCB4748);
-  static const primary800 = Color(0xFF8A3031);
-
-  static const accent050 = Color(0xFFFDFAF0);
-  static const accent100 = Color(0xFFFAF5E6);
-  static const accent200 = Color(0xFFF6EDD0);
-  static const accent400 = Color(0xFFE7D084);
-  static const accent500 = Color(0xFFDEBE54);
-  static const accent600 = Color(0xFFCCAF4D);
-  static const accent800 = Color(0xFF847132);
-
-  static const error050 = Color(0xFFFFF3F4);
-  static const error500 = Color(0xFFFF595B);
-  static const error700 = Color(0xFFCB4748);
-
-  static const warning050 = Color(0xFFFDF8EA);
-  static const warning500 = Color(0xFFEAAA08);
-  static const warning700 = Color(0xFFC48F07);
-
-  static const success050 = Color(0xFFEEFAF5);
-  static const success500 = Color(0xFF12B76A);
-  static const success700 = Color(0xFF0E9154);
+  // Error (빨강 계열)
+  static const error500 = Color(0xFFDC2626); // 경고/실패
+  static const error400 = Color(0xFFEA580C); // 주황빛 경고 (alt)
 }
