@@ -1,0 +1,15 @@
+flavors:
+  prod:
+    app:
+      name: "prod-doitdoit"
+    android:
+      applicationId: "com.example.prod.doitdoit"
+    ios:
+      bundleId: "com.example.prod.doitdoit"
+  dev:
+    app:
+      name: "dev-doitdoit"
+    android:
+      applicationId: "com.example.dev.doitdoit"
+    ios:
+      bundleId: "com.example.dev.doitdoit"

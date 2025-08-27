@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "17406977885",
+    "project_id": "dailydaily-prod-d68f1",
+    "storage_bucket": "dailydaily-prod-d68f1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:17406977885:android:759ff45653d90e467aeab4",
+        "android_client_info": {
+          "package_name": "com.example.daily_daily"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCuXflf_n45DNORT03zmWB1qgwQZDp_pa4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:17406977885:android:da5c6877f3dbb62e7aeab4",
+        "android_client_info": {
+          "package_name": "com.example.prod.dailydaily"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCuXflf_n45DNORT03zmWB1qgwQZDp_pa4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:17406977885:android:a62cd6d3639d26b67aeab4",
+        "android_client_info": {
+          "package_name": "com.example.prod.doitdoit"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCuXflf_n45DNORT03zmWB1qgwQZDp_pa4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

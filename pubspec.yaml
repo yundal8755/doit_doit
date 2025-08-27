@@ -11,15 +11,15 @@ dependencies:
     sdk: flutter
 
   # 📦 의존성 패키지 (a~z 순 정렬)
-  cloud_firestore: ^6.0.0            # Firebase Cloud Firestore DB
+  cloud_firestore: ^5.6.12           # Firebase Cloud Firestore DB
   cupertino_icons: ^1.0.8            # iOS 스타일 아이콘
   easy_localization: ^3.0.8          # 다국어/다언어 지원
-  firebase_core: ^4.0.0              # Firebase Core 초기화
+  firebase_core: ^3.14.0             # Firebase Core 초기화
   flutter_dotenv: ^6.0.0             # .env 환경변수 관리
   flutter_flavorizr: ^2.3.1          # Flavor 환경 분리 자동화
   flutter_riverpod: ^2.6.1           # Riverpod 상태관리
   flutter_screenutil: ^5.9.3         # 반응형 UI (해상도 대응)
-  flutter_secure_storage: ^4.2.1     # 보안 스토리지 (Keychain/Keystore)
+  flutter_secure_storage: ^9.2.4     # 보안 스토리지 (Keychain/Keystore)
   flutter_svg: ^2.1.0                # SVG 이미지 렌더링
   freezed: ^2.5.7                    # 불변 객체/데이터 클래스 생성
   gap: ^3.0.1                        # 위젯 간 간격(Spacing) 간단 처리
