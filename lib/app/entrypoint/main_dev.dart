@@ -1,7 +1,8 @@
+import 'package:doit_doit/app/util/app_log.dart';
 import '../environment/flavors.dart';
 
-Future<void> main() async {
-  // F.appFlavor = Flavor.dev;
-  // TODO : Logger로 dev임을 전달
-  F.runFlavoredApp();
+void main() async {
+  AppLog.i('dev 모드로 실행');
+
+  F.runFlavoredApp(flavor: Flavor.dev);
 }

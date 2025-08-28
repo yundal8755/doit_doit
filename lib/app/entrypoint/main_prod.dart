@@ -1,10 +1,8 @@
-import 'package:flutter/material.dart';
-import '../environment/app.dart';
+import 'package:doit_doit/app/util/app_log.dart';
 import '../environment/flavors.dart';
 
-Future<void> main() async {
-  F.runFlavoredApp();
-  F.appFlavor = Flavor.prod;
+void main() async {
+  AppLog.i('prod 모드로 실행');
 
-  runApp(const App());
+  F.runFlavoredApp(flavor: Flavor.prod);
 }

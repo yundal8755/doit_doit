@@ -14,7 +14,9 @@ dependencies:
   cloud_firestore: ^5.6.12           # Firebase Cloud Firestore DB
   cupertino_icons: ^1.0.8            # iOS 스타일 아이콘
   easy_localization: ^3.0.8          # 다국어/다언어 지원
+  firebase_auth: ^5.7.0              # Firebase 인증 (이메일/소셜 로그인)
   firebase_core: ^3.14.0             # Firebase Core 초기화
+  flutter_bounceable: ^1.2.0         # 탭 시 애니메이션 효과
   flutter_dotenv: ^6.0.0             # .env 환경변수 관리
   flutter_flavorizr: ^2.3.1          # Flavor 환경 분리 자동화
   flutter_riverpod: ^2.6.1           # Riverpod 상태관리
@@ -24,6 +26,7 @@ dependencies:
   freezed: ^2.5.7                    # 불변 객체/데이터 클래스 생성
   gap: ^3.0.1                        # 위젯 간 간격(Spacing) 간단 처리
   go_router: ^15.1.2                 # 라우팅 관리
+  google_sign_in: ^6.2.2             # 구글 로그인
   hive: ^2.2.3                       # 로컬 NoSQL DB
   image_picker: ^1.1.2               # 갤러리/카메라 이미지 선택
   json_annotation: ^4.9.0            # JSON 직렬화 어노테이션
@@ -41,7 +44,7 @@ dev_dependencies:
   custom_lint: ^0.7.0                # 사용자 정의 린트 규칙
   flutter_lints: ^4.0.0              # Flutter 권장 린트 규칙
   riverpod_generator: ^2.6.3         # Riverpod 관련 코드 자동 생성
-  riverpod_lint: ^2.6.3              # Riverpod 전용 린트
+  riverpod_lint: ^2.6.3              # Riverpod 전용 린트 규칙
 
 flutter:
   uses-material-design: true
