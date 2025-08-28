@@ -1,6 +1,16 @@
 import 'package:flutter/material.dart';
 
 abstract class AppShadow {
+  static List<BoxShadow> firstShadow() {
+    return [
+      const BoxShadow(
+          color: Color(0x14000000),
+          offset: Offset(0, 1),
+          blurRadius: 2,
+          spreadRadius: 0),
+    ];
+  }
+
   static List<BoxShadow> elevation01dp() {
     return [
       const BoxShadow(

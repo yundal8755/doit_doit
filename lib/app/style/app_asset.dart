@@ -1,4 +1,11 @@
 abstract class AppAsset {
+  // Logo
+  static const String logo = 'assets/icons/logo.svg';
+  static const String kakao = 'assets/icons/kakao_logo.svg';
+  static const String naver = 'assets/icons/naver_logo.svg';
+  static const String google = 'assets/icons/google_logo.svg';
+  static const String apple = 'assets/icons/apple_logo.svg';
+
   // 하단바
   static const String homeFilledIcon = 'assets/icons/home_filled.svg';
   static const String homeLineIcon = 'assets/icons/home_line.svg';

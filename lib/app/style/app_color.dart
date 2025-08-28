@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 abstract class AppColor {
+  // Social
+  static const kakao = Color(0xffFEE601);
+  static const naver = Color(0xff02C75C);
+
   // Base
   static const white = Color(0xFFFFFFFF);
   static const black = Color(0xFF000000);
