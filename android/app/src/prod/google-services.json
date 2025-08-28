@@ -7,50 +7,25 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:17406977885:android:759ff45653d90e467aeab4",
-        "android_client_info": {
-          "package_name": "com.example.daily_daily"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCuXflf_n45DNORT03zmWB1qgwQZDp_pa4"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:17406977885:android:da5c6877f3dbb62e7aeab4",
-        "android_client_info": {
-          "package_name": "com.example.prod.dailydaily"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCuXflf_n45DNORT03zmWB1qgwQZDp_pa4"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:17406977885:android:a62cd6d3639d26b67aeab4",
         "android_client_info": {
           "package_name": "com.example.prod.doitdoit"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "17406977885-5vc6sqg9da0202imdqjr6stscegjihb4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.prod.doitdoit",
+            "certificate_hash": "9482e8511dc4f457e88ae0be8041df12b5e84946"
+          }
+        },
+        {
+          "client_id": "17406977885-vk95s8hr4honoijg9a0kvmhd9cfibmjv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCuXflf_n45DNORT03zmWB1qgwQZDp_pa4"
@@ -58,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "17406977885-vk95s8hr4honoijg9a0kvmhd9cfibmjv.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "17406977885-3ht73vpronmin4gubvhunvaii1c5ugtr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.dev.doitdoit"
+              }
+            }
+          ]
         }
       }
     }

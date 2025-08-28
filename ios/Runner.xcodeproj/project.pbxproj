@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -96,7 +96,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		0471A6092E5EDED8006648A3 /* Exceptions for "config" folder in "Runner" target */ = {
+		0471A6092E5EDED8006648A3 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				"dev/GoogleService-Info.plist",
@@ -107,18 +107,7 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		0471A6022E5EDE3D006648A3 /* config */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				0471A6092E5EDED8006648A3 /* Exceptions for "config" folder in "Runner" target */,
-			);
-			explicitFileTypes = {
-			};
-			explicitFolders = (
-			);
-			path = config;
-			sourceTree = "<group>";
-		};
+		0471A6022E5EDE3D006648A3 /* config */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (0471A6092E5EDED8006648A3 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = config; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -269,7 +258,7 @@
 				9740EEB61CF901F6004384FC /* Run Script */,
 				97C146EA1CF9000F007C117D /* Sources */,
 				97C146EB1CF9000F007C117D /* Frameworks */,
-				0471A60A2E5EDEE3006648A3 /* Copy GoogleService.Info.plist */,
+				0497F2BA2E603AC600773CD2 /* Copy GoogleService.Info.plist */,
 				97C146EC1CF9000F007C117D /* Resources */,
 				9705A1C41CF9048500538489 /* Embed Frameworks */,
 				3B06AD1E1E4923F5004D2608 /* Thin Binary */,
@@ -357,7 +346,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0471A60A2E5EDEE3006648A3 /* Copy GoogleService.Info.plist */ = {
+		0497F2BA2E603AC600773CD2 /* Copy GoogleService.Info.plist */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -780,6 +769,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BA3A98D80B5228A386A244C7 /* devProfile.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = YRPYBFPPCT;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = "Profile-dev";
@@ -788,6 +778,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 84F0D65548C4DCA3928D8465 /* prodRelease.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = YRPYBFPPCT;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = "Release-prod";
@@ -1172,6 +1163,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 53941237CD02B80F5629F087 /* devDebug.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = YRPYBFPPCT;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = "Debug-dev";
@@ -1252,6 +1244,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8550B6EE1F7941CBCC322303 /* prodDebug.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = YRPYBFPPCT;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = "Debug-prod";
@@ -1260,6 +1253,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 71680077630AC8BD355C4BE2 /* devRelease.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = YRPYBFPPCT;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = "Release-dev";
@@ -1268,6 +1262,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6C650A278816A2817C187F53 /* prodProfile.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = YRPYBFPPCT;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = "Profile-prod";
