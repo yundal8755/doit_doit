@@ -1,4 +1,4 @@
-# riverpod_clean_architecture
+# name: doit_doit
 
 A new Flutter project.
 
