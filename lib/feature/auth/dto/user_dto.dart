@@ -27,10 +27,10 @@ class UserDto {
   /// DTO → Domain Entity 변환
   UserEntity toEntity() {
     return UserEntity(
-      uid: uid,
+      userId: uid,
       email: email,
-      displayName: displayName,
-      photoUrl: photoUrl,
+      nickname: displayName,
+      profileImageUrl: photoUrl,
     );
   }
 }
