@@ -2,6 +2,9 @@ import 'package:doit_doit/feature/auth/dto/user_dto.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+///
+/// 로그인, 로그아웃 수행
+///
 class AuthRemoteDataSource {
   final FirebaseAuth _auth;
   final GoogleSignIn _googleSignIn;
@@ -14,14 +17,14 @@ class AuthRemoteDataSource {
 
   /// Google 로그인
   Future<UserDto?> signInWithGoogle() async {
-    // 1️⃣ 구글 계정 선택
+    // 구글 계정 선택
     final googleUser = await _googleSignIn.signIn();
     if (googleUser == null) return null;
 
-    // 2️⃣ 토큰 획득
+    // 토큰 획득
     final googleAuth = await googleUser.authentication;
 
-    // 3️⃣ Firebase Auth 인증
+    // Firebase Auth 인증
     final credential = GoogleAuthProvider.credential(
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,

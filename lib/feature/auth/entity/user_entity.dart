@@ -1,13 +1,13 @@
 class UserEntity {
-  final String uid;
+  final String userId;
   final String email;
-  final String displayName;
-  final String photoUrl;
+  final String nickname;
+  final String profileImageUrl;
 
   const UserEntity({
-    required this.uid,
+    required this.userId,
     required this.email,
-    required this.displayName,
-    required this.photoUrl,
+    required this.nickname,
+    required this.profileImageUrl,
   });
 }
