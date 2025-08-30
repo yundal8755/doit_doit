@@ -3,8 +3,8 @@ import 'package:doit_doit/app/style/app_asset.dart';
 import 'package:doit_doit/app/style/app_color.dart';
 import 'package:doit_doit/app/style/app_text_style.dart';
 import 'package:doit_doit/app/util/app_log.dart';
+import 'package:doit_doit/app/di/auth_di.dart';
 import 'package:doit_doit/presentation/component/button/base_button.dart';
-import 'package:doit_doit/presentation/provider/auth/auth_provider.dart';
 import 'package:doit_doit/presentation/widget/base/base_page.dart';
 import 'package:doit_doit/presentation/widget/common/rounded_container.dart';
 import 'package:flutter/material.dart';
@@ -71,7 +71,16 @@ class SignInPage extends ConsumerWidget {
                     if (user != null) {
                       AppLog.d('로그인 성공');
                       if (context.mounted) {
-                        context.go(AppRoute.root.path);
+                        final isUserExist = await ref
+                            .read(userInfoExistUsecaseProvider)
+                            .call(user.userId);
+
+                        if (isUserExist) {
+                          context.go(AppRoute.root.path);
+                        }
+                        context.go(AppRoute.signUp.path);
+
+                        AppLog.d('유저 정보가 없습니다');
                       }
                     } else {
                       AppLog.d('로그인 실패');
