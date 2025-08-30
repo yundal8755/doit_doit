@@ -14,7 +14,7 @@ class RootPage extends StatefulWidget {
 class _RootPageState extends State<RootPage> {
   int _currentIndex = 0;
 
-  final _pages = const [
+  final List<Widget> _pages = const [
     HomePage(),
     Center(child: Text('프로젝트 페이지')), // 실제로는 ProjectPage()
     Center(child: Text('할 일 페이지')), // 실제로는 TodoPage()
