@@ -6,6 +6,6 @@ class UserInfoExistUsecase {
   UserInfoExistUsecase(this.repository);
 
   Future<bool> call(String? uid) async {
-    return await repository.isUserExist(uid ?? '');
+    return await repository.isFirstLogin(uid ?? '');
   }
 }

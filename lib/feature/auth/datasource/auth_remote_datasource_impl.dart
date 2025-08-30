@@ -1,5 +1,4 @@
 import 'package:doit_doit/feature/auth/datasource/auth_remote_datasource.dart';
-import 'package:doit_doit/feature/auth/datasource/dto/user_dto.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -17,7 +16,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   /// Google 로그인
   ///
   @override
-  Future<UserDto?> signInWithGoogle() async {
+  Future<User?> signInWithGoogle() async {
     // 구글 계정 선택
     final googleUser = await _googleSignIn.signIn();
     if (googleUser == null) return null;
@@ -35,7 +34,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     final firebaseUser = userCredential.user;
     if (firebaseUser == null) return null;
 
-    return UserDto.fromFirebaseUser(firebaseUser);
+    return firebaseUser;
   }
 
   ///

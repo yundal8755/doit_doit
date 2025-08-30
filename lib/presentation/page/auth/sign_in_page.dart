@@ -1,10 +1,9 @@
-import 'package:doit_doit/app/router/router.dart';
 import 'package:doit_doit/app/style/app_asset.dart';
 import 'package:doit_doit/app/style/app_color.dart';
 import 'package:doit_doit/app/style/app_text_style.dart';
-import 'package:doit_doit/app/util/app_log.dart';
-import 'package:doit_doit/app/di/auth_di.dart';
+import 'package:doit_doit/feature/auth/enum/social_login_platform.dart';
 import 'package:doit_doit/presentation/component/button/base_button.dart';
+import 'package:doit_doit/presentation/provider/auth/sign_in_oauth_provider.dart';
 import 'package:doit_doit/presentation/widget/base/base_page.dart';
 import 'package:doit_doit/presentation/widget/common/rounded_container.dart';
 import 'package:flutter/material.dart';
@@ -12,15 +11,13 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
-import 'package:go_router/go_router.dart';
 
+/// TODO: 애플, 카카오, 네이버 로그인 구현하기 + 닉네임, 이메일 값 라우팅으로 전달하기
 class SignInPage extends ConsumerWidget {
   const SignInPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final usecase = ref.read(signInWithGoogleUseCaseProvider);
-
     return BasePage(
       child: Center(
         child: Column(
@@ -39,9 +36,9 @@ class SignInPage extends ConsumerWidget {
                   text: '카카오로 계속하기',
                   backgroundColor: AppColor.kakao,
                   textColor: AppColor.black,
-                  onPressed: () {
-                    AppLog.d('카카오 로그인 클릭');
-                    context.go(AppRoute.root.path);
+                  onPressed: () async {
+                    final notifier = ref.read(signInOauthProvider.notifier);
+                    await notifier.signIn(ref, SocialLoginPlatform.kakao);
                   },
                   icon: SvgPicture.asset(AppAsset.kakao),
                 ),
@@ -50,9 +47,9 @@ class SignInPage extends ConsumerWidget {
                   text: '네이버로 계속하기',
                   backgroundColor: AppColor.naver,
                   textColor: AppColor.white,
-                  onPressed: () {
-                    AppLog.d('네이버 로그인 클릭');
-                    context.go(AppRoute.root.path);
+                  onPressed: () async {
+                    final notifier = ref.read(signInOauthProvider.notifier);
+                    await notifier.signIn(ref, SocialLoginPlatform.naver);
                   },
                   icon: SvgPicture.asset(AppAsset.naver),
                 ),
@@ -63,28 +60,8 @@ class SignInPage extends ConsumerWidget {
                   backgroundColor: AppColor.white,
                   textColor: AppColor.black,
                   onPressed: () async {
-                    AppLog.d('google 로그인 클릭');
-
-                    final user = await usecase();
-                    AppLog.d('user: $user');
-
-                    if (user != null) {
-                      AppLog.d('로그인 성공');
-                      if (context.mounted) {
-                        final isUserExist = await ref
-                            .read(userInfoExistUsecaseProvider)
-                            .call(user.userId);
-
-                        if (isUserExist) {
-                          context.go(AppRoute.root.path);
-                        }
-                        context.go(AppRoute.signUp.path);
-
-                        AppLog.d('유저 정보가 없습니다');
-                      }
-                    } else {
-                      AppLog.d('로그인 실패');
-                    }
+                    final notifier = ref.read(signInOauthProvider.notifier);
+                    await notifier.signIn(ref, SocialLoginPlatform.google);
                   },
                   icon: SvgPicture.asset(AppAsset.google),
                 ),
@@ -93,9 +70,9 @@ class SignInPage extends ConsumerWidget {
                   text: 'Apple로 계속하기',
                   backgroundColor: AppColor.black,
                   textColor: AppColor.white,
-                  onPressed: () {
-                    AppLog.d('apple 로그인 클릭');
-                    context.go(AppRoute.root.path);
+                  onPressed: () async {
+                    final notifier = ref.read(signInOauthProvider.notifier);
+                    await notifier.signIn(ref, SocialLoginPlatform.apple);
                   },
                   icon: SvgPicture.asset(AppAsset.apple),
                 ),
@@ -107,6 +84,7 @@ class SignInPage extends ConsumerWidget {
     );
   }
 
+  /// 소셜 로그인 버튼 위젯
   Widget _buildSocialButton({
     Color? borderColor,
     required String text,

@@ -13,7 +13,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 
-class ProfilePage extends ConsumerWidget with ProfileState {
+class ProfilePage extends ConsumerWidget {
   const ProfilePage({super.key});
 
   @override
@@ -23,65 +23,59 @@ class ProfilePage extends ConsumerWidget with ProfileState {
         title: const Text('프로필'),
         backgroundColor: Colors.white,
       ),
-      child: userAsync(ref).when(
-        data: (user) {
-          if (user == null) {
-            return const Center(child: Text('로그인 정보가 없습니다.'));
-          }
-          return Center(
-            child: Column(
+      child: Center(
+        child: Column(
+          children: [
+            Column(
               children: [
-                Column(
-                  children: [
-                    const Gap(24),
-                    SizedBox(
-                      width: 96.w,
-                      height: 96.h,
-                      child: ClipOval(
-                        child: CachedNetworkImage(
-                          fit: BoxFit.cover,
-                          imageUrl: user.profileImageUrl ?? '',
-                          placeholder: (context, url) =>
-                              const CircularProgressIndicator(),
-                          errorWidget: (context, url, error) =>
-                              const Icon(Icons.error),
-                        ),
-                      ),
-                    ),
-                    const Gap(16),
-                    Text(
-                      user.nickname ?? '닉네임 없음',
-                      style: AppTextStyle.bold2028
-                          .copyWith(color: AppColor.gray900),
-                    ),
-                    const Gap(4),
-                    Text(
-                      user.email ?? '이메일 없음',
-                      style: AppTextStyle.med1421
-                          .copyWith(color: AppColor.gray700),
-                    )
-                  ],
-                ),
-                const Spacer(),
-                BaseButton(
-                  child: RoundedContainer(
-                    child: Text(
-                      '로그아웃',
-                      style: AppTextStyle.med1421
-                          .copyWith(color: AppColor.error400),
+                const Gap(24),
+                SizedBox(
+                  width: 96.w,
+                  height: 96.h,
+                  child: ClipOval(
+                    child: CachedNetworkImage(
+                      fit: BoxFit.cover,
+                      imageUrl:
+                          // user.profileImageUrl ?? '',
+                          '',
+                      placeholder: (context, url) =>
+                          const CircularProgressIndicator(),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
                     ),
                   ),
-                  onPressed: () {
-                    ref.read(signOutUseCaseProvider).call();
-                    context.go(AppRoute.signIn.path);
-                  },
+                ),
+                const Gap(16),
+                Text(
+                  // user.nickname ?? '닉네임 없음',
+                  '',
+                  style:
+                      AppTextStyle.bold2028.copyWith(color: AppColor.gray900),
+                ),
+                const Gap(4),
+                Text(
+                  // user.email ?? '이메일 없음',
+                  '',
+                  style: AppTextStyle.med1421.copyWith(color: AppColor.gray700),
                 )
               ],
             ),
-          );
-        },
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) => Center(child: Text('에러 발생: $error')),
+            const Spacer(),
+            BaseButton(
+              child: RoundedContainer(
+                child: Text(
+                  '로그아웃',
+                  style:
+                      AppTextStyle.med1421.copyWith(color: AppColor.error400),
+                ),
+              ),
+              onPressed: () {
+                ref.read(signOutUseCaseProvider).call();
+                context.go(AppRoute.signIn.path);
+              },
+            )
+          ],
+        ),
       ),
     );
   }

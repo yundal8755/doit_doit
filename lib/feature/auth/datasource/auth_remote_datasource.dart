@@ -1,10 +1,10 @@
-import 'package:doit_doit/feature/auth/datasource/dto/user_dto.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 abstract interface class AuthRemoteDataSource {
   ///
   /// 구글 로그인
   ///
-  Future<UserDto?> signInWithGoogle();
+  Future<User?> signInWithGoogle();
 
   ///
   /// 로그아웃
