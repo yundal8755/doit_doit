@@ -1,7 +1,7 @@
 import 'package:doit_doit/app/di/user_di.dart';
 import 'package:doit_doit/app/util/app_log.dart';
-import 'package:doit_doit/feature/auth/entity/user_entity.dart';
 import 'package:doit_doit/feature/user/dto/user_dto.dart';
+import 'package:doit_doit/feature/user/entity/user_entity.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -13,7 +13,6 @@ class User extends _$User {
   @override
   FutureOr<UserEntity?> build() async {
     // 앱 시작 시 현재 로그인한 유저 fetch
-    // TODO: platformUuid를 FirebaseAuth에서 가져오도록 수정 필요
     final String platformUuid = FirebaseAuth.instance.currentUser?.uid ?? "";
     try {
       final entity =

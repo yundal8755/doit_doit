@@ -1,6 +1,6 @@
-import 'package:doit_doit/feature/auth/entity/user_entity.dart';
 import 'package:doit_doit/feature/user/datasource/remote/user_remote_datasource.dart';
 import 'package:doit_doit/feature/user/dto/user_dto.dart';
+import 'package:doit_doit/feature/user/entity/user_entity.dart';
 import 'package:doit_doit/feature/user/repository/user_repository.dart';
 
 final class UserRepositoryImpl implements UserRepository {
@@ -19,8 +19,10 @@ final class UserRepositoryImpl implements UserRepository {
 
     // dto -> entity
     final userEntity = UserEntity(
-      userId: dto?.platformUuid,
-      nickname: dto?.nickname,
+      userId: dto!.platformUuid,
+      nickname: dto.nickname,
+      email: '',
+      profileImageUrl: '',
     );
     return userEntity;
   }

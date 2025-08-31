@@ -18,7 +18,7 @@ AuthRemoteDataSourceImpl authRemoteDataSource(Ref ref) {
 }
 
 ///
-/// 2) Repository
+/// Repository
 ///
 @riverpod
 AuthRepository authRepository(Ref ref) {
@@ -26,7 +26,7 @@ AuthRepository authRepository(Ref ref) {
 }
 
 ///
-/// 3) UseCases
+/// UseCase
 ///
 @riverpod
 SignOutUseCase signOutUseCase(Ref ref) {

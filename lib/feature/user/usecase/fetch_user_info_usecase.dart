@@ -1,4 +1,4 @@
-import 'package:doit_doit/feature/auth/entity/user_entity.dart';
+import 'package:doit_doit/feature/user/entity/user_entity.dart';
 import 'package:doit_doit/feature/user/repository/user_repository.dart';
 
 ///

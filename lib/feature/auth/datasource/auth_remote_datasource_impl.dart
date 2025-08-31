@@ -2,7 +2,7 @@ import 'package:doit_doit/feature/auth/datasource/auth_remote_datasource.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
+final class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   final FirebaseAuth _auth;
   final GoogleSignIn _googleSignIn;
 

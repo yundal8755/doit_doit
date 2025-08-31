@@ -35,28 +35,3 @@ final class AuthRepositoryImpl implements AuthRepository {
     return !userDoc.exists;
   }
 }
-
-
-///
-/// TODO : UserRepositoryImpl로 옮길 예정
-///
-  // @override
-  // Future<UserEntity?> signInWithGoogle() async {
-  //   final dto = await _authRemoteDataSource.signInWithGoogle();
-  //   return UserEntity(
-  //       userId: dto?.id,
-  //       email: dto?.email,
-  //       nickname: dto?.nickname,
-  //       profileImageUrl: dto?.profileImageUrl);
-  // }
-
-    // @override
-  // Future<UserEntity?> getCurrentUserInfo() async {
-  //   final dto = await _authRemoteDataSource.signInWithGoogle();
-
-  //   return UserEntity(
-  //       userId: dto?.id,
-  //       email: dto?.email,
-  //       nickname: dto?.nickname,
-  //       profileImageUrl: dto?.profileImageUrl);
-  // }
