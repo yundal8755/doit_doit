@@ -27,6 +27,7 @@ class CoolFormField extends FormField<String> {
   final bool isSend;
   final bool isSendButtonEnabled;
   final VoidCallback? onSend;
+  final ValueChanged<String>? onChanged;
 
   // 박스 데코(컨테이너용)
   final BoxDecoration? boxDecoration;
@@ -59,6 +60,7 @@ class CoolFormField extends FormField<String> {
     this.isSendButtonEnabled = false,
     this.onSend,
     this.boxDecoration,
+    this.onChanged,
 
     // 라벨, 힌트, 등등
     required this.label,
@@ -149,7 +151,7 @@ class CoolFormField extends FormField<String> {
                       style: AppTextStyle.med1421.copyWith(
                           color: isFocused
                               ? CoolFormFieldStyle.activeColor
-                              : AppColor.gray500),
+                              : AppColor.gray400),
                     ),
                   ),
                 ],
@@ -166,10 +168,12 @@ class CoolFormField extends FormField<String> {
                     obscureText: state._obscureText,
                     autofocus: state.widget.autofocus,
                     cursorColor: cursorColor,
+                    style: AppTextStyle.med1421.copyWith(color: AppColor.black),
                     decoration: effectiveDecoration,
                     onChanged: (value) {
                       field.didChange(value);
                       state.onTextChanged(value);
+                      state.widget.onChanged?.call(value);
                     },
                   ),
                 ),

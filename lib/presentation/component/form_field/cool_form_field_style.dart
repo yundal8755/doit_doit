@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class CoolFormFieldStyle {
   static const Color activeColor = AppColor.primary500;
   static const Color borderInactiveColor = AppColor.gray500;
-  static const Color hintColor = AppColor.gray300;
+  static const Color hintColor = AppColor.gray400;
   static const double borderThickness = 0.5;
   static TextStyle hintStyle = AppTextStyle.med1216.copyWith(color: hintColor);
 

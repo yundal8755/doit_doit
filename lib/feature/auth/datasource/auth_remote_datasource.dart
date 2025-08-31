@@ -7,6 +7,8 @@ abstract interface class AuthRemoteDataSource {
   Future<User?> signInWithGoogle();
 
   ///
+
+  ///
   /// 로그아웃
   ///
   Future<void> signOut();

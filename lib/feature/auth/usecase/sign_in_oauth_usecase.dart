@@ -1,4 +1,4 @@
-import 'package:doit_doit/feature/auth/enum/social_login_platform.dart';
+import 'package:doit_doit/app/enum/social_login_platform.dart';
 import 'package:doit_doit/feature/auth/repository/auth_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 

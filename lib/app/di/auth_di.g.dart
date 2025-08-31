@@ -10,7 +10,7 @@ String _$authRemoteDataSourceHash() =>
     r'ec3b7de612d25aa4d9fb4c66d76b8b8d96386167';
 
 ///
-/// 1) DataSource
+/// DataSource
 ///
 ///
 /// Copied from [authRemoteDataSource].

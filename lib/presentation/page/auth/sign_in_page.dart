@@ -1,7 +1,7 @@
 import 'package:doit_doit/app/style/app_asset.dart';
 import 'package:doit_doit/app/style/app_color.dart';
 import 'package:doit_doit/app/style/app_text_style.dart';
-import 'package:doit_doit/feature/auth/enum/social_login_platform.dart';
+import 'package:doit_doit/app/enum/social_login_platform.dart';
 import 'package:doit_doit/presentation/component/button/base_button.dart';
 import 'package:doit_doit/presentation/provider/auth/sign_in_oauth_provider.dart';
 import 'package:doit_doit/presentation/widget/base/base_page.dart';

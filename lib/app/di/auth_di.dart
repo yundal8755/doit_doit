@@ -10,7 +10,7 @@ import 'package:doit_doit/feature/auth/usecase/sign_out_usecase.dart';
 part 'auth_di.g.dart';
 
 ///
-/// 1) DataSource
+/// DataSource
 ///
 @riverpod
 AuthRemoteDataSourceImpl authRemoteDataSource(Ref ref) {
@@ -42,18 +42,3 @@ UserInfoExistUsecase userInfoExistUsecase(Ref ref) {
 SignInOauthUsecase signInOauthUsecase(Ref ref) {
   return SignInOauthUsecase(ref.watch(authRepositoryProvider));
 }
-
-
-
-///
-/// TODO: user.di로 옮길 예정
-///
-// @riverpod
-// SignInWithGoogleUseCase signInWithGoogleUseCase(Ref ref) {
-//   return SignInWithGoogleUseCase(ref.watch(authRepositoryProvider));
-// }
-
-// @riverpod
-// GetCurrentUserInfoUsecase getCurrentUserInfoUseCase(Ref ref) {
-//   return GetCurrentUserInfoUsecase(ref.watch(authRepositoryProvider));
-// }

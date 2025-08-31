@@ -1,7 +1,7 @@
 import 'package:doit_doit/app/di/auth_di.dart';
 import 'package:doit_doit/app/router/router.dart';
 import 'package:doit_doit/app/util/app_log.dart';
-import 'package:doit_doit/feature/auth/enum/social_login_platform.dart';
+import 'package:doit_doit/app/enum/social_login_platform.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';

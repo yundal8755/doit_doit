@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doit_doit/feature/auth/datasource/auth_remote_datasource.dart';
-import 'package:doit_doit/feature/auth/enum/social_login_platform.dart';
+import 'package:doit_doit/app/enum/social_login_platform.dart';
 import 'package:doit_doit/feature/auth/repository/auth_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 

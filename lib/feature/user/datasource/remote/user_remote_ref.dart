@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:doit_doit/feature/auth/datasource/dto/user_dto.dart';
+import 'package:doit_doit/feature/user/dto/user_dto.dart';
 
 abstract class FirestoreUsersRef {
   static const String collectionName = 'users';
