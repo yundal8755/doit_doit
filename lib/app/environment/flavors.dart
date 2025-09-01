@@ -4,7 +4,9 @@ import 'package:doit_doit/app/environment/firebase_options/firebase_options_prod
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 
 enum Flavor {
   prod,
@@ -27,6 +29,16 @@ class F {
           : DevFirebaseOptions.currentPlatform,
     );
 
+    await dotenv.load(fileName: ".env");
+
+    // 카카오 로그인
+    final kakaoKey = dotenv.env['kakao_login_key'];
+    if (kakaoKey == null || kakaoKey.isEmpty) {
+      throw Exception("KAKAO_LOGIN_KEY is missing in .env");
+    }
+    KakaoSdk.init(nativeAppKey: kakaoKey);
+
+    // RUN APP
     return runApp(
       const ProviderScope(
         child: App(),

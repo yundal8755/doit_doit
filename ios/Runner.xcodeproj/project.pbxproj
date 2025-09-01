@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 70;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -266,6 +266,7 @@
 				3B06AD1E1E4923F5004D2608 /* Thin Binary */,
 				DB4765FD9AF8AAC0F716D048 /* [CP] Embed Pods Frameworks */,
 				5ADDCFFF1585442DF808F20D /* [CP] Copy Pods Resources */,
+				042E43792E65509C00BA3427 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -348,6 +349,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		042E43792E65509C00BA3427 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/sh\n\n# .env 파일 경로 (Flutter 프로젝트 루트에 위치한다고 가정)\nENV_FILE=\"${SRCROOT}/../.env\"\n\nif [ -f \"$ENV_FILE\" ]; then\n  # .env 파일에서 KAKAO_LOGIN_KEY 읽어오기\n  KAKAO_KEY=$(grep KAKAO_LOGIN_KEY $ENV_FILE | cut -d '=' -f2)\n\n  # Info.plist 경로\n  INFO_PLIST=\"${SRCROOT}/Runner/Info.plist\"\n\n  # Info.plist 치환\n  /usr/libexec/PlistBuddy -c \"Set :CFBundleURLTypes:0:CFBundleURLSchemes:0 kakao${KAKAO_KEY}\" \"$INFO_PLIST\"\n\n  echo \"✅ Kakao App Key injected into Info.plist: kakao${KAKAO_KEY}\"\nelse\n  echo \"⚠️ .env file not found. Kakao App Key not injected.\"\nfi\n";
+		};
 		0497F2BA2E603AC600773CD2 /* Copy GoogleService.Info.plist */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

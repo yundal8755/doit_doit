@@ -1,4 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' as fb;
+import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart' as kakao;
 
 class AuthEntity {
   final String uid;
@@ -16,7 +17,7 @@ class AuthEntity {
   });
 
   // Firebase 전용 팩토리
-  factory AuthEntity.fromFirebase(UserCredential cred) {
+  factory AuthEntity.fromFirebase(fb.UserCredential cred) {
     final user = cred.user!;
     return AuthEntity(
       uid: user.uid,
@@ -27,15 +28,15 @@ class AuthEntity {
     );
   }
 
-  // // Kakao 전용 팩토리
-  // factory AuthEntity.fromKakao(KakaoUser kakaoUser) {
-  //   return AuthEntity(
-  //     uid: kakaoUser.id.toString(),
-  //     email: kakaoUser.kakaoAccount?.email,
-  //     displayName: kakaoUser.kakaoAccount?.profile?.nickname,
-  //     providerId: 'kakao',
-  //   );
-  // }
+  // Kakao 전용 팩토리
+  factory AuthEntity.fromKakao(kakao.User kakaoUser) {
+    return AuthEntity(
+      uid: kakaoUser.id.toString(),
+      email: kakaoUser.kakaoAccount?.email,
+      displayName: kakaoUser.kakaoAccount?.profile?.nickname,
+      providerId: 'kakao',
+    );
+  }
 
   // // Naver 전용 팩토리
   // factory AuthEntity.fromNaver(NaverUser naverUser) {
