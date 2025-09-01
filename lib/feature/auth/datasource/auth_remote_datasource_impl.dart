@@ -1,6 +1,7 @@
 import 'package:doit_doit/feature/auth/datasource/auth_remote_datasource.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 final class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   final FirebaseAuth _auth;
@@ -34,6 +35,30 @@ final class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     // final firebaseUser = userCredential.user;
     // if (firebaseUser == null) return null;
 
+    return userCredential;
+  }
+
+  ///
+  /// Apple 로그인
+  ///
+  @override
+  Future<UserCredential?> signInWithApple() async {
+    // 사용자가 Apple 계정을 통해 로그인하면 받아오는 인증 정보
+    final appleIdCredential = await SignInWithApple.getAppleIDCredential(
+      scopes: [
+        AppleIDAuthorizationScopes.email,
+        AppleIDAuthorizationScopes.fullName,
+      ],
+    );
+
+    // FirebaseAuth에 전달할 OAuth 자격 증명
+    final oauthCredential = OAuthProvider('apple.com').credential(
+      idToken: appleIdCredential.identityToken,
+      accessToken: appleIdCredential.authorizationCode,
+    );
+
+    // Firebase Auth 로그인
+    final userCredential = await _auth.signInWithCredential(oauthCredential);
     return userCredential;
   }
 

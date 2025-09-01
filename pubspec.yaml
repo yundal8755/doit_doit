@@ -35,6 +35,7 @@ dependencies:
   permission_handler: ^12.0.1        # 권한 요청/체크
   riverpod_annotation: ^2.6.1        # Riverpod 코드 생성 어노테이션
   cached_network_image: ^3.4.1
+  sign_in_with_apple: ^7.0.1
 
 dev_dependencies:
   flutter_test:

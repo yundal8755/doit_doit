@@ -20,7 +20,7 @@ final class AuthRepositoryImpl implements AuthRepository {
         SocialLoginPlatform.kakao =>
           await _authRemoteDataSource.signInWithGoogle(),
         SocialLoginPlatform.apple =>
-          await _authRemoteDataSource.signInWithGoogle(),
+          await _authRemoteDataSource.signInWithApple(),
         SocialLoginPlatform.naver =>
           await _authRemoteDataSource.signInWithGoogle(),
       };

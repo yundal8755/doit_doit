@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -50,6 +50,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		042E43782E652B3200BA3427 /* Runner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Runner.entitlements; sourceTree = "<group>"; };
 		1498D2321E8E86230040F4C2 /* GeneratedPluginRegistrant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneratedPluginRegistrant.h; sourceTree = "<group>"; };
 		1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneratedPluginRegistrant.m; sourceTree = "<group>"; };
 		1836EBADC156972672B00C6E /* Pods-RunnerTests.profile-prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.profile-prod.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.profile-prod.xcconfig"; sourceTree = "<group>"; };
@@ -191,6 +192,7 @@
 		97C146F01CF9000F007C117D /* Runner */ = {
 			isa = PBXGroup;
 			children = (
+				042E43782E652B3200BA3427 /* Runner.entitlements */,
 				97C146FA1CF9000F007C117D /* Main.storyboard */,
 				97C146FD1CF9000F007C117D /* Assets.xcassets */,
 				97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */,
@@ -699,6 +701,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = YRPYBFPPCT;
 				ENABLE_BITCODE = NO;
@@ -769,6 +772,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BA3A98D80B5228A386A244C7 /* devProfile.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				DEVELOPMENT_TEAM = YRPYBFPPCT;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -778,6 +782,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 84F0D65548C4DCA3928D8465 /* prodRelease.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				DEVELOPMENT_TEAM = YRPYBFPPCT;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1045,6 +1050,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = YRPYBFPPCT;
 				ENABLE_BITCODE = NO;
@@ -1068,6 +1074,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = YRPYBFPPCT;
 				ENABLE_BITCODE = NO;
@@ -1163,6 +1170,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 53941237CD02B80F5629F087 /* devDebug.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				DEVELOPMENT_TEAM = YRPYBFPPCT;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1244,6 +1252,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8550B6EE1F7941CBCC322303 /* prodDebug.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				DEVELOPMENT_TEAM = YRPYBFPPCT;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1253,6 +1262,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 71680077630AC8BD355C4BE2 /* devRelease.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				DEVELOPMENT_TEAM = YRPYBFPPCT;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1262,6 +1272,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6C650A278816A2817C187F53 /* prodProfile.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				DEVELOPMENT_TEAM = YRPYBFPPCT;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
