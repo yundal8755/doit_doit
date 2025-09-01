@@ -4,9 +4,7 @@ abstract interface class AuthRemoteDataSource {
   ///
   /// 구글 로그인
   ///
-  Future<User?> signInWithGoogle();
-
-  ///
+  Future<UserCredential?> signInWithGoogle();
 
   ///
   /// 로그아웃

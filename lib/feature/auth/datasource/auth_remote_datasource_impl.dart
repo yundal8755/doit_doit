@@ -16,7 +16,7 @@ final class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   /// Google 로그인
   ///
   @override
-  Future<User?> signInWithGoogle() async {
+  Future<UserCredential?> signInWithGoogle() async {
     // 구글 계정 선택
     final googleUser = await _googleSignIn.signIn();
     if (googleUser == null) return null;
@@ -31,10 +31,10 @@ final class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     );
 
     final userCredential = await _auth.signInWithCredential(credential);
-    final firebaseUser = userCredential.user;
-    if (firebaseUser == null) return null;
+    // final firebaseUser = userCredential.user;
+    // if (firebaseUser == null) return null;
 
-    return firebaseUser;
+    return userCredential;
   }
 
   ///

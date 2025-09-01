@@ -33,7 +33,7 @@ typedef AuthRemoteDataSourceRef
 String _$authRepositoryHash() => r'87396bbc29e604ed15ee440f11a409ca5b2d6bfd';
 
 ///
-/// 2) Repository
+/// Repository
 ///
 ///
 /// Copied from [authRepository].
@@ -54,7 +54,7 @@ typedef AuthRepositoryRef = AutoDisposeProviderRef<AuthRepository>;
 String _$signOutUseCaseHash() => r'952ce342ca22dc7bb696cc8e5787d2889240ef98';
 
 ///
-/// 3) UseCases
+/// UseCase
 ///
 ///
 /// Copied from [signOutUseCase].
