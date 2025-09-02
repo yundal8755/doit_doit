@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:doit_doit/app/style/app_asset.dart';
 import 'package:doit_doit/app/style/app_color.dart';
 import 'package:doit_doit/app/style/app_text_style.dart';
@@ -13,7 +15,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:naver_login_sdk/naver_login_sdk.dart';
 
-/// TODO: 애플, 카카오, 네이버 로그인 구현하기 + 닉네임, 이메일 값 라우팅으로 전달하기
+/// TODO: 카카오, 네이버 로그인 구현하기 + 닉네임, 이메일 값 라우팅으로 전달하기
 class SignInPage extends ConsumerWidget {
   const SignInPage({super.key});
 
@@ -101,16 +103,17 @@ class SignInPage extends ConsumerWidget {
                   icon: SvgPicture.asset(AppAsset.google),
                 ),
                 const Gap(16),
-                _buildSocialButton(
-                  text: 'Apple로 계속하기',
-                  backgroundColor: AppColor.black,
-                  textColor: AppColor.white,
-                  onPressed: () async {
-                    final notifier = ref.read(signInOauthProvider.notifier);
-                    await notifier.signIn(ref, SocialLoginPlatform.apple);
-                  },
-                  icon: SvgPicture.asset(AppAsset.apple),
-                ),
+                if (Platform.isIOS)
+                  _buildSocialButton(
+                    text: 'Apple로 계속하기',
+                    backgroundColor: AppColor.black,
+                    textColor: AppColor.white,
+                    onPressed: () async {
+                      final notifier = ref.read(signInOauthProvider.notifier);
+                      await notifier.signIn(ref, SocialLoginPlatform.apple);
+                    },
+                    icon: SvgPicture.asset(AppAsset.apple),
+                  ),
               ],
             )
           ],
