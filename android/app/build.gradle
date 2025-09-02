@@ -28,7 +28,7 @@ android {
         targetSdk = 35
         versionCode = flutter.versionCode
         versionName = flutter.versionName
-        resValue "string", "kakao_login_key", project.env.get("kakao_login_key")
+        // resValue "string", "kakao_login_key", project.env.get("kakao_login_key")
     }
 
     buildTypes {
