@@ -1,18 +1,21 @@
+import 'dart:io';
+
 import 'package:doit_doit/app/style/app_asset.dart';
 import 'package:doit_doit/app/style/app_color.dart';
 import 'package:doit_doit/app/style/app_text_style.dart';
 import 'package:doit_doit/app/enum/social_login_platform.dart';
+import 'package:doit_doit/app/util/app_log.dart';
 import 'package:doit_doit/presentation/component/button/base_button.dart';
 import 'package:doit_doit/presentation/provider/auth/sign_in_oauth_provider.dart';
 import 'package:doit_doit/presentation/widget/base/base_page.dart';
 import 'package:doit_doit/presentation/widget/common/rounded_container.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
+import 'package:naver_login_sdk/naver_login_sdk.dart';
 
-/// TODO: 애플, 카카오, 네이버 로그인 구현하기 + 닉네임, 이메일 값 라우팅으로 전달하기
+/// TODO: 카카오, 네이버 로그인 구현하기 + 닉네임, 이메일 값 라우팅으로 전달하기
 class SignInPage extends ConsumerWidget {
   const SignInPage({super.key});
 
@@ -48,8 +51,42 @@ class SignInPage extends ConsumerWidget {
                   backgroundColor: AppColor.naver,
                   textColor: AppColor.white,
                   onPressed: () async {
-                    final notifier = ref.read(signInOauthProvider.notifier);
-                    await notifier.signIn(ref, SocialLoginPlatform.naver);
+                    NaverLoginSDK.authenticate(
+                        callback: OAuthLoginCallback(
+                      onSuccess: () {
+                        AppLog.d("onSuccess..");
+                      },
+                      onFailure: (httpStatus, message) {
+                        AppLog.w(
+                            "onFailure.. httpStatus:$httpStatus, message:$message");
+                      },
+                      onError: (errorCode, message) {
+                        AppLog.e(
+                            "onError.. errorCode:$errorCode, message:$message");
+
+                        if (message == 'naverapp_not_installed') {
+                          showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: const Text('Alarm'),
+                              content: const Text('NaverApp not installed'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () => Navigator.pop(context),
+                                  child: const Text(
+                                    'ok',
+                                    style: TextStyle(color: Colors.blueAccent),
+                                  ),
+                                )
+                              ],
+                            ),
+                          );
+                        }
+                      },
+                    ));
+
+                    // final notifier = ref.read(signInOauthProvider.notifier);
+                    // await notifier.signIn(ref, SocialLoginPlatform.naver);
                   },
                   icon: SvgPicture.asset(AppAsset.naver),
                 ),
@@ -66,16 +103,17 @@ class SignInPage extends ConsumerWidget {
                   icon: SvgPicture.asset(AppAsset.google),
                 ),
                 const Gap(16),
-                _buildSocialButton(
-                  text: 'Apple로 계속하기',
-                  backgroundColor: AppColor.black,
-                  textColor: AppColor.white,
-                  onPressed: () async {
-                    final notifier = ref.read(signInOauthProvider.notifier);
-                    await notifier.signIn(ref, SocialLoginPlatform.apple);
-                  },
-                  icon: SvgPicture.asset(AppAsset.apple),
-                ),
+                if (Platform.isIOS)
+                  _buildSocialButton(
+                    text: 'Apple로 계속하기',
+                    backgroundColor: AppColor.black,
+                    textColor: AppColor.white,
+                    onPressed: () async {
+                      final notifier = ref.read(signInOauthProvider.notifier);
+                      await notifier.signIn(ref, SocialLoginPlatform.apple);
+                    },
+                    icon: SvgPicture.asset(AppAsset.apple),
+                  ),
               ],
             )
           ],

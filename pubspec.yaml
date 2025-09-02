@@ -35,6 +35,9 @@ dependencies:
   permission_handler: ^12.0.1        # 권한 요청/체크
   riverpod_annotation: ^2.6.1        # Riverpod 코드 생성 어노테이션
   cached_network_image: ^3.4.1
+  sign_in_with_apple: ^7.0.1
+  kakao_flutter_sdk: ^1.9.3
+  naver_login_sdk: ^3.0.2
 
 dev_dependencies:
   flutter_test:
@@ -51,6 +54,7 @@ flutter:
   uses-material-design: true
 
   assets:
+    - .env
     - assets/
     - assets/fonts/
     - assets/fonts/pretendard/

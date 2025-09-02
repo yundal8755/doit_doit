@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">DoitDoit</string>
+    <string name="kakao_login_key">${KAKAO_LOGIN_KEY}</string>
+</resources>

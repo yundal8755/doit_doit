@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:doit_doit/app/module/error_handling/result.dart';
+import 'package:doit_doit/app/util/app_log.dart';
 import 'package:doit_doit/feature/auth/datasource/auth_remote_datasource.dart';
 import 'package:doit_doit/app/enum/social_login_platform.dart';
+import 'package:doit_doit/feature/auth/entity/auth_entity.dart';
 import 'package:doit_doit/feature/auth/repository/auth_repository.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 final class AuthRepositoryImpl implements AuthRepository {
   const AuthRepositoryImpl(this._authRemoteDataSource);
@@ -10,13 +12,52 @@ final class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDataSource _authRemoteDataSource;
 
   @override
-  Future<User?> signInOauth(SocialLoginPlatform platform) {
-    switch (platform) {
-      case SocialLoginPlatform.google:
-      case SocialLoginPlatform.apple:
-      case SocialLoginPlatform.kakao:
-      case SocialLoginPlatform.naver:
-        return _authRemoteDataSource.signInWithGoogle();
+  Future<Result<AuthEntity>> signInOauth(SocialLoginPlatform platform) async {
+    try {
+      switch (platform) {
+        case SocialLoginPlatform.google:
+          final googleCred = await _authRemoteDataSource.signInWithGoogle();
+          return Result.success(AuthEntity.fromFirebase(googleCred!));
+        case SocialLoginPlatform.apple:
+          final appleCred = await _authRemoteDataSource.signInWithApple();
+          return Result.success(AuthEntity.fromFirebase(appleCred!));
+        case SocialLoginPlatform.kakao:
+          final kakaoUser = await _authRemoteDataSource.signInWithKakao();
+          return Result.success(AuthEntity.fromKakao(kakaoUser!));
+        case SocialLoginPlatform.naver:
+          // TODO : 네이버 로그인 구현하기
+          return Result.failure(Exception("네이버 로그인은 아직 지원되지 않습니다."));
+      }
+
+      // final credential = switch (platform) {
+      //   SocialLoginPlatform.google =>
+      //     await _authRemoteDataSource.signInWithGoogle(),
+      //   SocialLoginPlatform.kakao =>
+      //     await _authRemoteDataSource.signInWithGoogle(),
+      //   SocialLoginPlatform.apple =>
+      //     await _authRemoteDataSource.signInWithApple(),
+      //   SocialLoginPlatform.naver =>
+      //     await _authRemoteDataSource.signInWithGoogle(),
+      // };
+
+      // if (credential == null || credential.user == null) {
+      //   return Result.failure(Exception("로그인 실패: user가 null"));
+      // }
+
+      // final firebaseUser = credential.user!;
+
+      // final entity = AuthEntity(
+      //   uid: firebaseUser.uid,
+      //   email: firebaseUser.email,
+      //   displayName: firebaseUser.displayName,
+      //   providerId: credential.credential?.providerId ?? 'unknown',
+      //   isNewUser: credential.additionalUserInfo?.isNewUser ?? false,
+      // );
+
+      // return Result.success(entity);
+    } on Exception catch (e) {
+      AppLog.e('에러: $e');
+      return Result.failure(e);
     }
   }
 
@@ -35,28 +76,3 @@ final class AuthRepositoryImpl implements AuthRepository {
     return !userDoc.exists;
   }
 }
-
-
-///
-/// TODO : UserRepositoryImpl로 옮길 예정
-///
-  // @override
-  // Future<UserEntity?> signInWithGoogle() async {
-  //   final dto = await _authRemoteDataSource.signInWithGoogle();
-  //   return UserEntity(
-  //       userId: dto?.id,
-  //       email: dto?.email,
-  //       nickname: dto?.nickname,
-  //       profileImageUrl: dto?.profileImageUrl);
-  // }
-
-    // @override
-  // Future<UserEntity?> getCurrentUserInfo() async {
-  //   final dto = await _authRemoteDataSource.signInWithGoogle();
-
-  //   return UserEntity(
-  //       userId: dto?.id,
-  //       email: dto?.email,
-  //       nickname: dto?.nickname,
-  //       profileImageUrl: dto?.profileImageUrl);
-  // }
