@@ -37,6 +37,7 @@ dependencies:
   cached_network_image: ^3.4.1
   sign_in_with_apple: ^7.0.1
   kakao_flutter_sdk: ^1.9.3
+  naver_login_sdk: ^3.0.2
 
 dev_dependencies:
   flutter_test:

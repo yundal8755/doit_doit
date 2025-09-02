@@ -6,7 +6,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
+import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
+import 'package:naver_login_sdk/naver_login_sdk.dart';
 
 enum Flavor {
   prod,
@@ -37,6 +38,13 @@ class F {
       throw Exception("KAKAO_LOGIN_KEY is missing in .env");
     }
     KakaoSdk.init(nativeAppKey: kakaoKey);
+
+    // 네이버 로그인
+    await NaverLoginSDK.initialize(
+        urlScheme: 'urlScheme',
+        clientId: 'clientId',
+        clientSecret: 'clientSecret',
+        clientName: '123');
 
     // RUN APP
     return runApp(
