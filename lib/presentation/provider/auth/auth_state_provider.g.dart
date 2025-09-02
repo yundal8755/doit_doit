@@ -6,12 +6,13 @@ part of 'auth_state_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$authStateHash() => r'758ae4e4e34de70fe2d743034d78a541d9de3f05';
+String _$authStateHash() => r'4dce85c1118ef018603a9ee55269a3303c1a4986';
 
-/// See also [authState].
-@ProviderFor(authState)
-final authStateProvider = AutoDisposeStreamProvider<User?>.internal(
-  authState,
+/// See also [AuthState].
+@ProviderFor(AuthState)
+final authStateProvider =
+    AutoDisposeStreamNotifierProvider<AuthState, AuthStatus>.internal(
+  AuthState.new,
   name: r'authStateProvider',
   debugGetCreateSourceHash:
       const bool.fromEnvironment('dart.vm.product') ? null : _$authStateHash,
@@ -19,8 +20,6 @@ final authStateProvider = AutoDisposeStreamProvider<User?>.internal(
   allTransitiveDependencies: null,
 );
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef AuthStateRef = AutoDisposeStreamProviderRef<User?>;
+typedef _$AuthState = AutoDisposeStreamNotifier<AuthStatus>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
