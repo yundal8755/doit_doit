@@ -44,3 +44,13 @@ app.*.map.json
 
 # 기타
 *.env
+
+# 모든 flavor xcconfig 제외
+# git rm --cached 사용해서 xcconfig 추적 해제하기
+ios/Flutter/devDebug.xcconfig
+ios/Flutter/devRelease.xcconfig
+ios/Flutter/devProfile.xcconfig
+ios/Flutter/prodDebug.xcconfig
+ios/Flutter/prodRelease.xcconfig
+ios/Flutter/prodProfile.xcconfig
+
