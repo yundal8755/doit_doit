@@ -15,7 +15,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:naver_login_sdk/naver_login_sdk.dart';
 
-/// TODO: 카카오, 네이버 로그인 구현하기 + 닉네임, 이메일 값 라우팅으로 전달하기
 class SignInPage extends ConsumerWidget {
   const SignInPage({super.key});
 
@@ -35,6 +34,7 @@ class SignInPage extends ConsumerWidget {
             const Gap(48),
             Column(
               children: [
+                // TODO : 카카오 로그인 구현하기
                 _buildSocialButton(
                   text: '카카오로 계속하기',
                   backgroundColor: AppColor.kakao,
@@ -46,6 +46,7 @@ class SignInPage extends ConsumerWidget {
                   icon: SvgPicture.asset(AppAsset.kakao),
                 ),
                 const Gap(16),
+                // TODO : 네이버 로그인 구현하기
                 _buildSocialButton(
                   text: '네이버로 계속하기',
                   backgroundColor: AppColor.naver,

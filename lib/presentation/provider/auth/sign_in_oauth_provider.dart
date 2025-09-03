@@ -40,7 +40,7 @@ class SignInOauth extends _$SignInOauth {
         if (isFirstLogin) {
           AppLog.d('신규 회원 → 회원가입 페이지로 이동');
           if (ref.context.mounted) {
-            ref.context.go(AppRoute.signUp.path);
+            ref.context.go(AppRoute.signUp.path, extra: platform);
           }
         } else {
           AppLog.d('기존 회원 → 홈으로 이동');

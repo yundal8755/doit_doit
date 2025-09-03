@@ -2,7 +2,6 @@
 import 'package:doit_doit/app/enum/auth_status.dart';
 import 'package:doit_doit/presentation/page/root/root_page.dart';
 import 'package:doit_doit/presentation/page/auth/sign_in_page.dart';
-import 'package:doit_doit/presentation/page/auth/sign_up_page.dart';
 import 'package:doit_doit/presentation/provider/auth/auth_state_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -20,7 +19,7 @@ class SplashPage extends ConsumerWidget {
           case AuthStatus.signedOut:
             return const SignInPage();
           case AuthStatus.signedInButNotRegistered:
-            return const SignUpPage();
+            return const SignInPage();
           case AuthStatus.signedInAndRegistered:
             return const RootPage();
         }
