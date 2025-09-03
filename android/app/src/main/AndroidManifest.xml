@@ -28,10 +28,6 @@
       android:name="flutterEmbedding"
       android:value="2" />
 
-    <!-- ✅ Kakao SDK용 meta-data -->
-    <meta-data
-      android:name="com.kakao.sdk.AppKey"
-      android:value="@string/kakao_login_key" />
   </application>
 
   <queries>

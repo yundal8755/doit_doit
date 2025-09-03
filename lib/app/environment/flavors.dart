@@ -41,10 +41,11 @@ class F {
 
     // 네이버 로그인
     await NaverLoginSDK.initialize(
-        urlScheme: 'urlScheme',
-        clientId: 'clientId',
-        clientSecret: 'clientSecret',
-        clientName: '123');
+      urlScheme: dotenv.env['naver_url_scheme'],
+      clientId: dotenv.env['naver_client_id']!,
+      clientSecret: dotenv.env['naver_client_secret']!,
+      clientName: dotenv.env['naver_client_name']!,
+    );
 
     // RUN APP
     return runApp(

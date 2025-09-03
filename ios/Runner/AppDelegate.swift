@@ -11,15 +11,12 @@ import UIKit
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
 
-  // ✅ Naver 로그인 콜백 처리
+  // URL 콜백 → Flutter 플러그인들이 자동 처리
   override func application(
     _ app: UIApplication,
     open url: URL,
     options: [UIApplication.OpenURLOptionsKey: Any] = [:]
   ) -> Bool {
-    if url.scheme?.hasPrefix("naver") == true {
-      return super.application(app, open: url, options: options)
-    }
-    return true
+    return super.application(app, open: url, options: options)
   }
 }
