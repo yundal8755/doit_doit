@@ -57,48 +57,31 @@ final class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   ///
   @override
   Future<kakao.User?> signInWithKakao() async {
-    bool loginSuccess = false;
-
-    if (await kakao.isKakaoTalkInstalled()) {
-      try {
-        await kakao.UserApi.instance.loginWithKakaoTalk();
-        AppLog.i('KAKAO APP LOGIN SUCCESS');
-        loginSuccess = true;
-      } catch (e) {
-        AppLog.e('KAKAO APP LOGIN FAILED: $e');
-        if (e is PlatformException && e.code == 'CANCELED') {
-          return null;
-        }
-        // 앱 로그인 실패 → 카카오 계정 로그인 fallback
-        try {
-          await kakao.UserApi.instance.loginWithKakaoAccount();
-          AppLog.i('KAKAO ACCOUNT LOGIN SUCCESS');
-          loginSuccess = true;
-        } catch (e) {
-          AppLog.e('KAKAO ACCOUNT LOGIN FAILED: $e');
-        }
-      }
-    } else {
-      // 앱 설치 안 되어있으면 카카오 계정 로그인
-      try {
-        await kakao.UserApi.instance.loginWithKakaoAccount();
-        AppLog.i('KAKAO ACCOUNT LOGIN SUCCESS');
-        loginSuccess = true;
-      } catch (e) {
-        AppLog.e('KAKAO ACCOUNT LOGIN FAILED: $e');
-      }
-    }
-
-    if (!loginSuccess) return null;
-
     try {
-      final kakaoUser = await kakao.UserApi.instance.me();
-      AppLog.i('KAKAO USER ID: ${kakaoUser.id}');
-      AppLog.i('KAKAO ACCOUNT: ${kakaoUser.kakaoAccount}');
-      AppLog.i('KAKAO EMAIL: ${kakaoUser.kakaoAccount?.email}');
-      return kakaoUser;
-    } catch (e) {
-      AppLog.e('KAKAO GET USER FAILED: $e');
+      final talkInstalled = await kakao.isKakaoTalkInstalled();
+      if (talkInstalled) {
+        try {
+          final token = await kakao.UserApi.instance.loginWithKakaoTalk();
+          AppLog.i('KAKAO TALK LOGIN SUCCESS: ${token.accessToken}');
+        } on PlatformException catch (e) {
+          AppLog.e('KAKAO TALK LOGIN FAILED(Platform): $e');
+          if (e.code == 'CANCELED') return null; // 사용자가 취소
+          // 앱 로그인 실패 → 계정 로그인 폴백
+          final token = await kakao.UserApi.instance.loginWithKakaoAccount();
+          AppLog.i(
+              'KAKAO ACCOUNT LOGIN SUCCESS AFTER TALK FAIL: ${token.accessToken}');
+        }
+      } else {
+        final token = await kakao.UserApi.instance.loginWithKakaoAccount();
+        AppLog.i('KAKAO ACCOUNT LOGIN SUCCESS (NO TALK): ${token.accessToken}');
+      }
+
+      // 토큰 저장은 SDK가 내부 처리. 바로 사용자 정보 조회
+      final user = await kakao.UserApi.instance.me();
+      AppLog.i('KAKAO USER: id=${user.id}, email=${user.kakaoAccount?.email}');
+      return user;
+    } catch (e, s) {
+      AppLog.e('KAKAO LOGIN TOTAL FAILED: $e\n$s');
       return null;
     }
   }

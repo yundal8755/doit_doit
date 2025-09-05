@@ -23,11 +23,22 @@
       </intent-filter>
     </activity>
 
+    <activity
+      android:name="com.kakao.sdk.flutter.AppsHandlerActivity"
+      android:exported="true">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+        <!-- 카카오 리다이렉트 URI (네이티브 앱 키) -->
+        <data android:scheme="kakao{APPKEY}" android:host="oauth" />
+      </intent-filter>
+    </activity>
+
     <!-- Flutter용 meta-data -->
     <meta-data
       android:name="flutterEmbedding"
       android:value="2" />
-
   </application>
 
   <queries>
@@ -35,5 +46,7 @@
       <action android:name="android.intent.action.PROCESS_TEXT" />
       <data android:mimeType="text/plain" />
     </intent>
+    <!-- ✅ 카카오톡 설치 여부 확인을 위해 필요 -->
+    <package android:name="com.kakao.talk" />
   </queries>
 </manifest>

@@ -4,8 +4,8 @@ import 'package:doit_doit/app/style/app_asset.dart';
 import 'package:doit_doit/app/style/app_color.dart';
 import 'package:doit_doit/app/style/app_text_style.dart';
 import 'package:doit_doit/app/enum/social_login_platform.dart';
-import 'package:doit_doit/app/util/app_log.dart';
 import 'package:doit_doit/presentation/component/button/base_button.dart';
+import 'package:doit_doit/presentation/page/auth/sign_in_event.dart';
 import 'package:doit_doit/presentation/provider/auth/sign_in_oauth_provider.dart';
 import 'package:doit_doit/presentation/widget/base/base_page.dart';
 import 'package:doit_doit/presentation/widget/common/rounded_container.dart';
@@ -13,13 +13,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
-import 'package:naver_login_sdk/naver_login_sdk.dart';
 
-class SignInPage extends ConsumerWidget {
+class SignInPage extends ConsumerWidget with SignInEvent {
   const SignInPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final notifier = ref.read(signInOauthProvider.notifier);
+
     return BasePage(
       child: Center(
         child: Column(
@@ -34,61 +35,22 @@ class SignInPage extends ConsumerWidget {
             const Gap(48),
             Column(
               children: [
-                // TODO : 카카오 로그인 구현하기
+                // TODO : 카카오 로그인 - 안드로이드도 구현되는지 확인하기
+                // TODO : Firestore DTO 대신 카카오, 네이버까지 통합된 커스텀 DTO로 회원가입/로그인 처리하기
                 _buildSocialButton(
                   text: '카카오로 계속하기',
                   backgroundColor: AppColor.kakao,
                   textColor: AppColor.black,
-                  onPressed: () async {
-                    final notifier = ref.read(signInOauthProvider.notifier);
-                    await notifier.signIn(ref, SocialLoginPlatform.kakao);
-                  },
+                  onPressed: () =>
+                      notifier.signIn(ref, SocialLoginPlatform.kakao),
                   icon: SvgPicture.asset(AppAsset.kakao),
                 ),
                 const Gap(16),
-                // TODO : 네이버 로그인 구현하기
                 _buildSocialButton(
                   text: '네이버로 계속하기',
                   backgroundColor: AppColor.naver,
                   textColor: AppColor.white,
-                  onPressed: () async {
-                    NaverLoginSDK.authenticate(
-                        callback: OAuthLoginCallback(
-                      onSuccess: () {
-                        AppLog.d("onSuccess..");
-                      },
-                      onFailure: (httpStatus, message) {
-                        AppLog.w(
-                            "onFailure.. httpStatus:$httpStatus, message:$message");
-                      },
-                      onError: (errorCode, message) {
-                        AppLog.e(
-                            "onError.. errorCode:$errorCode, message:$message");
-
-                        if (message == 'naverapp_not_installed') {
-                          showDialog(
-                            context: context,
-                            builder: (context) => AlertDialog(
-                              title: const Text('Alarm'),
-                              content: const Text('NaverApp not installed'),
-                              actions: [
-                                TextButton(
-                                  onPressed: () => Navigator.pop(context),
-                                  child: const Text(
-                                    'ok',
-                                    style: TextStyle(color: Colors.blueAccent),
-                                  ),
-                                )
-                              ],
-                            ),
-                          );
-                        }
-                      },
-                    ));
-
-                    // final notifier = ref.read(signInOauthProvider.notifier);
-                    // await notifier.signIn(ref, SocialLoginPlatform.naver);
-                  },
+                  onPressed: () => onClickedNaverSignInButton(ref: ref),
                   icon: SvgPicture.asset(AppAsset.naver),
                 ),
                 const Gap(16),
@@ -97,10 +59,8 @@ class SignInPage extends ConsumerWidget {
                   text: 'Google로 계속하기',
                   backgroundColor: AppColor.white,
                   textColor: AppColor.black,
-                  onPressed: () async {
-                    final notifier = ref.read(signInOauthProvider.notifier);
-                    await notifier.signIn(ref, SocialLoginPlatform.google);
-                  },
+                  onPressed: () =>
+                      notifier.signIn(ref, SocialLoginPlatform.google),
                   icon: SvgPicture.asset(AppAsset.google),
                 ),
                 const Gap(16),
@@ -109,10 +69,8 @@ class SignInPage extends ConsumerWidget {
                     text: 'Apple로 계속하기',
                     backgroundColor: AppColor.black,
                     textColor: AppColor.white,
-                    onPressed: () async {
-                      final notifier = ref.read(signInOauthProvider.notifier);
-                      await notifier.signIn(ref, SocialLoginPlatform.apple);
-                    },
+                    onPressed: () =>
+                        notifier.signIn(ref, SocialLoginPlatform.apple),
                     icon: SvgPicture.asset(AppAsset.apple),
                   ),
               ],
