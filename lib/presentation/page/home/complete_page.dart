@@ -5,7 +5,6 @@ import 'package:doit_doit/app/style/app_text_style.dart';
 import 'package:doit_doit/app/util/app_log.dart';
 import 'package:doit_doit/presentation/component/button/base_button.dart';
 import 'package:doit_doit/presentation/widget/base/base_page.dart';
-import 'package:doit_doit/presentation/widget/common/project_card.dart';
 import 'package:doit_doit/presentation/widget/common/rounded_container.dart';
 import 'package:doit_doit/presentation/widget/common/todo_card.dart';
 import 'package:flutter/material.dart';
@@ -15,8 +14,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 
-class HomePage extends ConsumerWidget {
-  const HomePage({super.key});
+class CompletePage extends ConsumerWidget {
+  const CompletePage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -50,46 +49,10 @@ class HomePage extends ConsumerWidget {
           ),
         ],
       ),
-
-      floatingActionButton: BaseButton(
-        child: RoundedContainer(
-          backgroundColor: AppColor.primary600,
-          padding: const EdgeInsets.all(16),
-          child: SvgPicture.asset(AppAsset.plusIcon),
-        ),
-      ),
-
-      /// 📌 전체 스크롤 가능
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Gap(24),
-            _buildSectionGuide(
-              title: '진행 중인 프로젝트',
-              onPressed: () {},
-            ),
-            const Gap(16),
-
-            /// 가로 스크롤 리스트
-            SizedBox(
-              height: 140.h,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: projects.length,
-                itemBuilder: (context, index) {
-                  final project = projects[index];
-                  return ProjectCard(
-                    title: project["title"] as String,
-                    percent: project["percent"] as int,
-                    remainingTasks: project["remaining"] as int,
-                  );
-                },
-              ),
-            ),
-
-            const Gap(32),
-
             /// 긴급 작업
             _buildSectionGuide(
               title: '긴급 작업',
@@ -131,13 +94,13 @@ class HomePage extends ConsumerWidget {
           title,
           style: AppTextStyle.semi1828.copyWith(color: AppColor.gray900),
         ),
-        BaseButton(
-          onPressed: onPressed,
-          child: Text(
-            '전체보기',
-            style: AppTextStyle.med1421.copyWith(color: AppColor.primary500),
-          ),
-        ),
+        // BaseButton(
+        //   onPressed: onPressed,
+        //   child: Text(
+        //     '전체보기',
+        //     style: AppTextStyle.med1421.copyWith(color: AppColor.primary500),
+        //   ),
+        // ),
       ],
     );
   }

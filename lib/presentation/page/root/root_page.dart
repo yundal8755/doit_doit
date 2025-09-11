@@ -1,7 +1,9 @@
 import 'package:doit_doit/app/style/app_asset.dart';
 import 'package:doit_doit/app/style/app_color.dart';
-import 'package:doit_doit/presentation/page/home/home_page.dart';
+import 'package:doit_doit/presentation/page/home/complete_page.dart';
+import 'package:doit_doit/presentation/page/home/ongoing.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 
 class RootPage extends StatefulWidget {
@@ -14,11 +16,7 @@ class RootPage extends StatefulWidget {
 class _RootPageState extends State<RootPage> {
   int _currentIndex = 0;
 
-  final List<Widget> _pages = const [
-    HomePage(),
-    Center(child: Text('프로젝트 페이지')), // 실제로는 ProjectPage()
-    Center(child: Text('할 일 페이지')), // 실제로는 TodoPage()
-  ];
+  final List<Widget> _pages = const [OnGoingPage(), CompletePage()];
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +26,8 @@ class _RootPageState extends State<RootPage> {
         selectedItemColor: AppColor.primary600,
         currentIndex: _currentIndex,
         onTap: (index) {
+          HapticFeedback.lightImpact();
+
           setState(() {
             _currentIndex = index;
           });
@@ -36,26 +36,18 @@ class _RootPageState extends State<RootPage> {
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
               _currentIndex == 0
-                  ? AppAsset.homeFilledIcon
-                  : AppAsset.homeLineIcon,
+                  ? AppAsset.progressFilledIcon
+                  : AppAsset.progressLineIcon,
             ),
-            label: '홈',
+            label: '진행중',
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
               _currentIndex == 1
-                  ? AppAsset.folderFilledIcon
-                  : AppAsset.folderLineIcon,
+                  ? AppAsset.completeFilledIcon
+                  : AppAsset.completeLineIcon,
             ),
-            label: '프로젝트',
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              _currentIndex == 2
-                  ? AppAsset.checkboxFilledIcon
-                  : AppAsset.checkboxLineIcon,
-            ),
-            label: '할 일',
+            label: '완료',
           ),
         ],
       ),
