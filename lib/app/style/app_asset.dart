@@ -13,6 +13,10 @@ abstract class AppAsset {
   static const String folderLineIcon = 'assets/icons/folder_line.svg';
   static const String checkboxFilledIcon = 'assets/icons/checkbox_filled.svg';
   static const String checkboxLineIcon = 'assets/icons/checkbox_line.svg';
+  static const String progressFilledIcon = 'assets/icons/progress_filled.svg';
+  static const String progressLineIcon = 'assets/icons/progress_line.svg';
+  static const String completeFilledIcon = 'assets/icons/complete_filled.svg';
+  static const String completeLineIcon = 'assets/icons/complete_line.svg';
 
   // Common UI
   static const String arrowDownIcon = 'assets/icons/arrow_down.svg';
