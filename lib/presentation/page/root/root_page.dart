@@ -1,7 +1,7 @@
 import 'package:doit_doit/app/style/app_asset.dart';
 import 'package:doit_doit/app/style/app_color.dart';
 import 'package:doit_doit/presentation/page/home/complete_page.dart';
-import 'package:doit_doit/presentation/page/home/ongoing.dart';
+import 'package:doit_doit/presentation/page/home/ongoing_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
