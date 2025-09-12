@@ -1,5 +1,6 @@
 import 'package:doit_doit/app/enum/social_login_platform.dart';
 import 'package:doit_doit/presentation/page/auth/sign_up_page.dart';
+import 'package:doit_doit/presentation/page/home/create_todo_page.dart';
 import 'package:doit_doit/presentation/page/profile/profile_page.dart';
 import 'package:doit_doit/presentation/page/root/root_page.dart';
 import 'package:doit_doit/presentation/page/auth/sign_in_page.dart';
@@ -10,7 +11,8 @@ enum AppRoute {
   profile('/profile'),
   signIn('/signIn'),
   signUp('/signUp'),
-  root('/root');
+  root('/root'),
+  create('/create');
 
   const AppRoute(this.path);
 
@@ -41,5 +43,9 @@ final GoRouter appRouter = GoRouter(
           final platform = state.extra as SocialLoginPlatform;
           return SignUpPage(platform: platform);
         }),
+    GoRoute(
+      path: AppRoute.create.path,
+      builder: (context, state) => const CreateTodoPage(),
+    ),
   ],
 );

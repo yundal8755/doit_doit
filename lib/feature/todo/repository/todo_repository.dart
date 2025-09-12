@@ -1,9 +1,16 @@
 import 'package:doit_doit/app/module/error_handling/result.dart';
 import 'package:doit_doit/feature/todo/entity/todo_entity.dart';
+import 'package:doit_doit/feature/todo/model/create_todo_model.dart';
 
 abstract interface class TodoRepository {
   ///
   /// 할일 목록 조회
   ///
   Future<Result<List<TodoEntity?>>> fetchTodoList(String userId);
+
+  ///
+  /// 할 일 추가
+  ///
+  Future<Result<void>> createTodo(
+      {required String userId, required CreateTodoModel request});
 }

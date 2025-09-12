@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doit_doit/feature/todo/entity/todo_entity.dart';
 
+///
+/// TODO : fetch_todo_list_model로 대체 예정
+///
 class TodoDto {
   final String id;
   final String title;
@@ -40,6 +43,21 @@ class TodoDto {
       createdAt: (data['createdAt'] as Timestamp).toDate(),
       completedAt: (data['completedAt'] as Timestamp?)?.toDate(),
       lastModified: (data['lastModified'] as Timestamp?)?.toDate(),
+    );
+  }
+
+  /// Entity → DTO 변환
+  factory TodoDto.fromEntity(TodoEntity entity) {
+    return TodoDto(
+      id: entity.id,
+      title: entity.title,
+      description: entity.description,
+      priority: entity.priority,
+      status: entity.status,
+      dueDate: entity.dueDate,
+      createdAt: entity.createdAt,
+      completedAt: entity.completedAt,
+      lastModified: entity.lastModified,
     );
   }
 

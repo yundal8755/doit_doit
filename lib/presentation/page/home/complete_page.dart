@@ -61,22 +61,21 @@ class CompletePage extends ConsumerWidget {
             const Gap(16),
 
             /// 📌 ListView -> Column처럼 동작하도록 수정
-            ListView.builder(
-              shrinkWrap: true, // 자식 개수만큼 높이 차지
-              physics: const NeverScrollableScrollPhysics(), // 스크롤 비활성화
-              itemCount: projects.length,
-              itemBuilder: (context, index) {
-                final project = projects[index];
-                return TodoCard(
-                  title: project["title"] as String,
-                  percent: project["percent"] as int,
-                  remainingTasks: project["remaining"] as int,
-                  onPressed: () {
-                    AppLog.d('눌렀습니다!');
-                  },
-                );
-              },
-            ),
+            // ListView.builder(
+            //   shrinkWrap: true, // 자식 개수만큼 높이 차지
+            //   physics: const NeverScrollableScrollPhysics(), // 스크롤 비활성화
+            //   itemCount: projects.length,
+            //   itemBuilder: (context, index) {
+            //     final project = projects[index];
+            //     return TodoCard(
+
+            //       title: project["title"] as String,
+            //       onPressed: () {
+            //         AppLog.d('눌렀습니다!');
+            //       },
+            //     );
+            //   },
+            // ),
           ],
         ),
       ),

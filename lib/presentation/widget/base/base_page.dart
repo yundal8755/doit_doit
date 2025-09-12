@@ -20,7 +20,7 @@ class BasePage extends StatelessWidget {
       backgroundColor: AppColor.white,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
+          padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
           child: child,
         ),
       ),

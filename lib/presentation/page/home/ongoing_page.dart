@@ -47,6 +47,7 @@ class OnGoingPage extends ConsumerWidget {
         ],
       ),
       floatingActionButton: BaseButton(
+        onPressed: () => context.push(AppRoute.create.path),
         child: RoundedContainer(
           backgroundColor: AppColor.primary600,
           padding: const EdgeInsets.all(16),
@@ -61,7 +62,8 @@ class OnGoingPage extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Gap(16),
-              _buildSectionGuide(title: '긴급 작업', onPressed: () {}),
+              _buildSectionGuide(
+                  title: '긴급', todoLength: todos.length, onPressed: () {}),
               const Gap(16),
               ListView.builder(
                 shrinkWrap: true,
@@ -69,12 +71,21 @@ class OnGoingPage extends ConsumerWidget {
                 itemCount: todos.length,
                 itemBuilder: (context, index) {
                   final todo = todos[index];
-                  // TODO : TodoCard 내용 개선 필요
+
+                  if (todos.isEmpty) {
+                    return const Center(child: Text('진행 중인 할 일이 없습니다.'));
+                  }
+
+                  if (todo == null) {
+                    return const SizedBox.shrink();
+                  }
+
                   return TodoCard(
-                    title: todo?.title ?? '제목 없음',
-                    percent: 0,
-                    remainingTasks: 0,
-                    onPressed: () => AppLog.d('${todo?.title} 눌렀습니다!'),
+                    title: todo.title,
+                    status: todo.status,
+                    description: todo.description,
+                    dueDate: todo.dueDate,
+                    onPressed: () => AppLog.d('${todo.title} 눌렀습니다!'),
                   );
                 },
               ),
@@ -87,12 +98,13 @@ class OnGoingPage extends ConsumerWidget {
 
   Widget _buildSectionGuide({
     required String title,
+    required int todoLength,
     required VoidCallback onPressed,
   }) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(title,
+        Text('$title ($todoLength)',
             style: AppTextStyle.semi1828.copyWith(color: AppColor.gray900)),
         BaseButton(
           onPressed: onPressed,

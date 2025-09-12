@@ -73,5 +73,23 @@ final fetchTodoListUsecaseProvider =
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef FetchTodoListUsecaseRef = AutoDisposeProviderRef<FetchTodoListUsecase>;
+String _$createTodoUsecaseHash() => r'dfc464846fe037a4cddf48ae5f90281c119df749';
+
+/// See also [createTodoUsecase].
+@ProviderFor(createTodoUsecase)
+final createTodoUsecaseProvider =
+    AutoDisposeProvider<CreateTodoUsecase>.internal(
+  createTodoUsecase,
+  name: r'createTodoUsecaseProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$createTodoUsecaseHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef CreateTodoUsecaseRef = AutoDisposeProviderRef<CreateTodoUsecase>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
