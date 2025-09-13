@@ -28,6 +28,7 @@ abstract class AppAsset {
   static const String moreVerticalIcon = 'assets/icons/more_vertical.svg';
   static const String plusIcon = 'assets/icons/plus.svg';
   static const String userIcon = 'assets/icons/user.svg';
+  static const String calendarIcon = 'assets/icons/calendar.svg';
 
   // Special
   static const String emergencyIcon = 'assets/icons/emergency.svg';
