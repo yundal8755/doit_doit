@@ -34,7 +34,7 @@ abstract class FirestoreTodosRef {
       priority: request.priority, // e.g. 'low' | 'normal' | 'high'
       status: 'ongoing',
       createdAt: DateTime.now(),
-      dueDate: request.dueDate,
+      dueDate: null,
       completedAt: null,
       lastModified: DateTime.now(),
     );

@@ -7,6 +7,7 @@ import 'package:doit_doit/presentation/component/button/base_button.dart';
 import 'package:doit_doit/presentation/component/drop_down/cool_drop_down.dart';
 import 'package:doit_doit/presentation/component/form_field/cool_form_field_widget.dart';
 import 'package:doit_doit/presentation/provider/todo/create_todo_provider.dart';
+import 'package:doit_doit/presentation/provider/todo/todo_provider.dart';
 import 'package:doit_doit/presentation/widget/base/base_page.dart';
 import 'package:doit_doit/presentation/widget/common/rounded_container.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -72,14 +73,25 @@ class _CreateTodoPageState extends ConsumerState<CreateTodoPage> {
 
   @override
   Widget build(BuildContext context) {
-    ref.listen<AsyncValue<void>>(createTodoProvider, (prev, next) {
+// CreateTodoPage.build 안의 ref.listen 성공 분기
+    ref.listen<AsyncValue<void>>(createTodoProvider, (prev, next) async {
       if ((prev?.isLoading ?? false) && next.hasValue) {
+        final userId = FirebaseAuth.instance.currentUser?.uid;
+        if (userId != null) {
+          // ✅ 최신 데이터 받아올 때까지 기다렸다가
+          await ref.refresh(todoProvider(userId).future);
+          //   - 또는 간단히: ref.invalidate(todoProvider(userId)); (바로 재요청 트리거)
+        }
+
         if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('작업이 추가되었어요!')),
         );
+
+        // ✅ 성공 신호와 함께 이전 화면으로
         Navigator.of(context).pop(true);
       }
+
       if (next.hasError) {
         if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
@@ -298,7 +310,7 @@ class _CreateTodoPageState extends ConsumerState<CreateTodoPage> {
               padding: const EdgeInsets.symmetric(vertical: 12.0),
               child: BaseButton(
                 onPressed: canCreate && !isSubmitting // ⬅️ 로딩 중 비활성
-                    ? () {
+                    ? () async {
                         final userId = FirebaseAuth.instance.currentUser?.uid;
                         if (userId == null) {
                           AppLog.e('User not logged in');
@@ -313,8 +325,8 @@ class _CreateTodoPageState extends ConsumerState<CreateTodoPage> {
                               : Status.completed.value,
                         );
 
-                        // 기다리기만 하면 됨. UI 반응은 ref.listen이 처리
-                        ref
+                        // 1) 생성 호출
+                        await ref
                             .read(createTodoProvider.notifier)
                             .submit(userId: userId, request: request);
                       }
