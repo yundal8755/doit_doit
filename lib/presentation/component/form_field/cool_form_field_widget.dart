@@ -18,6 +18,10 @@ enum CoolFormFieldStatus {
 }
 
 class CoolFormField extends FormField<String> {
+  final int? minLines;
+  final int? maxLines;
+  final TextInputAction? textInputAction;
+
   final TextEditingController? controller;
   final FocusNode? focusNode;
 
@@ -61,6 +65,9 @@ class CoolFormField extends FormField<String> {
     this.onSend,
     this.boxDecoration,
     this.onChanged,
+    this.minLines,
+    this.maxLines,
+    this.textInputAction,
 
     // 라벨, 힌트, 등등
     required this.label,
@@ -170,6 +177,13 @@ class CoolFormField extends FormField<String> {
                     cursorColor: cursorColor,
                     style: AppTextStyle.med1421.copyWith(color: AppColor.black),
                     decoration: effectiveDecoration,
+                    minLines: state.widget.minLines,
+                    maxLines: state.widget.maxLines, // null이면 기본 1줄
+                    textInputAction: state.widget.textInputAction ??
+                        ((state.widget.maxLines != null &&
+                                state.widget.maxLines! > 1)
+                            ? TextInputAction.newline
+                            : TextInputAction.done),
                     onChanged: (value) {
                       field.didChange(value);
                       state.onTextChanged(value);
@@ -227,9 +241,15 @@ class _CoolFormFieldState extends FormFieldState<String> {
       return widget.customKeyboardType!;
     } else if (widget.isNumber) {
       return defaultNumberKeyboard;
-    } else {
-      return TextInputType.text;
     }
+
+    // ⬇️ 멀티라인 또는 줄바꿈 액션이면 반드시 multiline 사용
+    final isMultiline = (widget.maxLines != null && widget.maxLines! > 1);
+    if (isMultiline || widget.textInputAction == TextInputAction.newline) {
+      return TextInputType.multiline;
+    }
+
+    return TextInputType.text;
   }
 
   List<TextInputFormatter>? get effectiveInputFormatters {

@@ -9,7 +9,9 @@ class CoolFormFieldStyle {
   static const double borderThickness = 0.5;
   static TextStyle hintStyle = AppTextStyle.med1216.copyWith(color: hintColor);
 
+  ///
   /// Underline Style
+  ///
   static InputDecoration getUnderlineDecoration({
     required bool isFocused,
     required String? hintText,
@@ -36,7 +38,9 @@ class CoolFormFieldStyle {
     );
   }
 
+  ///
   /// Outline Style
+  ///
   static InputDecoration getOutlineDecoration({
     required bool isFocused,
     required String? hintText,

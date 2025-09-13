@@ -24,18 +24,20 @@ class CreateTodoModel {
   /// 안전하게 생성하는 팩토리
   factory CreateTodoModel({
     required String title,
-    String? description,
+    required String status,
     required String priority,
+    String? description,
     DateTime? dueDate,
+    DateTime? completedAt,
   }) {
     return CreateTodoModel._(
       title: title,
       description: description,
       priority: priority,
-      status: 'ongoing', // 자동 고정
+      status: status,
       dueDate: dueDate,
+      completedAt: completedAt,
       createdAt: DateTime.now(), // 자동 고정
-      completedAt: null, // 자동 고정
       lastModified: null, // 자동 고정
     );
   }

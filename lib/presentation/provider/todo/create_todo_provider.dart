@@ -7,7 +7,7 @@ part 'create_todo_provider.g.dart';
 
 /// 버튼 탭 → 제출 중 로딩/성공/에러를 표현
 @riverpod
-class CreateTodoProvider extends _$CreateTodoProvider {
+class CreateTodo extends _$CreateTodo {
   @override
   AsyncValue<void> build() => const AsyncData(null);
 

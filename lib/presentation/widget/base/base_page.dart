@@ -5,11 +5,13 @@ class BasePage extends StatelessWidget {
   final PreferredSizeWidget? appbar;
   final Widget? floatingActionButton;
   final Widget? child;
+  final bool resizeToAvoidBottomInset;
   const BasePage({
     super.key,
     this.appbar,
     this.child,
     this.floatingActionButton,
+    this.resizeToAvoidBottomInset = false,
   });
 
   @override
@@ -17,6 +19,7 @@ class BasePage extends StatelessWidget {
     return Scaffold(
       appBar: appbar,
       floatingActionButton: floatingActionButton,
+      resizeToAvoidBottomInset: resizeToAvoidBottomInset,
       backgroundColor: AppColor.white,
       body: SafeArea(
         child: Padding(

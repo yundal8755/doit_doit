@@ -16,6 +16,7 @@ void showCustomDropdown<T>({
   required GlobalKey anchorKey,
   required List<T> items,
   required ValueChanged<T> onItemSelected,
+  required Color backgroundColor,
 }) {
   /// (1) anchorKey로부터 RenderBox를 얻어서, 위젯의 전역 좌표(Offset)와 크기(Size) 구하기
   final renderBox = anchorKey.currentContext!.findRenderObject() as RenderBox;
@@ -48,7 +49,7 @@ void showCustomDropdown<T>({
             top: dy,
             width: size.width, // anchor 위젯과 동일한 폭
             child: Material(
-              color: Colors.white,
+              color: backgroundColor,
               elevation: 4.0,
               borderRadius: BorderRadius.circular(8),
               child: ConstrainedBox(
