@@ -32,7 +32,7 @@ mixin SignInEvent {
                 AppLog.d("Name: ${profile.name}");
                 AppLog.d("Nickname: ${profile.nickName}");
 
-                // TODO: Entity/Model 로 매핑 후 상태 저장
+                // TODO : Entity/Model 로 매핑 후 상태 저장
                 // final notifier = ref.read(signInOauthProvider.notifier);
                 // notifier.setUser(profile);
               },

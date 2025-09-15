@@ -23,7 +23,7 @@ class _RootPageState extends State<RootPage> {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: AppColor.white,
-        selectedItemColor: AppColor.primary600,
+        selectedItemColor: AppColor.primary500,
         currentIndex: _currentIndex,
         onTap: (index) {
           HapticFeedback.lightImpact();

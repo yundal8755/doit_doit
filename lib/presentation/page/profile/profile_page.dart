@@ -3,7 +3,7 @@ import 'package:doit_doit/app/di/auth_di.dart';
 import 'package:doit_doit/app/router/router.dart';
 import 'package:doit_doit/app/style/app_color.dart';
 import 'package:doit_doit/app/style/app_text_style.dart';
-import 'package:doit_doit/presentation/component/button/base_button.dart';
+import 'package:doit_doit/presentation/widget/component/button/base_button.dart';
 import 'package:doit_doit/presentation/provider/user/user_provider.dart';
 import 'package:doit_doit/presentation/widget/base/base_page.dart';
 import 'package:doit_doit/presentation/widget/common/rounded_container.dart';
