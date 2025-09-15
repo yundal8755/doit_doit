@@ -1,6 +1,6 @@
 import 'package:doit_doit/app/module/error_handling/result.dart';
 import 'package:doit_doit/feature/todo/datasource/todo_remote_datasource.dart';
-import 'package:doit_doit/feature/todo/model/create_todo_model.dart';
+import 'package:doit_doit/feature/todo/model/todo_model.dart';
 import 'package:doit_doit/feature/todo/entity/todo_entity.dart';
 import 'package:doit_doit/feature/todo/repository/todo_repository.dart';
 
@@ -22,7 +22,7 @@ final class TodoRepositoryImpl implements TodoRepository {
 
   @override
   Future<Result<void>> createTodo(
-      {required String userId, required CreateTodoModel request}) {
+      {required String userId, required TodoModel request}) {
     try {
       return _remote
           .createTodo(userId: userId, request: request)

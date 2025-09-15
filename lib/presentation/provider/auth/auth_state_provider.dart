@@ -16,7 +16,7 @@ class AuthState extends _$AuthState {
       if (firebaseUser == null) {
         yield AuthStatus.signedOut;
       } else {
-        // TODO: 레이어 계층 분리해야함
+        // TODO : 레이어 계층 분리해야함
         final userDoc = await FirebaseFirestore.instance
             .collection('users')
             .doc(firebaseUser.uid)

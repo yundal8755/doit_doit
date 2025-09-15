@@ -1,5 +1,4 @@
 class TodoEntity {
-  final String id;
   final String title;
   final String? description;
   final String priority;
@@ -10,7 +9,6 @@ class TodoEntity {
   final DateTime? lastModified;
 
   TodoEntity({
-    required this.id,
     required this.title,
     this.description,
     required this.priority,

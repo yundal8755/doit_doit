@@ -1,11 +1,11 @@
 import 'package:doit_doit/app/di/todo_di.dart';
 import 'package:doit_doit/app/module/error_handling/result.dart';
-import 'package:doit_doit/feature/todo/model/create_todo_model.dart';
+import 'package:doit_doit/feature/todo/model/todo_model.dart';
+import 'package:doit_doit/presentation/provider/todo/fetch_todo_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'create_todo_provider.g.dart';
 
-/// 버튼 탭 → 제출 중 로딩/성공/에러를 표현
 @riverpod
 class CreateTodo extends _$CreateTodo {
   @override
@@ -13,14 +13,20 @@ class CreateTodo extends _$CreateTodo {
 
   Future<Result<void>> submit({
     required String userId,
-    required CreateTodoModel request,
+    required TodoModel model,
   }) async {
     state = const AsyncLoading();
     try {
       final usecase = ref.read(createTodoUsecaseProvider);
-      final result = await usecase(userId: userId, request: request);
+      final result = await usecase(userId: userId, request: model);
+
       result.fold(
-        onSuccess: (_) => state = const AsyncData(null),
+        onSuccess: (_) {
+          // 리스트 재로딩
+          ref.invalidate(fetchTodoProvider);
+
+          state = const AsyncData(null);
+        },
         onFailure: (e) => state = AsyncError(e, StackTrace.current),
       );
       return result;
