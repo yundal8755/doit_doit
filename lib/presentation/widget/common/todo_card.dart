@@ -29,7 +29,6 @@ class TodoCard extends StatelessWidget {
     const badgeBackgroundColor = Colors.blue;
 
     return RoundedContainer(
-      margin: EdgeInsets.only(bottom: 12.h),
       padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 4.w),
       borderColor: AppColor.gray200,
       decoration: BoxDecoration(

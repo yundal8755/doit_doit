@@ -31,4 +31,15 @@ final class TodoRepositoryImpl implements TodoRepository {
       return Future.value(Result.failure(Exception('$e')));
     }
   }
+
+  @override
+  Future<Result<void>> deleteTodo({required String todoId}) {
+    try {
+      return _remote
+          .deleteTodo(todoId: todoId)
+          .then((_) => Result.success(null));
+    } catch (e) {
+      return Future.value(Result.failure(Exception('$e')));
+    }
+  }
 }

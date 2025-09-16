@@ -15,4 +15,9 @@ final class TodoRemoteDatasourceImpl implements TodoRemoteDatasource {
       {required String userId, required TodoModel request}) {
     return FirestoreTodosRef.create(userId: userId, request: request);
   }
+
+  @override
+  Future<void> deleteTodo({required String todoId}) {
+    return FirestoreTodosRef.delete(todoId: todoId);
+  }
 }

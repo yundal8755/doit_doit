@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doit_doit/app/environment/firebase_ref.dart';
+import 'package:doit_doit/app/util/app_log.dart';
 import 'package:doit_doit/feature/todo/model/todo_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 abstract class FirestoreTodosRef {
   ///
@@ -25,5 +27,21 @@ abstract class FirestoreTodosRef {
   }) async {
     final docRef = collection(userId).doc();
     await docRef.set(request);
+  }
+
+  ///
+  /// 할 일 문서 삭제
+  ///
+  static Future<void> delete({
+    required String todoId,
+  }) async {
+    final userId = FirebaseAuth.instance.currentUser?.uid;
+    if (userId == null) {
+      AppLog.e('User not logged in');
+      return;
+    }
+
+    final docRef = collection(userId).doc(todoId);
+    await docRef.delete();
   }
 }

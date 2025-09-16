@@ -3,6 +3,7 @@ import 'package:doit_doit/feature/todo/datasource/todo_remote_datasource_impl.da
 import 'package:doit_doit/feature/todo/repository/todo_repository.dart';
 import 'package:doit_doit/feature/todo/repository/todo_repository_impl.dart';
 import 'package:doit_doit/feature/todo/usecase/create_todo_usecase.dart';
+import 'package:doit_doit/feature/todo/usecase/delete_todo_usecase.dart';
 import 'package:doit_doit/feature/todo/usecase/fetch_todo_list_usecase.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -36,4 +37,9 @@ FetchTodoListUsecase fetchTodoListUsecase(Ref ref) {
 @riverpod
 CreateTodoUsecase createTodoUsecase(Ref ref) {
   return CreateTodoUsecase(ref.watch(todoRepositoryProvider));
+}
+
+@riverpod
+DeleteTodoUsecase deleteTodoUsecase(Ref ref) {
+  return DeleteTodoUsecase(ref.watch(todoRepositoryProvider));
 }

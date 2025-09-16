@@ -4,6 +4,7 @@ import 'package:doit_doit/app/style/app_color.dart';
 import 'package:doit_doit/app/style/app_text_style.dart';
 import 'package:doit_doit/app/util/app_log.dart';
 import 'package:doit_doit/presentation/widget/component/button/base_button.dart';
+import 'package:doit_doit/presentation/page/home/ongoing_state.dart';
 import 'package:doit_doit/presentation/widget/base/base_page.dart';
 import 'package:doit_doit/presentation/widget/common/rounded_container.dart';
 import 'package:doit_doit/presentation/widget/common/todo_card.dart';
@@ -11,24 +12,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 
-class CompletePage extends ConsumerWidget {
+class CompletePage extends ConsumerWidget with OnGoingState {
   const CompletePage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    /// 임시 데이터
-    final projects = List.generate(
-      30,
-      (index) => {
-        "title": "프로젝트 ${index + 1}",
-        "percent": (index + 1) * 10 % 100,
-        "remaining": (index + 1) * 2,
-      },
-    );
-
     return BasePage(
       appbar: AppBar(
         backgroundColor: AppColor.white,
@@ -41,66 +31,65 @@ class CompletePage extends ConsumerWidget {
               onPressed: () => context.push(AppRoute.profile.path),
               child: CircleAvatar(
                 backgroundColor: AppColor.primary500,
-                child: SvgPicture.asset(
-                  AppAsset.userIcon,
-                ),
+                child: SvgPicture.asset(AppAsset.userIcon),
               ),
             ),
           ),
         ],
       ),
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            /// 긴급 작업
-            _buildSectionGuide(
-              title: '긴급 작업',
-              onPressed: () {},
-            ),
-            const Gap(16),
-
-            /// 📌 ListView -> Column처럼 동작하도록 수정
-            // ListView.builder(
-            //   shrinkWrap: true, // 자식 개수만큼 높이 차지
-            //   physics: const NeverScrollableScrollPhysics(), // 스크롤 비활성화
-            //   itemCount: projects.length,
-            //   itemBuilder: (context, index) {
-            //     final project = projects[index];
-            //     return TodoCard(
-
-            //       title: project["title"] as String,
-            //       onPressed: () {
-            //         AppLog.d('눌렀습니다!');
-            //       },
-            //     );
-            //   },
-            // ),
-          ],
+      floatingActionButton: BaseButton(
+        onPressed: () => context.push(AppRoute.create.path),
+        child: RoundedContainer(
+          backgroundColor: AppColor.primary500,
+          padding: const EdgeInsets.all(16),
+          child: SvgPicture.asset(AppAsset.plusIcon),
         ),
       ),
-    );
-  }
+      child: fetchAsync(ref).when(
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (e, st) => Center(child: Text('에러: $e')),
+        data: (todoList) {
+          AppLog.d('todo length: ${todoList.length}');
 
-  Widget _buildSectionGuide({
-    required String title,
-    required VoidCallback onPressed,
-  }) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          title,
-          style: AppTextStyle.semi1828.copyWith(color: AppColor.gray900),
-        ),
-        // BaseButton(
-        //   onPressed: onPressed,
-        //   child: Text(
-        //     '전체보기',
-        //     style: AppTextStyle.med1421.copyWith(color: AppColor.primary500),
-        //   ),
-        // ),
-      ],
+          // 데이터가 없을 때
+          if (todoList.isEmpty) {
+            return Center(
+              child: Text(
+                '진행 중인 할 일이 없습니다.',
+                style: AppTextStyle.med1421.copyWith(color: AppColor.gray600),
+              ),
+            );
+          }
+
+          // 데이터가 있을 때
+          return SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: todoList.length,
+                  itemBuilder: (context, index) {
+                    final todo = todoList[index];
+
+                    if (todo == null) {
+                      return const SizedBox.shrink();
+                    }
+
+                    return TodoCard(
+                      title: todo.title,
+                      description: todo.description,
+                      onPressed: () => AppLog.d('${todo.title} 눌렀습니다!'),
+                      priority: todo.priority,
+                    );
+                  },
+                ),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }

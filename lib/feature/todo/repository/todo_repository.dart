@@ -13,4 +13,9 @@ abstract interface class TodoRepository {
   ///
   Future<Result<void>> createTodo(
       {required String userId, required TodoModel request});
+
+  ///
+  /// 할 일 삭제
+  ///
+  Future<Result<void>> deleteTodo({required String todoId});
 }
