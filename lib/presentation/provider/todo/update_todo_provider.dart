@@ -1,22 +1,23 @@
 import 'package:doit_doit/app/di/todo_di.dart';
 import 'package:doit_doit/app/module/error_handling/result.dart';
+import 'package:doit_doit/feature/todo/model/todo_model.dart';
 import 'package:doit_doit/presentation/provider/todo/fetch_todo_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'delete_todo_provider.g.dart';
+part 'update_todo_provider.g.dart';
 
 @riverpod
-class DeleteTodo extends _$DeleteTodo {
+class UpdateTodo extends _$UpdateTodo {
   @override
   AsyncValue<void> build() => const AsyncData(null);
 
-  Future<Result<void>> delete({
-    required String todoId,
+  Future<Result<void>> update({
+    required TodoModel model,
   }) async {
     state = const AsyncLoading();
     try {
-      final usecase = ref.read(deleteTodoUsecaseProvider);
-      final result = await usecase(todoId: todoId);
+      final usecase = ref.read(updateTodoUsecaseProvider);
+      final result = await usecase(model: model);
 
       result.fold(
         onSuccess: (_) {

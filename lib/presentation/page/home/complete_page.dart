@@ -4,7 +4,7 @@ import 'package:doit_doit/app/style/app_color.dart';
 import 'package:doit_doit/app/style/app_text_style.dart';
 import 'package:doit_doit/app/util/app_log.dart';
 import 'package:doit_doit/presentation/widget/component/button/base_button.dart';
-import 'package:doit_doit/presentation/page/home/ongoing_state.dart';
+import 'package:doit_doit/presentation/page/home/todo_state.dart';
 import 'package:doit_doit/presentation/widget/base/base_page.dart';
 import 'package:doit_doit/presentation/widget/common/rounded_container.dart';
 import 'package:doit_doit/presentation/widget/common/todo_card.dart';
@@ -14,7 +14,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
-class CompletePage extends ConsumerWidget with OnGoingState {
+class CompletePage extends ConsumerWidget with TodoState {
   const CompletePage({super.key});
 
   @override

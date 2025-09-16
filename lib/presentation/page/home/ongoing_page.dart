@@ -3,9 +3,10 @@ import 'package:doit_doit/app/style/app_asset.dart';
 import 'package:doit_doit/app/style/app_color.dart';
 import 'package:doit_doit/app/style/app_text_style.dart';
 import 'package:doit_doit/app/util/app_log.dart';
+import 'package:doit_doit/feature/todo/model/todo_model.dart';
 import 'package:doit_doit/presentation/provider/todo/delete_todo_provider.dart';
 import 'package:doit_doit/presentation/widget/component/button/base_button.dart';
-import 'package:doit_doit/presentation/page/home/ongoing_state.dart';
+import 'package:doit_doit/presentation/page/home/todo_state.dart';
 import 'package:doit_doit/presentation/widget/base/base_page.dart';
 import 'package:doit_doit/presentation/widget/common/rounded_container.dart';
 import 'package:doit_doit/presentation/widget/common/todo_card.dart';
@@ -17,7 +18,7 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
-class OnGoingPage extends ConsumerWidget with OnGoingState {
+class OnGoingPage extends ConsumerWidget with TodoState {
   const OnGoingPage({super.key});
 
   @override
@@ -81,7 +82,15 @@ class OnGoingPage extends ConsumerWidget with OnGoingState {
                     // 수정
                     SlidableAction(
                       onPressed: (_) {
-                        context.push(AppRoute.create.path, extra: todo);
+                        final todoModel = TodoModel(
+                          id: todo.id,
+                          title: todo.title,
+                          description: todo.description,
+                          priority: todo.priority,
+                          isComplete: todo.isComplete,
+                        );
+
+                        context.push(AppRoute.edit.path, extra: todoModel);
                       },
                       backgroundColor: AppColor.gray600,
                       foregroundColor: Colors.white,
@@ -94,7 +103,7 @@ class OnGoingPage extends ConsumerWidget with OnGoingState {
                       onPressed: (_) async {
                         await ref
                             .read(deleteTodoProvider.notifier)
-                            .submit(todoId: docId ?? '');
+                            .delete(todoId: docId ?? '');
                       },
                       backgroundColor: AppColor.error400,
                       foregroundColor: Colors.white,

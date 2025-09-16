@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doit_doit/feature/todo/entity/todo_entity.dart';
 
 class TodoModel {
-  final String? id; // ← 추가
+  final String? id;
   final String title;
   final String? description;
   final String priority;
@@ -10,7 +10,7 @@ class TodoModel {
   final DateTime createdAt;
 
   TodoModel._({
-    required this.id, // ← 추가
+    required this.id,
     required this.title,
     this.description,
     required this.priority,
@@ -20,7 +20,7 @@ class TodoModel {
 
   /// 생성 시엔 id 없음(문서 생성 후 생김)
   factory TodoModel({
-    String? id, // 옵션
+    String? id,
     required String title,
     required String priority,
     String? description,
@@ -94,7 +94,7 @@ class TodoModel {
   /// Model -> Entity (Entity에 id가 있다면 매핑)
   TodoEntity toEntity() {
     return TodoEntity(
-      id: id, // Entity가 id를 받도록 되어 있다면 세팅
+      id: id,
       title: title,
       description: description,
       priority: priority,

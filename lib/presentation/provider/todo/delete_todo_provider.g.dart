@@ -6,7 +6,7 @@ part of 'delete_todo_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$deleteTodoHash() => r'a6a4595d19e945aabd68b9f59e40e367181568af';
+String _$deleteTodoHash() => r'3616e9b27da64d08c0f65274b611cde5c029ea39';
 
 /// See also [DeleteTodo].
 @ProviderFor(DeleteTodo)

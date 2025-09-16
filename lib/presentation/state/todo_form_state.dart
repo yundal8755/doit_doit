@@ -53,4 +53,9 @@ class TodoFormState {
       isComplete: isComplete ?? this.isComplete,
     );
   }
+
+  @override
+  String toString() {
+    return 'title: $title,\n description: $description,\n priority: $priority,\n isComplete: $isComplete';
+  }
 }

@@ -1,6 +1,8 @@
 import 'package:doit_doit/app/enum/social_login_platform.dart';
+import 'package:doit_doit/feature/todo/model/todo_model.dart';
 import 'package:doit_doit/presentation/page/auth/sign_up_page.dart';
 import 'package:doit_doit/presentation/page/home/create_todo_page.dart';
+import 'package:doit_doit/presentation/page/home/update_todo_page.dart';
 import 'package:doit_doit/presentation/page/profile/profile_page.dart';
 import 'package:doit_doit/presentation/page/root/root_page.dart';
 import 'package:doit_doit/presentation/page/auth/sign_in_page.dart';
@@ -12,7 +14,8 @@ enum AppRoute {
   signIn('/signIn'),
   signUp('/signUp'),
   root('/root'),
-  create('/create');
+  create('/create'),
+  edit('/edit');
 
   const AppRoute(this.path);
 
@@ -47,5 +50,11 @@ final GoRouter appRouter = GoRouter(
       path: AppRoute.create.path,
       builder: (context, state) => const CreateTodoPage(),
     ),
+    GoRoute(
+        path: AppRoute.edit.path,
+        builder: (context, state) {
+          final todoModel = state.extra as TodoModel;
+          return UpdateTodoPage(todoModel: todoModel);
+        }),
   ],
 );

@@ -1,25 +1,25 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'create_todo_provider.dart';
+part of 'update_todo_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$createTodoHash() => r'6ecea9ae94bf3019291ce68ab4221c23a607c243';
+String _$updateTodoHash() => r'6b4c8277145816afcabf7523439b4b4534392bca';
 
-/// See also [CreateTodo].
-@ProviderFor(CreateTodo)
-final createTodoProvider =
-    AutoDisposeNotifierProvider<CreateTodo, AsyncValue<void>>.internal(
-  CreateTodo.new,
-  name: r'createTodoProvider',
+/// See also [UpdateTodo].
+@ProviderFor(UpdateTodo)
+final updateTodoProvider =
+    AutoDisposeNotifierProvider<UpdateTodo, AsyncValue<void>>.internal(
+  UpdateTodo.new,
+  name: r'updateTodoProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$createTodoHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$updateTodoHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$CreateTodo = AutoDisposeNotifier<AsyncValue<void>>;
+typedef _$UpdateTodo = AutoDisposeNotifier<AsyncValue<void>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

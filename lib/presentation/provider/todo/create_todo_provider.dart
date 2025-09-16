@@ -11,7 +11,7 @@ class CreateTodo extends _$CreateTodo {
   @override
   AsyncValue<void> build() => const AsyncData(null);
 
-  Future<Result<void>> submit({
+  Future<Result<void>> create({
     required String userId,
     required TodoModel model,
   }) async {

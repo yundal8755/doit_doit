@@ -1,4 +1,5 @@
 import 'package:doit_doit/app/enum/priority.dart';
+import 'package:doit_doit/app/util/app_log.dart';
 import 'package:doit_doit/app/util/app_validator.dart';
 import 'package:doit_doit/feature/todo/model/todo_model.dart';
 import 'package:doit_doit/presentation/widget/component/button/base_button.dart';
@@ -17,19 +18,32 @@ import 'package:gap/gap.dart';
 ///
 /// 새 할 일 생성 페이지
 ///
-class CreateTodoPage extends ConsumerStatefulWidget {
-  const CreateTodoPage({super.key});
+class UpdateTodoPage extends ConsumerStatefulWidget {
+  final TodoModel todoModel;
+
+  const UpdateTodoPage({super.key, required this.todoModel});
 
   @override
-  ConsumerState<CreateTodoPage> createState() => _CreateTodoPageState();
+  ConsumerState<UpdateTodoPage> createState() => _UpdateTodoPageState();
 }
 
-class _CreateTodoPageState extends ConsumerState<CreateTodoPage>
+class _UpdateTodoPageState extends ConsumerState<UpdateTodoPage>
     with TodoEvent {
-  String _title = '';
+  late String _title;
   String? _description;
   String? _priorityText;
-  bool isComplete = false;
+  late bool isComplete;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // 전달받은 formState에서 초기값 할당
+    _title = widget.todoModel.title;
+    _description = widget.todoModel.description;
+    _priorityText = widget.todoModel.priority;
+    isComplete = widget.todoModel.isComplete;
+  }
 
   @override
   void dispose() {
@@ -38,20 +52,22 @@ class _CreateTodoPageState extends ConsumerState<CreateTodoPage>
 
   @override
   Widget build(BuildContext context) {
+    AppLog.d(widget.todoModel.toString());
+
     final createState = ref.watch(createTodoProvider);
     final isSubmitting = createState.isLoading;
     final GlobalKey priorityKey = GlobalKey();
     final bool canCreate = _title.trim().isNotEmpty;
 
-    // 새 할 일 생성 상태 리스너
-    initCreateTodoListeners(ref);
+    // 업데이트 상태 리스너
+    updateTodoListeners(ref);
 
     return BasePage(
       appbar: AppBar(
         backgroundColor: Colors.white,
         surfaceTintColor: Colors.transparent,
         shadowColor: Colors.black.withOpacity(0.1),
-        title: const Text('할 일 추가'),
+        title: const Text('할 일 수정'),
       ),
       child: Column(
         children: [
@@ -64,6 +80,7 @@ class _CreateTodoPageState extends ConsumerState<CreateTodoPage>
                   CoolFormField(
                     label: '제목 (필수)',
                     hintText: '무엇을 할 건가요? 예) 주간 보고서 초안 작성',
+                    initialValue: _title,
                     validator: AppValidator.titleMax20, // 20자 초과 경고
                     visualType: CoolFormFieldVisualType.outline,
                     onChanged: (value) {
@@ -74,6 +91,7 @@ class _CreateTodoPageState extends ConsumerState<CreateTodoPage>
                   CoolFormField(
                     label: '세부 내용 (선택)',
                     hintText: '다음 행동, 참고 링크, 담당자 등을 적어보세요',
+                    initialValue: _description,
                     visualType: CoolFormFieldVisualType.outline,
                     minLines: 4,
                     maxLines: 8,
@@ -134,12 +152,13 @@ class _CreateTodoPageState extends ConsumerState<CreateTodoPage>
                 onPressed: canCreate && !isSubmitting
                     ? () {
                         final model = TodoModel(
+                            id: widget.todoModel.id,
                             title: _title,
                             description: _description,
                             priority: _priorityText ?? '긴급',
                             isComplete: isComplete);
 
-                        onTapCreateBtn(ref, model);
+                        onTapUpdateBtn(ref, model);
                       }
                     : null,
                 child: RoundedContainer(
@@ -150,7 +169,7 @@ class _CreateTodoPageState extends ConsumerState<CreateTodoPage>
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        isSubmitting ? '저장 중...' : '추가하기',
+                        isSubmitting ? '저장 중...' : '수정하기',
                         style: AppTextStyle.med1421.copyWith(
                           color: (canCreate && !isSubmitting)
                               ? AppColor.white

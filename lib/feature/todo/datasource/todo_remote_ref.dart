@@ -19,7 +19,7 @@ abstract class FirestoreTodosRef {
           );
 
   ///
-  /// 새로운 할 일 문서 생성
+  /// 할 일 추가
   ///
   static Future<void> create({
     required String userId,
@@ -30,7 +30,7 @@ abstract class FirestoreTodosRef {
   }
 
   ///
-  /// 할 일 문서 삭제
+  /// 할 일 삭제
   ///
   static Future<void> delete({
     required String todoId,
@@ -43,5 +43,23 @@ abstract class FirestoreTodosRef {
 
     final docRef = collection(userId).doc(todoId);
     await docRef.delete();
+  }
+
+  ///
+  /// 할 일 업데이트
+  ///
+  static Future<void> update({
+    required TodoModel model,
+  }) async {
+    final userId = FirebaseAuth.instance.currentUser?.uid;
+    if (userId == null) {
+      AppLog.e('User not logged in');
+      return;
+    }
+
+    AppLog.d('모델 ID : ${model.id}');
+
+    final docRef = collection(userId).doc(model.id);
+    await docRef.update({...model.toFirestore()});
   }
 }
