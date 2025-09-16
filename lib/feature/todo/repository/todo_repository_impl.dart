@@ -51,4 +51,15 @@ final class TodoRepositoryImpl implements TodoRepository {
       return Future.value(Result.failure(Exception('$e')));
     }
   }
+
+  @override
+  Future<Result<void>> updateIsComplete({required TodoModel model}) {
+    try {
+      return _remote
+          .updateIsComplete(model: model)
+          .then((_) => Result.success(null));
+    } catch (e) {
+      return Future.value(Result.failure(Exception('$e')));
+    }
+  }
 }

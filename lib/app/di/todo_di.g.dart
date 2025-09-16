@@ -127,5 +127,25 @@ final updateTodoUsecaseProvider =
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef UpdateTodoUsecaseRef = AutoDisposeProviderRef<UpdateTodoUsecase>;
+String _$updateIscompleteUsecaseHash() =>
+    r'703fbe43990f9859102d4af75ea50d020fe6b30b';
+
+/// See also [updateIscompleteUsecase].
+@ProviderFor(updateIscompleteUsecase)
+final updateIscompleteUsecaseProvider =
+    AutoDisposeProvider<UpdateIsCompleteUsecase>.internal(
+  updateIscompleteUsecase,
+  name: r'updateIscompleteUsecaseProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$updateIscompleteUsecaseHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef UpdateIscompleteUsecaseRef
+    = AutoDisposeProviderRef<UpdateIsCompleteUsecase>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

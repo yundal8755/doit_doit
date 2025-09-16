@@ -62,4 +62,22 @@ abstract class FirestoreTodosRef {
     final docRef = collection(userId).doc(model.id);
     await docRef.update({...model.toFirestore()});
   }
+
+  ///
+  /// 진행중/완료 토글 업데이트
+  ///
+  static Future<void> updateIsComplete({
+    required TodoModel model,
+  }) async {
+    final userId = FirebaseAuth.instance.currentUser?.uid;
+    if (userId == null) {
+      AppLog.e('User not logged in');
+      return;
+    }
+
+    final docRef = collection(userId).doc(model.id);
+    await docRef.update({
+      'isComplete': model.isComplete,
+    });
+  }
 }

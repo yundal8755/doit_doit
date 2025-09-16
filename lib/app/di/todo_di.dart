@@ -5,6 +5,7 @@ import 'package:doit_doit/feature/todo/repository/todo_repository_impl.dart';
 import 'package:doit_doit/feature/todo/usecase/create_todo_usecase.dart';
 import 'package:doit_doit/feature/todo/usecase/delete_todo_usecase.dart';
 import 'package:doit_doit/feature/todo/usecase/fetch_todo_list_usecase.dart';
+import 'package:doit_doit/feature/todo/usecase/update_is_complete_usecase.dart';
 import 'package:doit_doit/feature/todo/usecase/update_todo_usecase.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -48,4 +49,9 @@ DeleteTodoUsecase deleteTodoUsecase(Ref ref) {
 @riverpod
 UpdateTodoUsecase updateTodoUsecase(Ref ref) {
   return UpdateTodoUsecase(ref.watch(todoRepositoryProvider));
+}
+
+@riverpod
+UpdateIsCompleteUsecase updateIscompleteUsecase(Ref ref) {
+  return UpdateIsCompleteUsecase(ref.watch(todoRepositoryProvider));
 }

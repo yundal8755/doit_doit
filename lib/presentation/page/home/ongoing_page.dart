@@ -2,9 +2,9 @@ import 'package:doit_doit/app/router/router.dart';
 import 'package:doit_doit/app/style/app_asset.dart';
 import 'package:doit_doit/app/style/app_color.dart';
 import 'package:doit_doit/app/style/app_text_style.dart';
-import 'package:doit_doit/app/util/app_log.dart';
 import 'package:doit_doit/feature/todo/model/todo_model.dart';
 import 'package:doit_doit/presentation/provider/todo/delete_todo_provider.dart';
+import 'package:doit_doit/presentation/provider/todo/update_is_complete_provider.dart';
 import 'package:doit_doit/presentation/widget/component/button/base_button.dart';
 import 'package:doit_doit/presentation/page/home/todo_state.dart';
 import 'package:doit_doit/presentation/widget/base/base_page.dart';
@@ -53,8 +53,6 @@ class OnGoingPage extends ConsumerWidget with TodoState {
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (e, st) => Center(child: Text('에러: $e')),
         data: (todoList) {
-          AppLog.d('todo length: ${todoList.length}');
-
           if (todoList.isEmpty) {
             return Center(
               child: Text(
@@ -71,27 +69,24 @@ class OnGoingPage extends ConsumerWidget with TodoState {
               final todo = todoList[index];
               if (todo == null) return const SizedBox.shrink();
 
-              final docId = todo.id;
-              AppLog.i('todo 정보 : $todo');
+              // Request에 사용되므로 Model 사용
+              final todoModel = TodoModel(
+                id: todo.id,
+                title: todo.title,
+                description: todo.description,
+                priority: todo.priority,
+                isComplete: todo.isComplete,
+              );
 
               return Slidable(
-                key: ValueKey(docId),
+                key: ValueKey(todo.id),
                 endActionPane: ActionPane(
                   motion: const DrawerMotion(),
                   children: [
                     // 수정
                     SlidableAction(
-                      onPressed: (_) {
-                        final todoModel = TodoModel(
-                          id: todo.id,
-                          title: todo.title,
-                          description: todo.description,
-                          priority: todo.priority,
-                          isComplete: todo.isComplete,
-                        );
-
-                        context.push(AppRoute.edit.path, extra: todoModel);
-                      },
+                      onPressed: (_) =>
+                          context.push(AppRoute.edit.path, extra: todoModel),
                       backgroundColor: AppColor.gray600,
                       foregroundColor: Colors.white,
                       icon: Icons.edit,
@@ -103,7 +98,7 @@ class OnGoingPage extends ConsumerWidget with TodoState {
                       onPressed: (_) async {
                         await ref
                             .read(deleteTodoProvider.notifier)
-                            .delete(todoId: docId ?? '');
+                            .delete(todoId: todo.id ?? '');
                       },
                       backgroundColor: AppColor.error400,
                       foregroundColor: Colors.white,
@@ -113,10 +108,15 @@ class OnGoingPage extends ConsumerWidget with TodoState {
                   ],
                 ),
                 child: TodoCard(
-                  title: todo.title,
-                  description: todo.description,
-                  onPressed: () => AppLog.d('${todo.title} 눌렀습니다!'),
-                  priority: todo.priority,
+                  model: todoModel,
+                  onPressed: () async {
+                    final model =
+                        todoModel.copyWith(isComplete: !todoModel.isComplete);
+
+                    await ref
+                        .read(updateIsCompleteProvider.notifier)
+                        .update(model: model);
+                  },
                 ),
               );
             },

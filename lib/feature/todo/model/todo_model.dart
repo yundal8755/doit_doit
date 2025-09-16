@@ -102,4 +102,9 @@ class TodoModel {
       createdAt: createdAt,
     );
   }
+
+  @override
+  String toString() {
+    return 'TodoModel\n title: $title,\n description: $description,\n priority: $priority,\n isComplete: $isComplete';
+  }
 }

@@ -23,4 +23,9 @@ abstract interface class TodoRepository {
   /// 할 일 업데이트
   ///
   Future<Result<void>> updateTodo({required TodoModel model});
+
+  ///
+  /// 진행중/완료 토글 업데이트
+  ///
+  Future<Result<void>> updateIsComplete({required TodoModel model});
 }

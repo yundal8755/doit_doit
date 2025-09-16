@@ -20,4 +20,9 @@ abstract interface class TodoRemoteDatasource {
   /// 할 일 업데이트
   ///
   Future<void> updateTodo({required TodoModel model});
+
+  ///
+  /// 진행중/완료 토글 업데이트
+  ///
+  Future<void> updateIsComplete({required TodoModel model});
 }

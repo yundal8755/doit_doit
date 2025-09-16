@@ -2,7 +2,9 @@ import 'package:doit_doit/app/router/router.dart';
 import 'package:doit_doit/app/style/app_asset.dart';
 import 'package:doit_doit/app/style/app_color.dart';
 import 'package:doit_doit/app/style/app_text_style.dart';
-import 'package:doit_doit/app/util/app_log.dart';
+import 'package:doit_doit/feature/todo/model/todo_model.dart';
+import 'package:doit_doit/presentation/provider/todo/delete_todo_provider.dart';
+import 'package:doit_doit/presentation/provider/todo/update_is_complete_provider.dart';
 import 'package:doit_doit/presentation/widget/component/button/base_button.dart';
 import 'package:doit_doit/presentation/page/home/todo_state.dart';
 import 'package:doit_doit/presentation/widget/base/base_page.dart';
@@ -12,7 +14,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 class CompletePage extends ConsumerWidget with TodoState {
   const CompletePage({super.key});
@@ -49,9 +53,6 @@ class CompletePage extends ConsumerWidget with TodoState {
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (e, st) => Center(child: Text('에러: $e')),
         data: (todoList) {
-          AppLog.d('todo length: ${todoList.length}');
-
-          // 데이터가 없을 때
           if (todoList.isEmpty) {
             return Center(
               child: Text(
@@ -61,32 +62,61 @@ class CompletePage extends ConsumerWidget with TodoState {
             );
           }
 
-          // 데이터가 있을 때
-          return SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: todoList.length,
-                  itemBuilder: (context, index) {
-                    final todo = todoList[index];
+          return ListView.separated(
+            itemCount: todoList.length,
+            separatorBuilder: (context, index) => Gap(12.h),
+            itemBuilder: (context, index) {
+              final todo = todoList[index];
+              if (todo == null) return const SizedBox.shrink();
 
-                    if (todo == null) {
-                      return const SizedBox.shrink();
-                    }
+              // Request에 사용되므로 Model 사용
+              final todoModel = TodoModel(
+                id: todo.id,
+                title: todo.title,
+                description: todo.description,
+                priority: todo.priority,
+                isComplete: todo.isComplete,
+              );
 
-                    return TodoCard(
-                      title: todo.title,
-                      description: todo.description,
-                      onPressed: () => AppLog.d('${todo.title} 눌렀습니다!'),
-                      priority: todo.priority,
-                    );
+              return Slidable(
+                key: ValueKey(todo.id),
+                endActionPane: ActionPane(
+                  motion: const DrawerMotion(),
+                  children: [
+                    // 수정
+                    SlidableAction(
+                      onPressed: (_) =>
+                          context.push(AppRoute.edit.path, extra: todoModel),
+                      backgroundColor: AppColor.gray600,
+                      foregroundColor: Colors.white,
+                      icon: Icons.edit,
+                      label: '수정',
+                    ),
+
+                    // 삭제
+                    SlidableAction(
+                      onPressed: (_) async {
+                        await ref
+                            .read(deleteTodoProvider.notifier)
+                            .delete(todoId: todo.id ?? '');
+                      },
+                      backgroundColor: AppColor.error400,
+                      foregroundColor: Colors.white,
+                      icon: Icons.delete,
+                      label: '삭제',
+                    ),
+                  ],
+                ),
+                child: TodoCard(
+                  model: todoModel,
+                  onPressed: () async {
+                    await ref
+                        .read(updateIsCompleteProvider.notifier)
+                        .update(model: todoModel);
                   },
                 ),
-              ],
-            ),
+              );
+            },
           );
         },
       ),
