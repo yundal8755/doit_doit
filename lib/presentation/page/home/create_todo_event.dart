@@ -52,7 +52,7 @@ mixin class CreateTodoEvent {
       title: state.title,
       description: state.description,
       priority: state.priority,
-      status: state.status,
+      isComplete: state.isComplete,
     );
 
     await ref

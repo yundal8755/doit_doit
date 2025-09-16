@@ -1,6 +1,4 @@
-// lib/presentation/page/home/create_todo_state.dart
 import 'package:flutter/foundation.dart';
-import 'package:doit_doit/app/enum/status_enum.dart';
 import 'package:doit_doit/feature/todo/model/todo_model.dart';
 
 @immutable
@@ -8,27 +6,27 @@ class TodoFormState {
   final String title;
   final String? description;
   final String priority;
-  final String status;
+  final bool isComplete;
 
   const TodoFormState({
     required this.title,
     this.description,
     required this.priority,
-    required this.status,
+    this.isComplete = false, // 기본값 false
   });
 
-  // 편의 생성자: UI의 boolean을 Status value로 매핑
+  // 편의 생성자
   factory TodoFormState.fromRaw({
     required String title,
     String? description,
     required String priority,
-    required bool isStatusOnGoing,
+    bool isComplete = false,
   }) {
     return TodoFormState(
       title: title,
       description: description,
       priority: priority,
-      status: isStatusOnGoing ? Status.ongoing.value : Status.completed.value,
+      isComplete: isComplete,
     );
   }
 
@@ -39,20 +37,20 @@ class TodoFormState {
         title: title.trim(),
         description: description,
         priority: priority,
-        status: status,
+        isComplete: isComplete,
       );
 
   TodoFormState copyWith({
     String? title,
     String? description,
     String? priority,
-    String? statusValue,
+    bool? isComplete,
   }) {
     return TodoFormState(
       title: title ?? this.title,
       description: description ?? this.description,
       priority: priority ?? this.priority,
-      status: statusValue ?? status,
+      isComplete: isComplete ?? this.isComplete,
     );
   }
 }

@@ -30,7 +30,7 @@ class _CreateTodoPageState extends ConsumerState<CreateTodoPage>
   String _title = '';
   String? _description;
   String? _priorityText;
-  bool isStatusOnGoing = true;
+  bool isComplete = false;
 
   @override
   void dispose() {
@@ -135,13 +135,10 @@ class _CreateTodoPageState extends ConsumerState<CreateTodoPage>
                 onPressed: canCreate && !isSubmitting
                     ? () {
                         final state = TodoFormState(
-                          title: _title,
-                          description: _description,
-                          priority: _priorityText ?? '긴급',
-                          status: isStatusOnGoing
-                              ? Status.ongoing.value
-                              : Status.completed.value,
-                        );
+                            title: _title,
+                            description: _description,
+                            priority: _priorityText ?? '긴급',
+                            isComplete: isComplete);
 
                         onTapCreateBtn(ref, state);
                       }
