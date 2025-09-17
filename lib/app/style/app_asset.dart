@@ -33,4 +33,10 @@ abstract class AppAsset {
   // Special
   static const String emergencyIcon = 'assets/icons/emergency.svg';
   static const String fireIcon = 'assets/icons/fire.svg';
+
+  // Lottie
+  static const String clapPenguin = 'assets/lotties/clap_penguin.json';
+  static const String clapSmoothman = 'assets/lotties/clap_smoothman.json';
+  static const String completeCongratulation =
+      'assets/lotties/complete_congratulation.json';
 }
