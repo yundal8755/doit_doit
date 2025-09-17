@@ -120,7 +120,10 @@ mixin class TodoEvent {
     ];
     final selectedMessage = messages[random.nextInt(messages.length)];
 
+    await ref.read(updateIsCompleteProvider.notifier).update(model: todoModel);
+
     // 다이얼로그 표시
+    if (!context.mounted) return;
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -149,12 +152,13 @@ mixin class TodoEvent {
       ),
     );
 
-    // 2초 후 다이얼로그 닫고 완료 상태 업데이트
+    // 2초 후 다이얼로그 닫기
     await Future.delayed(const Duration(seconds: 2));
-    context.pop();
+    if (context.mounted) {
+      context.pop();
 
-    final model = todoModel.copyWith(isComplete: !todoModel.isComplete);
-    await ref.read(updateIsCompleteProvider.notifier).update(model: model);
-    ref.invalidate(fetchTodoProvider);
+      // 리스트 재로딩
+      ref.invalidate(fetchTodoProvider);
+    }
   }
 }

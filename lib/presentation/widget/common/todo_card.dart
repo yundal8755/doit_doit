@@ -9,24 +9,45 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 
-class TodoCard extends StatelessWidget {
+class TodoCard extends StatefulWidget {
   final TodoModel model;
-  final VoidCallback onPressed;
+  final ValueChanged<TodoModel> onTapped;
 
   const TodoCard({
     super.key,
     required this.model,
-    required this.onPressed,
+    required this.onTapped,
   });
 
-  bool get _isCompleted => model.isComplete;
+  @override
+  State<TodoCard> createState() => _TodoCardState();
+}
+
+class _TodoCardState extends State<TodoCard> {
+  late TodoModel currentModel;
+
+  @override
+  void initState() {
+    super.initState();
+    currentModel = widget.model;
+  }
+
+  bool get _isCompleted => currentModel.isComplete;
 
   @override
   Widget build(BuildContext context) {
-    final accent = _priorityAccent(model.priority);
+    final accent = _priorityAccent(currentModel.priority);
 
     return BaseButton(
-      onPressed: onPressed,
+      onPressed: () {
+        setState(() {
+          currentModel = currentModel.copyWith(
+            isComplete: !currentModel.isComplete,
+          );
+        });
+
+        widget.onTapped(currentModel);
+      },
       child: Stack(
         clipBehavior: Clip.none,
         children: [
@@ -57,81 +78,72 @@ class TodoCard extends StatelessWidget {
 
                 // 내용
                 Expanded(
-                  child: Container(
-                    color: Colors.transparent,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // 제목
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // 제목
+                      AnimatedDefaultTextStyle(
+                        duration: const Duration(milliseconds: 180),
+                        style: AppTextStyle.semi1828.copyWith(
+                          color: _isCompleted
+                              ? AppColor.gray500
+                              : AppColor.gray900,
+                          decoration:
+                              _isCompleted ? TextDecoration.lineThrough : null,
+                          decorationThickness: 1.4,
+                          decorationColor: AppColor.gray400,
+                        ),
+                        child: Text(
+                          currentModel.title,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      const Gap(4),
+
+                      // 설명
+                      if (currentModel.description != null &&
+                          currentModel.description!.isNotEmpty) ...[
                         AnimatedDefaultTextStyle(
                           duration: const Duration(milliseconds: 180),
-                          style: AppTextStyle.semi1828.copyWith(
+                          style: AppTextStyle.med1421.copyWith(
                             color: _isCompleted
                                 ? AppColor.gray500
-                                : AppColor.gray900,
-                            decoration: _isCompleted
-                                ? TextDecoration.lineThrough
-                                : null,
-                            decorationThickness: 1.4,
-                            decorationColor: AppColor.gray400,
+                                : AppColor.gray600,
                           ),
                           child: Text(
-                            model.title,
+                            currentModel.description!,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
-                        const Gap(4),
-
-                        // 설명
-                        if (model.description != null &&
-                            model.description!.isNotEmpty) ...[
-                          AnimatedDefaultTextStyle(
-                            duration: const Duration(milliseconds: 180),
-                            style: AppTextStyle.med1421.copyWith(
-                              color: _isCompleted
-                                  ? AppColor.gray500
-                                  : AppColor.gray600,
-                            ),
-                            child: Text(
-                              model.description!,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                          const Gap(6),
-                        ],
-
-                        // 하단 라벨
-                        Row(
-                          children: [
-                            // 우선순위 배지
-                            _priorityChip(model.priority,
-                                filled: !_isCompleted),
-                            Gap(8.w),
-
-                            // 생성일 (완료 시에는 표시 안함)
-                            if (!_isCompleted) ...[
-                              Icon(Icons.schedule,
-                                  size: 14.w, color: AppColor.gray400),
-                              SizedBox(width: 4.w),
-                              Text(
-                                AppDate.yyyyMMddW(model.createdAt),
-                                style: AppTextStyle.med1216
-                                    .copyWith(color: AppColor.gray500),
-                              ),
-                            ],
-                          ],
-                        ),
+                        const Gap(6),
                       ],
-                    ),
+
+                      // 하단 라벨
+                      Row(
+                        children: [
+                          _priorityChip(currentModel.priority,
+                              filled: !_isCompleted),
+                          Gap(8.w),
+                          Icon(Icons.schedule,
+                              size: 14.w, color: AppColor.gray400),
+                          SizedBox(width: 4.w),
+                          Text(
+                            AppDate.yyyyMMddW(currentModel.createdAt),
+                            style: AppTextStyle.med1216
+                                .copyWith(color: AppColor.gray500),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               ],
             ),
           ),
 
-          // 좌측 상태 스트라이프: 완료 시에는 더 옅은 회색, 진행중은 우선순위 색
+          // 좌측 상태 스트라이프
           Positioned.fill(
             left: 0,
             child: IgnorePointer(
@@ -159,14 +171,14 @@ class TodoCard extends StatelessWidget {
   }
 
   ///
-  /// 우선순위 컬러(스트라이프/배지 기준)
+  /// 우선순위 컬러
   ///
   Color _priorityAccent(String priority) {
     switch (priority) {
       case '긴급':
         return AppColor.error400;
       case '중요':
-        return const Color(0xFFF59E0B); // 살짝 따뜻한 앰버
+        return const Color(0xFFF59E0B);
       case '보통':
         return AppColor.success500;
       case '낮음':

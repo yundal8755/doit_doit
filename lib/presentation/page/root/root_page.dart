@@ -17,7 +17,11 @@ class RootPage extends StatefulWidget {
 class _RootPageState extends State<RootPage> {
   int _currentIndex = 0;
 
-  final List<Widget> _pages = const [HomePage(), CompletePage(), ProfilePage()];
+  final List<Widget> _pages = const [
+    OnGoingPage(),
+    CompletePage(),
+    ProfilePage()
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -51,17 +55,9 @@ class _RootPageState extends State<RootPage> {
             label: '완료',
           ),
           BottomNavigationBarItem(
-            icon: _currentIndex == 2
-                ? SvgPicture.asset(
-                    AppAsset.userIcon,
-                    colorFilter: const ColorFilter.mode(
-                        AppColor.primary500, BlendMode.src),
-                  )
-                : SvgPicture.asset(
-                    AppAsset.userIcon,
-                    colorFilter:
-                        const ColorFilter.mode(AppColor.gray200, BlendMode.src),
-                  ),
+            icon: SvgPicture.asset(_currentIndex == 2
+                ? AppAsset.profileFilledIcon
+                : AppAsset.profileLineIcon),
             label: '프로필',
           ),
         ],

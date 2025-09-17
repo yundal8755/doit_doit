@@ -4,8 +4,7 @@ import 'package:doit_doit/app/style/app_asset.dart';
 import 'package:doit_doit/app/style/app_color.dart';
 import 'package:doit_doit/app/style/app_text_style.dart';
 import 'package:doit_doit/feature/todo/model/todo_model.dart';
-import 'package:doit_doit/presentation/provider/todo/delete_todo_provider.dart';
-import 'package:doit_doit/presentation/provider/todo/fetch_todo_provider.dart';
+import 'package:doit_doit/presentation/widget/common/custom_end_action_pane.dart';
 import 'package:doit_doit/presentation/widget/component/button/base_button.dart';
 import 'package:doit_doit/presentation/page/home/todo_state.dart';
 import 'package:doit_doit/presentation/widget/base/base_page.dart';
@@ -19,11 +18,17 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
-class HomePage extends ConsumerWidget with TodoState, TodoEvent {
-  const HomePage({super.key});
+class OnGoingPage extends ConsumerStatefulWidget {
+  const OnGoingPage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<OnGoingPage> createState() => _OnGoingPageState();
+}
+
+class _OnGoingPageState extends ConsumerState<OnGoingPage>
+    with TodoState, TodoEvent {
+  @override
+  Widget build(BuildContext context) {
     return BasePage(
       appbar: AppBar(
         backgroundColor: AppColor.white,
@@ -71,34 +76,15 @@ class HomePage extends ConsumerWidget with TodoState, TodoEvent {
 
               return Slidable(
                 key: ValueKey(todo.id),
-                endActionPane: ActionPane(
-                  motion: const DrawerMotion(),
-                  children: [
-                    SlidableAction(
-                      onPressed: (_) =>
-                          context.push(AppRoute.edit.path, extra: todoModel),
-                      backgroundColor: AppColor.gray600,
-                      foregroundColor: Colors.white,
-                      icon: Icons.edit,
-                      label: '수정',
-                    ),
-                    SlidableAction(
-                      onPressed: (_) async {
-                        await ref
-                            .read(deleteTodoProvider.notifier)
-                            .delete(todoId: todo.id ?? '');
-                        ref.invalidate(fetchTodoProvider);
-                      },
-                      backgroundColor: AppColor.error400,
-                      foregroundColor: Colors.white,
-                      icon: Icons.delete,
-                      label: '삭제',
-                    ),
-                  ],
-                ),
-                child: TodoCard(
-                  model: todoModel,
-                  onPressed: () => onTappedTodoCard(context, ref, todoModel),
+                endActionPane: buildEndActionPane(context, ref, todoModel),
+                child: StatefulBuilder(
+                  builder: (context, setInnerState) {
+                    return TodoCard(
+                      model: todoModel,
+                      onTapped: (updatedModel) =>
+                          onTappedTodoCard(context, ref, updatedModel),
+                    );
+                  },
                 ),
               );
             },

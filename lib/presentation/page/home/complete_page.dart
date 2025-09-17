@@ -1,22 +1,18 @@
-import 'package:doit_doit/app/router/router.dart';
 import 'package:doit_doit/app/style/app_asset.dart';
 import 'package:doit_doit/app/style/app_color.dart';
 import 'package:doit_doit/app/style/app_text_style.dart';
 import 'package:doit_doit/feature/todo/model/todo_model.dart';
-import 'package:doit_doit/presentation/provider/todo/delete_todo_provider.dart';
 import 'package:doit_doit/presentation/provider/todo/fetch_todo_provider.dart';
 import 'package:doit_doit/presentation/provider/todo/update_is_complete_provider.dart';
-import 'package:doit_doit/presentation/widget/component/button/base_button.dart';
+import 'package:doit_doit/presentation/widget/common/custom_end_action_pane.dart';
 import 'package:doit_doit/presentation/page/home/todo_state.dart';
 import 'package:doit_doit/presentation/widget/base/base_page.dart';
-import 'package:doit_doit/presentation/widget/common/rounded_container.dart';
 import 'package:doit_doit/presentation/widget/common/todo_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
-import 'package:go_router/go_router.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 class CompletePage extends ConsumerWidget with TodoState {
@@ -29,14 +25,6 @@ class CompletePage extends ConsumerWidget with TodoState {
         backgroundColor: AppColor.white,
         surfaceTintColor: Colors.transparent,
         title: SvgPicture.asset(AppAsset.logo, height: 24.h),
-      ),
-      floatingActionButton: BaseButton(
-        onPressed: () => context.push(AppRoute.create.path),
-        child: RoundedContainer(
-          backgroundColor: AppColor.primary500,
-          padding: const EdgeInsets.all(16),
-          child: SvgPicture.asset(AppAsset.plusIcon),
-        ),
       ),
       child: fetchAsync(ref).when(
         loading: () => const Center(child: CircularProgressIndicator()),
@@ -70,42 +58,24 @@ class CompletePage extends ConsumerWidget with TodoState {
 
               return Slidable(
                 key: ValueKey(todo.id),
-                endActionPane: ActionPane(
-                  motion: const DrawerMotion(),
-                  children: [
-                    SlidableAction(
-                      onPressed: (_) =>
-                          context.push(AppRoute.edit.path, extra: todoModel),
-                      backgroundColor: AppColor.gray600,
-                      foregroundColor: Colors.white,
-                      icon: Icons.edit,
-                      label: '수정',
-                    ),
-                    SlidableAction(
-                      onPressed: (_) async {
+                endActionPane: buildEndActionPane(context, ref, todoModel),
+                child: StatefulBuilder(
+                  builder: (context, setInnerState) {
+                    return TodoCard(
+                      model: todoModel,
+                      onTapped: (updatedModel) async {
+                        final toggled = todoModel.copyWith(
+                            isComplete: !todoModel.isComplete);
                         await ref
-                            .read(deleteTodoProvider.notifier)
-                            .delete(todoId: todo.id ?? '');
-                        // 🔄 삭제 후 한 번만 invalidate
+                            .read(updateIsCompleteProvider.notifier)
+                            .update(model: toggled);
                         ref.invalidate(fetchTodoProvider);
+
+                        // ScaffoldMessenger.of(context).showSnackBar(
+                        //   SnackBar(content: Text('${todo.title}을 할 일로 옮겼습니다😊')),
+                        // );
                       },
-                      backgroundColor: AppColor.error400,
-                      foregroundColor: Colors.white,
-                      icon: Icons.delete,
-                      label: '삭제',
-                    ),
-                  ],
-                ),
-                child: TodoCard(
-                  model: todoModel,
-                  onPressed: () async {
-                    final toggled =
-                        todoModel.copyWith(isComplete: !todoModel.isComplete);
-                    await ref
-                        .read(updateIsCompleteProvider.notifier)
-                        .update(model: toggled);
-                    // 🔄 토글 후 갱신(스트림이면 생략 가능, 지금은 Future라 invalidate 권장)
-                    ref.invalidate(fetchTodoProvider);
+                    );
                   },
                 ),
               );
