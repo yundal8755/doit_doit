@@ -109,7 +109,7 @@ class _UpdateTodoPageState extends ConsumerState<UpdateTodoPage>
                         child: Text(
                           '우선순위',
                           style: AppTextStyle.med1421
-                              .copyWith(color: AppColor.gray400),
+                              .copyWith(color: AppColor.gray500),
                         ),
                       ),
                       Container(
@@ -117,7 +117,8 @@ class _UpdateTodoPageState extends ConsumerState<UpdateTodoPage>
                         height: 48,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
-                          border: Border.all(color: AppColor.gray400),
+                          border:
+                              Border.all(width: 0.5, color: AppColor.gray500),
                         ),
                         child: InkWell(
                           onTap: () {

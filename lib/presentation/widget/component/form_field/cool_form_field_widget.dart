@@ -45,7 +45,9 @@ class CoolFormField extends FormField<String> {
   final List<TextInputFormatter>? customInputFormatters;
   final TextInputType? customKeyboardType;
   final bool obscureTextInitially;
-  final CoolFormFieldVisualType visualType; // 추가
+  final CoolFormFieldVisualType visualType;
+  final Color? hintColor; // ✅ (요구 2) 힌트 색 오버라이드
+  final MaxLengthEnforcement? maxLengthEnforcement; // ✅ 강제 여부 선택(옵션)
 
   CoolFormField({
     super.key,
@@ -78,6 +80,8 @@ class CoolFormField extends FormField<String> {
     this.customInputFormatters,
     this.customKeyboardType,
     this.obscureTextInitially = false,
+    this.hintColor,
+    this.maxLengthEnforcement,
     required this.visualType,
   }) : super(
           initialValue:
@@ -158,7 +162,7 @@ class CoolFormField extends FormField<String> {
                       style: AppTextStyle.med1421.copyWith(
                           color: isFocused
                               ? CoolFormFieldStyle.activeColor
-                              : AppColor.gray400),
+                              : AppColor.gray500),
                     ),
                   ),
                 ],
@@ -169,8 +173,12 @@ class CoolFormField extends FormField<String> {
                     controller: state._effectiveController,
                     focusNode: state._effectiveFocusNode,
                     keyboardType: state.effectiveKeyboardType,
-                    inputFormatters: state.effectiveInputFormatters,
                     maxLength: state.widget.maxLength,
+                    maxLengthEnforcement: state.widget.maxLength != null
+                        ? (state.widget.maxLengthEnforcement ??
+                            MaxLengthEnforcement.enforced)
+                        : null,
+                    inputFormatters: state.effectiveInputFormatters,
                     readOnly: state.widget.isReadOnly,
                     obscureText: state._obscureText,
                     autofocus: state.widget.autofocus,
@@ -252,13 +260,35 @@ class _CoolFormFieldState extends FormFieldState<String> {
     return TextInputType.text;
   }
 
+// _CoolFormFieldState.effectiveInputFormatters 수정
   List<TextInputFormatter>? get effectiveInputFormatters {
+    // 1) 커스텀 포맷터가 있으면 일단 복사
     if (widget.customInputFormatters != null &&
         widget.customInputFormatters!.isNotEmpty) {
-      return widget.customInputFormatters;
-    } else if (widget.isNumber) {
-      return defaultNumberFormatter;
+      final list = [...widget.customInputFormatters!];
+      // 1-1) maxLength가 있으면 LengthLimiting을 맨 뒤에 추가(중복 방지)
+      if (widget.maxLength != null &&
+          !list.any((f) => f is LengthLimitingTextInputFormatter)) {
+        list.add(LengthLimitingTextInputFormatter(widget.maxLength));
+      }
+      return list;
     }
+
+    // 2) 숫자만
+    if (widget.isNumber) {
+      final list = [FilteringTextInputFormatter.digitsOnly];
+      // 숫자 + 길이 제한 같이 쓰는 경우
+      if (widget.maxLength != null) {
+        list.add(LengthLimitingTextInputFormatter(widget.maxLength));
+      }
+      return list;
+    }
+
+    // 3) 일반 텍스트 + 길이 제한
+    if (widget.maxLength != null) {
+      return [LengthLimitingTextInputFormatter(widget.maxLength)];
+    }
+
     return null;
   }
 
@@ -350,5 +380,6 @@ class _CoolFormFieldState extends FormFieldState<String> {
     _effectiveController.clear();
     didChange('');
     _updateStatus('', _effectiveFocusNode.hasFocus);
+    widget.onChanged?.call('');
   }
 }

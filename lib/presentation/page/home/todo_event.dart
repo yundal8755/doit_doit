@@ -153,7 +153,7 @@ mixin class TodoEvent {
     );
 
     // 2초 후 다이얼로그 닫기
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(milliseconds: 1500));
     if (context.mounted) {
       context.pop();
 

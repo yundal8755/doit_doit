@@ -34,6 +34,18 @@ class _OnGoingPageState extends ConsumerState<OnGoingPage>
         backgroundColor: AppColor.white,
         surfaceTintColor: Colors.transparent,
         title: SvgPicture.asset(AppAsset.logo, height: 24.h),
+        actions: [
+          Padding(
+            padding: EdgeInsets.only(right: 16.w),
+            child: BaseButton(
+              onPressed: () => context.push(AppRoute.profile.path),
+              child: CircleAvatar(
+                backgroundColor: AppColor.primary500,
+                child: SvgPicture.asset(AppAsset.userIcon),
+              ),
+            ),
+          ),
+        ],
       ),
       floatingActionButton: BaseButton(
         onPressed: () => context.push(AppRoute.create.path),

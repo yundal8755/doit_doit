@@ -1,3 +1,4 @@
+import 'package:doit_doit/app/router/router.dart';
 import 'package:doit_doit/app/style/app_asset.dart';
 import 'package:doit_doit/app/style/app_color.dart';
 import 'package:doit_doit/app/style/app_text_style.dart';
@@ -8,12 +9,14 @@ import 'package:doit_doit/presentation/widget/common/custom_end_action_pane.dart
 import 'package:doit_doit/presentation/page/home/todo_state.dart';
 import 'package:doit_doit/presentation/widget/base/base_page.dart';
 import 'package:doit_doit/presentation/widget/common/todo_card.dart';
+import 'package:doit_doit/presentation/widget/component/button/base_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:go_router/go_router.dart';
 
 class CompletePage extends ConsumerWidget with TodoState {
   const CompletePage({super.key});
@@ -25,6 +28,18 @@ class CompletePage extends ConsumerWidget with TodoState {
         backgroundColor: AppColor.white,
         surfaceTintColor: Colors.transparent,
         title: SvgPicture.asset(AppAsset.logo, height: 24.h),
+        actions: [
+          Padding(
+            padding: EdgeInsets.only(right: 16.w),
+            child: BaseButton(
+              onPressed: () => context.push(AppRoute.profile.path),
+              child: CircleAvatar(
+                backgroundColor: AppColor.primary500,
+                child: SvgPicture.asset(AppAsset.userIcon),
+              ),
+            ),
+          ),
+        ],
       ),
       child: fetchAsync(ref).when(
         loading: () => const Center(child: CircularProgressIndicator()),

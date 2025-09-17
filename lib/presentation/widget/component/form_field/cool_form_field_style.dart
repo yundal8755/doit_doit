@@ -56,11 +56,11 @@ class CoolFormFieldStyle {
       // 테두리(Radius 등)를 OutlineInputBorder에서 지정
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(color: borderColor, width: borderThickness),
-        borderRadius: BorderRadius.circular(12), // <-- 원하는 Radius
+        borderRadius: BorderRadius.circular(8), // <-- 원하는 Radius
       ),
       focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(color: borderColor, width: borderThickness),
-        borderRadius: BorderRadius.circular(12), // <-- 원하는 Radius
+        borderRadius: BorderRadius.circular(8), // <-- 원하는 Radius
       ),
 
       errorBorder: const OutlineInputBorder(

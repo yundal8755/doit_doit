@@ -61,32 +61,36 @@ class _CreateTodoPageState extends ConsumerState<CreateTodoPage>
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // 그룹 박스: 제목
+                  // 제목
                   CoolFormField(
                     label: '제목',
                     hintText: '예: 물마시기',
-                    validator: AppValidator.titleMax20, // 20자 초과 경고
+                    validator: AppValidator.titleMax20,
                     visualType: CoolFormFieldVisualType.outline,
+                    maxLength: 20,
                     onChanged: (value) {
                       setState(() => _title = value);
                     },
                     minLines: 1,
                     maxLines: 2,
+                    hintColor: AppColor.gray400, // ✅ 필요 시 변경 가능
                   ),
 
                   const Gap(12),
 
-                  // 그룹 박스: 세부 내용
+                  // 세부 내용
                   CoolFormField(
                     label: '세부 내용 (선택)',
                     hintText: '필요한 내용을 간단히 메모하세요',
                     visualType: CoolFormFieldVisualType.outline,
                     minLines: 4,
                     maxLines: 8,
+                    maxLength: 200,
                     validator: AppValidator.descriptionMax200,
                     onChanged: (value) {
                       setState(() => _description = value);
                     },
+                    hintColor: AppColor.gray400,
                   ),
 
                   const Gap(12),
@@ -106,7 +110,7 @@ class _CreateTodoPageState extends ConsumerState<CreateTodoPage>
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: AppColor.gray200),
+                      border: Border.all(width: 0.5, color: AppColor.gray500),
                     ),
                     child: InkWell(
                       borderRadius: BorderRadius.circular(8),

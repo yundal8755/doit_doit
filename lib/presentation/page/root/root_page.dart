@@ -2,7 +2,6 @@ import 'package:doit_doit/app/style/app_asset.dart';
 import 'package:doit_doit/app/style/app_color.dart';
 import 'package:doit_doit/presentation/page/home/complete_page.dart';
 import 'package:doit_doit/presentation/page/home/ongoing_page.dart';
-import 'package:doit_doit/presentation/page/profile/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -20,7 +19,6 @@ class _RootPageState extends State<RootPage> {
   final List<Widget> _pages = const [
     OnGoingPage(),
     CompletePage(),
-    ProfilePage()
   ];
 
   @override
@@ -53,12 +51,6 @@ class _RootPageState extends State<RootPage> {
                   : AppAsset.completeLineIcon,
             ),
             label: '완료',
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(_currentIndex == 2
-                ? AppAsset.profileFilledIcon
-                : AppAsset.profileLineIcon),
-            label: '프로필',
           ),
         ],
       ),
