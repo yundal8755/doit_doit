@@ -7,7 +7,11 @@ import 'package:doit_doit/presentation/page/profile/profile_page.dart';
 import 'package:doit_doit/presentation/page/root/root_page.dart';
 import 'package:doit_doit/presentation/page/auth/sign_in_page.dart';
 import 'package:doit_doit/presentation/page/splash/splash_page.dart';
+import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
+
+// ✅ 루트 네비게이터 키 (전역)
+final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
 
 enum AppRoute {
   profile('/profile'),
@@ -23,6 +27,7 @@ enum AppRoute {
 }
 
 final GoRouter appRouter = GoRouter(
+  navigatorKey: rootNavigatorKey,
   routes: [
     GoRoute(
       path: '/',
