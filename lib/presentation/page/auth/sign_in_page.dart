@@ -29,14 +29,13 @@ class SignInPage extends ConsumerWidget with SignInEvent {
             SvgPicture.asset(AppAsset.logo),
             const Gap(8),
             Text(
-              '프로젝트와 할 일을 스마트하게 관리하세요',
+              '할 일을 스마트하게 관리하세요',
               style: AppTextStyle.med1421.copyWith(color: AppColor.gray700),
             ),
             const Gap(48),
             Column(
               children: [
-                // TODO : 카카오 로그인 - 안드로이드도 구현되는지 확인하기
-                // TODO : Firestore DTO 대신 카카오, 네이버까지 통합된 커스텀 DTO로 회원가입/로그인 처리하기
+                // TODO : 카카오, 구글 로그인은 나중에 구현
                 _buildSocialButton(
                   text: '카카오로 계속하기',
                   backgroundColor: AppColor.kakao,

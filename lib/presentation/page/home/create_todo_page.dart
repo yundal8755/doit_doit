@@ -50,7 +50,7 @@ class _CreateTodoPageState extends ConsumerState<CreateTodoPage>
       appbar: AppBar(
         backgroundColor: Colors.white,
         surfaceTintColor: Colors.transparent,
-        shadowColor: Colors.black.withOpacity(0.1),
+        shadowColor: Colors.black.withOpacity(0.06),
         title: const Text('할 일 추가'),
       ),
       child: Column(
@@ -61,36 +61,55 @@ class _CreateTodoPageState extends ConsumerState<CreateTodoPage>
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // 그룹 박스: 제목
                   CoolFormField(
-                    label: '제목 (필수)',
-                    hintText: '무엇을 할 건가요? 예) 주간 보고서 초안 작성',
+                    label: '제목',
+                    hintText: '예: 물마시기',
                     validator: AppValidator.titleMax20, // 20자 초과 경고
                     visualType: CoolFormFieldVisualType.outline,
                     onChanged: (value) {
                       setState(() => _title = value);
                     },
+                    minLines: 1,
+                    maxLines: 2,
                   ),
-                  const Gap(16),
+
+                  const Gap(12),
+
+                  // 그룹 박스: 세부 내용
                   CoolFormField(
                     label: '세부 내용 (선택)',
-                    hintText: '다음 행동, 참고 링크, 담당자 등을 적어보세요',
+                    hintText: '필요한 내용을 간단히 메모하세요',
                     visualType: CoolFormFieldVisualType.outline,
                     minLines: 4,
                     maxLines: 8,
-                    validator: AppValidator.descriptionMax200, // 200자 초과 경고
+                    validator: AppValidator.descriptionMax200,
                     onChanged: (value) {
                       setState(() => _description = value);
                     },
                   ),
-                  const Gap(16),
+
+                  const Gap(12),
+
+                  // 우선순위: 심플하고 깔끔한 선택박스
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 4),
+                    child: Text(
+                      '우선순위',
+                      style: AppTextStyle.med1421
+                          .copyWith(color: AppColor.gray500),
+                    ),
+                  ),
                   Container(
                     key: priorityKey,
                     height: 48,
                     decoration: BoxDecoration(
+                      color: Colors.white,
                       borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: AppColor.gray400),
+                      border: Border.all(color: AppColor.gray200),
                     ),
                     child: InkWell(
+                      borderRadius: BorderRadius.circular(8),
                       onTap: () {
                         showCustomDropdown<String>(
                           context: context,
@@ -114,30 +133,41 @@ class _CreateTodoPageState extends ConsumerState<CreateTodoPage>
                               ),
                             ),
                             const Icon(Icons.arrow_drop_down,
-                                color: AppColor.gray500),
+                                color: AppColor.gray400),
                           ],
                         ),
                       ),
                     ),
+                  ),
+
+                  const Gap(8),
+
+                  // 가이드 텍스트
+                  Text(
+                    '필요 시 우선순위를 설정하세요. 기본값은 긴급입니다.',
+                    style:
+                        AppTextStyle.med1216.copyWith(color: AppColor.gray400),
                   ),
                 ],
               ),
             ),
           ),
 
-          // 하단 고정 버튼
+          // 하단 고정 버튼 (간결하고 명확)
           SafeArea(
             top: false,
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 12.0),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
               child: BaseButton(
                 onPressed: canCreate && !isSubmitting
                     ? () {
                         final model = TodoModel(
-                            title: _title,
-                            description: _description,
-                            priority: _priorityText ?? '긴급',
-                            isComplete: isComplete);
+                          title: _title.trim(),
+                          description: _description?.trim(),
+                          priority: _priorityText ?? '보통',
+                          isComplete: isComplete,
+                        );
 
                         onTapCreateBtn(ref, model);
                       }
@@ -150,7 +180,7 @@ class _CreateTodoPageState extends ConsumerState<CreateTodoPage>
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        isSubmitting ? '저장 중...' : '추가하기',
+                        isSubmitting ? '저장 중...' : '저장',
                         style: AppTextStyle.med1421.copyWith(
                           color: (canCreate && !isSubmitting)
                               ? AppColor.white

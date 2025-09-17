@@ -4,6 +4,7 @@ import 'package:doit_doit/app/style/app_color.dart';
 import 'package:doit_doit/app/style/app_text_style.dart';
 import 'package:doit_doit/feature/todo/model/todo_model.dart';
 import 'package:doit_doit/presentation/provider/todo/delete_todo_provider.dart';
+import 'package:doit_doit/presentation/provider/todo/fetch_todo_provider.dart';
 import 'package:doit_doit/presentation/provider/todo/update_is_complete_provider.dart';
 import 'package:doit_doit/presentation/widget/component/button/base_button.dart';
 import 'package:doit_doit/presentation/page/home/todo_state.dart';
@@ -28,18 +29,6 @@ class CompletePage extends ConsumerWidget with TodoState {
         backgroundColor: AppColor.white,
         surfaceTintColor: Colors.transparent,
         title: SvgPicture.asset(AppAsset.logo, height: 24.h),
-        actions: [
-          Padding(
-            padding: EdgeInsets.only(right: 16.w),
-            child: BaseButton(
-              onPressed: () => context.push(AppRoute.profile.path),
-              child: CircleAvatar(
-                backgroundColor: AppColor.primary500,
-                child: SvgPicture.asset(AppAsset.userIcon),
-              ),
-            ),
-          ),
-        ],
       ),
       floatingActionButton: BaseButton(
         onPressed: () => context.push(AppRoute.create.path),
@@ -52,11 +41,13 @@ class CompletePage extends ConsumerWidget with TodoState {
       child: fetchAsync(ref).when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (e, st) => Center(child: Text('에러: $e')),
-        data: (todoList) {
+        data: (buckets) {
+          final todoList = buckets.completed;
+
           if (todoList.isEmpty) {
             return Center(
               child: Text(
-                '진행 중인 할 일이 없습니다.',
+                '완료한 할 일이 없습니다.',
                 style: AppTextStyle.med1421.copyWith(color: AppColor.gray600),
               ),
             );
@@ -69,7 +60,6 @@ class CompletePage extends ConsumerWidget with TodoState {
               final todo = todoList[index];
               if (todo == null) return const SizedBox.shrink();
 
-              // Request에 사용되므로 Model 사용
               final todoModel = TodoModel(
                 id: todo.id,
                 title: todo.title,
@@ -83,7 +73,6 @@ class CompletePage extends ConsumerWidget with TodoState {
                 endActionPane: ActionPane(
                   motion: const DrawerMotion(),
                   children: [
-                    // 수정
                     SlidableAction(
                       onPressed: (_) =>
                           context.push(AppRoute.edit.path, extra: todoModel),
@@ -92,13 +81,13 @@ class CompletePage extends ConsumerWidget with TodoState {
                       icon: Icons.edit,
                       label: '수정',
                     ),
-
-                    // 삭제
                     SlidableAction(
                       onPressed: (_) async {
                         await ref
                             .read(deleteTodoProvider.notifier)
                             .delete(todoId: todo.id ?? '');
+                        // 🔄 삭제 후 한 번만 invalidate
+                        ref.invalidate(fetchTodoProvider);
                       },
                       backgroundColor: AppColor.error400,
                       foregroundColor: Colors.white,
@@ -110,9 +99,13 @@ class CompletePage extends ConsumerWidget with TodoState {
                 child: TodoCard(
                   model: todoModel,
                   onPressed: () async {
+                    final toggled =
+                        todoModel.copyWith(isComplete: !todoModel.isComplete);
                     await ref
                         .read(updateIsCompleteProvider.notifier)
-                        .update(model: todoModel);
+                        .update(model: toggled);
+                    // 🔄 토글 후 갱신(스트림이면 생략 가능, 지금은 Future라 invalidate 권장)
+                    ref.invalidate(fetchTodoProvider);
                   },
                 ),
               );

@@ -1,11 +1,18 @@
+import 'dart:math';
+
+import 'package:doit_doit/app/style/app_asset.dart';
 import 'package:doit_doit/app/util/app_log.dart';
 import 'package:doit_doit/feature/todo/model/todo_model.dart';
 import 'package:doit_doit/presentation/provider/todo/create_todo_provider.dart';
+import 'package:doit_doit/presentation/provider/todo/fetch_todo_provider.dart';
+import 'package:doit_doit/presentation/provider/todo/update_is_complete_provider.dart';
 import 'package:doit_doit/presentation/provider/todo/update_todo_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 
 mixin class TodoEvent {
   ///
@@ -37,7 +44,7 @@ mixin class TodoEvent {
   }
 
   ///
-  /// 새 할 일 생성 상태 리스너
+  /// 할 일 업데이트 상태 리스너
   ///
   void updateTodoListeners(WidgetRef ref) {
     AppLog.i('todo listener 실행!');
@@ -90,5 +97,64 @@ mixin class TodoEvent {
   ) async {
     AppLog.d('onTapUpdateBtn');
     await ref.read(updateTodoProvider.notifier).update(model: model);
+  }
+
+  ///
+  /// 할 일 카드 클릭시
+  ///
+  Future<void> onTappedTodoCard(
+      BuildContext context, WidgetRef ref, TodoModel todoModel) async {
+    final animations = [
+      AppAsset.clapPenguin,
+      AppAsset.clapSmoothman,
+      AppAsset.completeCongratulation,
+    ];
+
+    final random = Random();
+    final selectedAnimation = animations[random.nextInt(animations.length)];
+
+    final messages = [
+      "👏 잘했어요!",
+      "🎉 멋지게 완료했네요!",
+      "✅ 작업 완료!",
+    ];
+    final selectedMessage = messages[random.nextInt(messages.length)];
+
+    // 다이얼로그 표시
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(
+              width: 240.w,
+              height: 240.w,
+              child: Lottie.asset(
+                selectedAnimation,
+                fit: BoxFit.contain,
+              ),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              selectedMessage,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+
+    // 2초 후 다이얼로그 닫고 완료 상태 업데이트
+    await Future.delayed(const Duration(seconds: 2));
+    context.pop();
+
+    final model = todoModel.copyWith(isComplete: !todoModel.isComplete);
+    await ref.read(updateIsCompleteProvider.notifier).update(model: model);
+    ref.invalidate(fetchTodoProvider);
   }
 }

@@ -33,23 +33,21 @@ class ProfilePage extends ConsumerWidget {
               Column(
                 children: [
                   const Gap(24),
-                  SizedBox(
-                    width: 96.w,
-                    height: 96.h,
-                    child: ClipOval(
-                      child: CachedNetworkImage(
-                        fit: BoxFit.cover,
-                        imageUrl:
-                            // user.profileImageUrl ?? '',
-                            '',
-                        placeholder: (context, url) =>
-                            const CircularProgressIndicator(),
-                        errorWidget: (context, url, error) => Container(
-                            color: AppColor.primary600,
-                            child: const Icon(Icons.error)),
-                      ),
-                    ),
-                  ),
+                  // SizedBox(
+                  //   width: 96.w,
+                  //   height: 96.h,
+                  //   child: ClipOval(
+                  //     child: CachedNetworkImage(
+                  //       fit: BoxFit.cover,
+                  //       imageUrl: user?.profileImageUrl ?? '',
+                  //       placeholder: (context, url) =>
+                  //           const CircularProgressIndicator(),
+                  //       errorWidget: (context, url, error) => Container(
+                  //           color: AppColor.primary600,
+                  //           child: const Icon(Icons.error)),
+                  //     ),
+                  //   ),
+                  // ),
                   const Gap(16),
                   Text(
                     user?.nickname ?? '닉네임 없음',

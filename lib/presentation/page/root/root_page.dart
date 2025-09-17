@@ -2,6 +2,7 @@ import 'package:doit_doit/app/style/app_asset.dart';
 import 'package:doit_doit/app/style/app_color.dart';
 import 'package:doit_doit/presentation/page/home/complete_page.dart';
 import 'package:doit_doit/presentation/page/home/ongoing_page.dart';
+import 'package:doit_doit/presentation/page/profile/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -16,7 +17,7 @@ class RootPage extends StatefulWidget {
 class _RootPageState extends State<RootPage> {
   int _currentIndex = 0;
 
-  final List<Widget> _pages = const [OnGoingPage(), CompletePage()];
+  final List<Widget> _pages = const [HomePage(), CompletePage(), ProfilePage()];
 
   @override
   Widget build(BuildContext context) {
@@ -36,10 +37,10 @@ class _RootPageState extends State<RootPage> {
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
               _currentIndex == 0
-                  ? AppAsset.progressFilledIcon
-                  : AppAsset.progressLineIcon,
+                  ? AppAsset.checkboxFilledIcon
+                  : AppAsset.checkboxLineIcon,
             ),
-            label: '진행중',
+            label: '할 일',
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
@@ -48,6 +49,20 @@ class _RootPageState extends State<RootPage> {
                   : AppAsset.completeLineIcon,
             ),
             label: '완료',
+          ),
+          BottomNavigationBarItem(
+            icon: _currentIndex == 2
+                ? SvgPicture.asset(
+                    AppAsset.userIcon,
+                    colorFilter: const ColorFilter.mode(
+                        AppColor.primary500, BlendMode.src),
+                  )
+                : SvgPicture.asset(
+                    AppAsset.userIcon,
+                    colorFilter:
+                        const ColorFilter.mode(AppColor.gray200, BlendMode.src),
+                  ),
+            label: '프로필',
           ),
         ],
       ),

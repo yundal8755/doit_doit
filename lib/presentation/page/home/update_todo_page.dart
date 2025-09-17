@@ -101,42 +101,56 @@ class _UpdateTodoPageState extends ConsumerState<UpdateTodoPage>
                     },
                   ),
                   const Gap(16),
-                  Container(
-                    key: priorityKey,
-                    height: 48,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: AppColor.gray400),
-                    ),
-                    child: InkWell(
-                      onTap: () {
-                        showCustomDropdown<String>(
-                          context: context,
-                          anchorKey: priorityKey,
-                          items: Priority.values.map((e) => e.value).toList(),
-                          backgroundColor: AppColor.gray200,
-                          onItemSelected: (value) {
-                            setState(() => _priorityText = value);
-                          },
-                        );
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 12),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              _priorityText ?? '긴급',
-                              style: AppTextStyle.med1421.copyWith(
-                                color: AppColor.gray900,
-                              ),
-                            ),
-                            const Icon(Icons.arrow_drop_down,
-                                color: AppColor.gray500),
-                          ],
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 4),
+                        child: Text(
+                          '우선순위',
+                          style: AppTextStyle.med1421
+                              .copyWith(color: AppColor.gray400),
                         ),
                       ),
-                    ),
+                      Container(
+                        key: priorityKey,
+                        height: 48,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(color: AppColor.gray400),
+                        ),
+                        child: InkWell(
+                          onTap: () {
+                            showCustomDropdown<String>(
+                              context: context,
+                              anchorKey: priorityKey,
+                              items:
+                                  Priority.values.map((e) => e.value).toList(),
+                              backgroundColor: AppColor.gray200,
+                              onItemSelected: (value) {
+                                setState(() => _priorityText = value);
+                              },
+                            );
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 12),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  _priorityText ?? '긴급',
+                                  style: AppTextStyle.med1421.copyWith(
+                                    color: AppColor.gray900,
+                                  ),
+                                ),
+                                const Icon(Icons.arrow_drop_down,
+                                    color: AppColor.gray500),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
