@@ -17,6 +17,8 @@ abstract class AppAsset {
   static const String progressLineIcon = 'assets/icons/progress_line.svg';
   static const String completeFilledIcon = 'assets/icons/complete_filled.svg';
   static const String completeLineIcon = 'assets/icons/complete_line.svg';
+  static const String profileFilledIcon = 'assets/icons/profile_filled.svg';
+  static const String profileLineIcon = 'assets/icons/profile_line.svg';
 
   // Common UI
   static const String arrowDownIcon = 'assets/icons/arrow_down.svg';
