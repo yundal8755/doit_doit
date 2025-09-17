@@ -4,13 +4,14 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: ">=3.0.6 <4.0.0"
+  sdk: ">=3.6.0 <4.0.0"   # ✅ lottie ^3.3.0을 위해 최소 3.6.0으로 올림
 
 dependencies:
   flutter:
     sdk: flutter
 
   # 📦 의존성 패키지 (a~z 순 정렬)
+  cached_network_image: ^3.4.1       # 네트워크 이미지 캐싱
   cloud_firestore: ^5.6.12           # Firebase Cloud Firestore DB
   cupertino_icons: ^1.0.8            # iOS 스타일 아이콘
   easy_localization: ^3.0.8          # 다국어/다언어 지원
@@ -22,6 +23,7 @@ dependencies:
   flutter_riverpod: ^2.6.1           # Riverpod 상태관리
   flutter_screenutil: ^5.9.3         # 반응형 UI (해상도 대응)
   flutter_secure_storage: ^9.2.4     # 보안 스토리지 (Keychain/Keystore)
+  flutter_slidable: ^3.1.2           # 리스트 슬라이드 액션
   flutter_svg: ^2.1.0                # SVG 이미지 렌더링
   freezed: ^2.5.7                    # 불변 객체/데이터 클래스 생성
   gap: ^3.0.1                        # 위젯 간 간격(Spacing) 간단 처리
@@ -31,14 +33,13 @@ dependencies:
   image_picker: ^1.1.2               # 갤러리/카메라 이미지 선택
   json_annotation: ^4.9.0            # JSON 직렬화 어노테이션
   json_serializable: ^6.9.0          # JSON 코드 자동 생성
+  kakao_flutter_sdk: ^1.9.3          # 카카오 로그인 SDK
   logger: ^2.6.0                     # 로그 출력 도구
+  lottie: ^3.3.0                     # 로티 애니메이션
+  naver_login_sdk: ^3.0.2            # 네이버 로그인
   permission_handler: ^12.0.1        # 권한 요청/체크
   riverpod_annotation: ^2.6.1        # Riverpod 코드 생성 어노테이션
-  cached_network_image: ^3.4.1
-  sign_in_with_apple: ^7.0.1
-  naver_login_sdk: ^3.0.2
-  kakao_flutter_sdk: ^1.9.3
-  flutter_slidable: ^3.1.2
+  sign_in_with_apple: ^7.0.1         # 애플 로그인
 
 dev_dependencies:
   flutter_test:
@@ -61,6 +62,7 @@ flutter:
     - assets/fonts/pretendard/
     - assets/icons/
     - assets/images/
+    - assets/lotties/
     - assets/translations/
 
   fonts:
