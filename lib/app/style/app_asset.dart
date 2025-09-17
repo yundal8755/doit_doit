@@ -1,12 +1,16 @@
 abstract class AppAsset {
-  // Logo
+  ///
+  /// Logo
+  ///
   static const String logo = 'assets/icons/logo.svg';
   static const String kakao = 'assets/icons/kakao_logo.svg';
   static const String naver = 'assets/icons/naver_logo.svg';
   static const String google = 'assets/icons/google_logo.svg';
   static const String apple = 'assets/icons/apple_logo.svg';
 
-  // 하단바
+  ///
+  /// 하단바
+  ///
   static const String homeFilledIcon = 'assets/icons/home_filled.svg';
   static const String homeLineIcon = 'assets/icons/home_line.svg';
   static const String folderFilledIcon = 'assets/icons/folder_filled.svg';
@@ -20,7 +24,9 @@ abstract class AppAsset {
   static const String profileFilledIcon = 'assets/icons/profile_filled.svg';
   static const String profileLineIcon = 'assets/icons/profile_line.svg';
 
-  // Common UI
+  ///
+  /// Common UI
+  ///
   static const String arrowDownIcon = 'assets/icons/arrow_down.svg';
   static const String bookmarkIcon = 'assets/icons/bookmark.svg';
   static const String checkboxCheckedIcon = 'assets/icons/checkbox_checked.svg';
@@ -32,11 +38,21 @@ abstract class AppAsset {
   static const String userIcon = 'assets/icons/user.svg';
   static const String calendarIcon = 'assets/icons/calendar.svg';
 
-  // Special
+  static const String privacyPolicyIcon = 'assets/icons/privacy_policy.svg';
+  static const String termsOfServiceIcon = 'assets/icons/terms_of_service.svg';
+  static const String chevronRightIcon = 'assets/icons/chevron_right.svg';
+  static const String logoutIcon = 'assets/icons/logout.svg';
+  static const String deleteAccountIcon = 'assets/icons/delete_account.svg';
+
+  ///
+  /// Special
+  ///
   static const String emergencyIcon = 'assets/icons/emergency.svg';
   static const String fireIcon = 'assets/icons/fire.svg';
 
-  // Lottie
+  ///
+  /// Lottie
+  ///
   static const String clapPenguin = 'assets/lotties/clap_penguin.json';
   static const String clapSmoothman = 'assets/lotties/clap_smoothman.json';
   static const String completeCongratulation =
