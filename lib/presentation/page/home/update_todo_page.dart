@@ -70,136 +70,149 @@ class _UpdateTodoPageState extends ConsumerState<UpdateTodoPage>
         shadowColor: Colors.black.withOpacity(0.1),
         title: const Text('할 일 수정'),
       ),
-      child: Column(
-        children: [
-          // 본문 (폼 양식)
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CoolFormField(
-                    label: '제목 (필수)',
-                    hintText: '무엇을 할 건가요? 예) 주간 보고서 초안 작성',
-                    initialValue: _title,
-                    validator: AppValidator.titleMax20, // 20자 초과 경고
-                    visualType: CoolFormFieldVisualType.outline,
-                    onChanged: (value) {
-                      setState(() => _title = value);
-                    },
-                  ),
-                  const Gap(16),
-                  CoolFormField(
-                    label: '세부 내용 (선택)',
-                    hintText: '다음 행동, 참고 링크, 담당자 등을 적어보세요',
-                    initialValue: _description,
-                    visualType: CoolFormFieldVisualType.outline,
-                    minLines: 4,
-                    maxLines: 8,
-                    validator: AppValidator.descriptionMax200, // 200자 초과 경고
-                    onChanged: (value) {
-                      setState(() => _description = value);
-                    },
-                  ),
-                  const Gap(16),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 4),
-                        child: Text(
-                          '우선순위',
-                          style: AppTextStyle.med1421
-                              .copyWith(color: AppColor.gray500),
+      child: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: Column(
+          children: [
+            // 본문 (폼 양식)
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CoolFormField(
+                      label: '제목 (필수)',
+                      hintText: '무엇을 할 건가요? 예) 주간 보고서 초안 작성',
+                      initialValue: _title,
+                      validator: AppValidator.titleMax20, // 20자 초과 경고
+                      visualType: CoolFormFieldVisualType.outline,
+                      onChanged: (value) {
+                        setState(() => _title = value);
+                      },
+                    ),
+                    const Gap(16),
+                    CoolFormField(
+                      label: '세부 내용 (선택)',
+                      hintText: '다음 행동, 참고 링크, 담당자 등을 적어보세요',
+                      initialValue: _description,
+                      visualType: CoolFormFieldVisualType.outline,
+                      minLines: 4,
+                      maxLines: 8,
+                      validator: AppValidator.descriptionMax200, // 200자 초과 경고
+                      onChanged: (value) {
+                        setState(() => _description = value);
+                      },
+                    ),
+                    const Gap(16),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 4),
+                          child: Text(
+                            '우선순위',
+                            style: AppTextStyle.med1421
+                                .copyWith(color: AppColor.gray500),
+                          ),
                         ),
-                      ),
-                      Container(
-                        key: priorityKey,
-                        height: 48,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          border:
-                              Border.all(width: 0.5, color: AppColor.gray500),
-                        ),
-                        child: InkWell(
-                          onTap: () {
-                            showCustomDropdown<String>(
-                              context: context,
-                              anchorKey: priorityKey,
-                              items:
-                                  Priority.values.map((e) => e.value).toList(),
-                              backgroundColor: AppColor.gray200,
-                              onItemSelected: (value) {
-                                setState(() => _priorityText = value);
-                              },
-                            );
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 12),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  _priorityText ?? '긴급',
-                                  style: AppTextStyle.med1421.copyWith(
-                                    color: AppColor.gray900,
+                        Container(
+                          key: priorityKey,
+                          height: 48,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            border:
+                                Border.all(width: 0.5, color: AppColor.gray500),
+                          ),
+                          child: InkWell(
+                            onTap: () {
+                              // 키보드가 올라와 있으면 내리기
+                              FocusScope.of(context).unfocus();
+
+                              // 드롭다운 표시
+                              showCustomDropdown<String>(
+                                context: context,
+                                anchorKey: priorityKey,
+                                items: Priority.values
+                                    .map((e) => e.value)
+                                    .toList(),
+                                backgroundColor: AppColor.gray200,
+                                onItemSelected: (value) {
+                                  setState(() => _priorityText = value);
+                                },
+                              );
+                            },
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 12),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    _priorityText ?? '긴급',
+                                    style: AppTextStyle.med1421.copyWith(
+                                      color: AppColor.gray900,
+                                    ),
                                   ),
-                                ),
-                                const Icon(Icons.arrow_drop_down,
-                                    color: AppColor.gray500),
-                              ],
+                                  const Icon(Icons.arrow_drop_down,
+                                      color: AppColor.gray500),
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
 
-          // 하단 고정 버튼
-          SafeArea(
-            top: false,
-            child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
-              child: BaseButton(
-                onPressed: canCreate && !isSubmitting
-                    ? () {
-                        final model = TodoModel(
-                            id: widget.todoModel.id,
-                            title: _title,
-                            description: _description,
-                            priority: _priorityText ?? '긴급',
-                            isComplete: isComplete);
+            // 하단 고정 버튼
+            SafeArea(
+              top: false,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                    vertical: 12.0, horizontal: 16.0),
+                child: BaseButton(
+                  onPressed: canCreate && !isSubmitting
+                      ? () {
+                          // 키보드 내리기
+                          FocusScope.of(context).unfocus();
 
-                        onTapUpdateBtn(ref, model);
-                      }
-                    : null,
-                child: RoundedContainer(
-                  backgroundColor: (canCreate && !isSubmitting)
-                      ? AppColor.primary500
-                      : AppColor.gray300,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        isSubmitting ? '저장 중...' : '수정하기',
-                        style: AppTextStyle.med1421.copyWith(
-                          color: (canCreate && !isSubmitting)
-                              ? AppColor.white
-                              : AppColor.gray600,
+                          final model = TodoModel(
+                              id: widget.todoModel.id,
+                              title: _title,
+                              description: _description,
+                              priority: _priorityText ?? '긴급',
+                              isComplete: isComplete);
+
+                          onTapUpdateBtn(ref, model);
+                        }
+                      : null,
+                  child: RoundedContainer(
+                    backgroundColor: (canCreate && !isSubmitting)
+                        ? AppColor.primary500
+                        : AppColor.gray300,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          isSubmitting ? '저장 중...' : '수정하기',
+                          style: AppTextStyle.med1421.copyWith(
+                            color: (canCreate && !isSubmitting)
+                                ? AppColor.white
+                                : AppColor.gray600,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
