@@ -3,6 +3,7 @@ import 'package:doit_doit/app/router/router.dart';
 import 'package:doit_doit/app/style/app_asset.dart';
 import 'package:doit_doit/app/style/app_color.dart';
 import 'package:doit_doit/app/style/app_text_style.dart';
+import 'package:doit_doit/presentation/provider/user/delete_account_provider.dart';
 import 'package:doit_doit/presentation/widget/component/alert_dialog/cool_alert_dialog.dart';
 import 'package:doit_doit/presentation/widget/component/button/base_button.dart';
 import 'package:doit_doit/presentation/provider/user/user_provider.dart';
@@ -188,9 +189,29 @@ class ProfilePage extends ConsumerWidget {
         leftBtnContent: "취소",
         rightBtnContent: "탈퇴하기",
         onLeftBtnClicked: () => context.pop(),
-        onRightBtnClicked: () {
-          ref.read(signOutUseCaseProvider).call();
-          context.go(AppRoute.signIn.path);
+        onRightBtnClicked: () async {
+          final result =
+              await ref.read(deleteAccountProvider.notifier).delete();
+
+          result.fold(
+            onSuccess: (_) {
+              // close dialog then navigate to sign-in
+              context.pop();
+              context.go(AppRoute.signIn.path);
+            },
+            onFailure: (e) {
+              // keep dialog open and show error alert
+              showDialog(
+                context: context,
+                builder: (_) => CoolAlertDialog.singleBtn(
+                  title: "탈퇴 실패",
+                  subTitle: '탈퇴 중 오류가 발생했습니다\n잠시 후 다시 시도해주세요.',
+                  btnContent: "확인",
+                  onBtnClicked: () => context.pop(),
+                ),
+              );
+            },
+          );
         },
       ),
     );

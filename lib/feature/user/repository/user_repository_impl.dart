@@ -26,4 +26,8 @@ final class UserRepositoryImpl implements UserRepository {
     );
     return userEntity;
   }
+
+  @override
+  Future<void> deleteUser(String platformUuid) =>
+      _remote.deleteUser(platformUuid);
 }

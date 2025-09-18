@@ -91,17 +91,85 @@ final class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   ///
   @override
   Future<void> signOut() async {
-    // await _googleSignIn.signOut();
     await _auth.signOut();
     try {
       AppLog.i('로그아웃 되었습니디ㅏ');
-
-      // await kakao.UserApi.instance.logout();
-      // AppLog.i('KAKAO LOGOUT SUCCESS');
     } catch (e) {
       AppLog.e('로그아웃에 문제가 있습니다: $e');
+    }
+  }
 
-      // AppLog.e('KAKAO LOGOUT FAILED: $e');
+  ///
+  /// 최근 로그인 필요 에러(requires-recent-login) 처리 포함
+  ///
+  @override
+  Future<void> deleteCurrentUser() async {
+    final user = _auth.currentUser;
+    if (user == null) {
+      throw fb.FirebaseAuthException(
+          code: 'no-current-user', message: '로그인이 필요합니다.');
+    }
+
+    Future<void> reauth() async {
+      final providerIds = user.providerData.map((p) => p.providerId).toList();
+      AppLog.i('providerIds: $providerIds');
+
+      if (providerIds.contains('google.com')) {
+        var googleUser = await _googleSignIn.signInSilently();
+        googleUser ??= await _googleSignIn.signIn();
+        if (googleUser == null) {
+          throw fb.FirebaseAuthException(
+              code: 'reauth-canceled', message: '재인증 취소');
+        }
+        final token = await googleUser.authentication;
+        final cred = fb.GoogleAuthProvider.credential(
+          accessToken: token.accessToken,
+          idToken: token.idToken,
+        );
+        await user.reauthenticateWithCredential(cred);
+        return;
+      }
+
+      if (providerIds.contains('apple.com')) {
+        try {
+          final apple = await SignInWithApple.getAppleIDCredential(
+            scopes: [
+              AppleIDAuthorizationScopes.email,
+              AppleIDAuthorizationScopes.fullName
+            ],
+          );
+          final cred = fb.OAuthProvider('apple.com').credential(
+            idToken: apple.identityToken,
+            accessToken: apple.authorizationCode,
+          );
+          await user.reauthenticateWithCredential(cred);
+          return;
+        } on PlatformException catch (e) {
+          if (e.code == 'CANCELED') {
+            throw fb.FirebaseAuthException(
+                code: 'reauth-canceled', message: '재인증 취소');
+          }
+          rethrow;
+        }
+      }
+
+      // 그 외 공급자는 앱 정책에 맞게 분기
+      throw fb.FirebaseAuthException(
+        code: 'unsupported-provider',
+        message: '지원되지 않는 로그인 방식입니다. 다시 로그인 후 시도해주세요.',
+      );
+    }
+
+    try {
+      await user.delete();
+    } on fb.FirebaseAuthException catch (e) {
+      if (e.code == 'requires-recent-login') {
+        AppLog.i('재인증 시도...');
+        await reauth();
+        await user.delete();
+      } else {
+        rethrow;
+      }
     }
   }
 }

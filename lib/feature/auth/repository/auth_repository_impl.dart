@@ -45,4 +45,8 @@ final class AuthRepositoryImpl implements AuthRepository {
 
     return !userDoc.exists;
   }
+
+  /// FirebaseAuth 현재 계정 삭제(재인증 포함)
+  @override
+  Future<void> deleteUser() => _authRemoteDataSource.deleteCurrentUser();
 }

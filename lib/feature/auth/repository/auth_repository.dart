@@ -17,4 +17,9 @@ abstract interface class AuthRepository {
   /// 유저가 처음으로 로그인하는건지 Firestore 통해서 확인
   ///
   Future<bool> isFirstLogin(String uid);
+
+  ///
+  /// 현재 로그인한 유저 삭제(재인증 포함)
+  ///
+  Future<void> deleteUser();
 }

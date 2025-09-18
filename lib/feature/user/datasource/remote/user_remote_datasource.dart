@@ -10,4 +10,9 @@ abstract interface class UserRemoteDatasource {
   /// 유저 정보 불러오기
   ///
   Future<UserDto?> fetchUser(String platformUuid);
+
+  ///
+  /// 유저 정보 삭제
+  ///
+  Future<void> deleteUser(String platformUuid);
 }

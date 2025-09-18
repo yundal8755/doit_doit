@@ -92,5 +92,23 @@ final createUserUsecaseProvider =
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef CreateUserUsecaseRef = AutoDisposeProviderRef<CreateUserUsecase>;
+String _$deleteUserUsecaseHash() => r'45b50d5e7ddb21985e072b349a9186eb3af6fc29';
+
+/// See also [deleteUserUsecase].
+@ProviderFor(deleteUserUsecase)
+final deleteUserUsecaseProvider =
+    AutoDisposeProvider<DeleteAccountUseCase>.internal(
+  deleteUserUsecase,
+  name: r'deleteUserUsecaseProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$deleteUserUsecaseHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef DeleteUserUsecaseRef = AutoDisposeProviderRef<DeleteAccountUseCase>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
