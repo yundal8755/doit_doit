@@ -91,13 +91,17 @@ final class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   ///
   @override
   Future<void> signOut() async {
-    await _googleSignIn.signOut();
+    // await _googleSignIn.signOut();
     await _auth.signOut();
     try {
-      await kakao.UserApi.instance.logout();
-      AppLog.i('KAKAO LOGOUT SUCCESS');
+      AppLog.i('로그아웃 되었습니디ㅏ');
+
+      // await kakao.UserApi.instance.logout();
+      // AppLog.i('KAKAO LOGOUT SUCCESS');
     } catch (e) {
-      AppLog.e('KAKAO LOGOUT FAILED: $e');
+      AppLog.e('로그아웃에 문제가 있습니다: $e');
+
+      // AppLog.e('KAKAO LOGOUT FAILED: $e');
     }
   }
 }

@@ -1,6 +1,6 @@
 enum SocialLoginPlatform {
   google,
   apple,
-  kakao,
-  naver;
+  // kakao,
+  // naver;
 }

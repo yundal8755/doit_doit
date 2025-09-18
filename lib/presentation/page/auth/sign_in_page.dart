@@ -35,24 +35,23 @@ class SignInPage extends ConsumerWidget with SignInEvent {
             const Gap(48),
             Column(
               children: [
-                // TODO : 카카오, 구글 로그인은 나중에 구현
-                _buildSocialButton(
-                  text: '카카오로 계속하기',
-                  backgroundColor: AppColor.kakao,
-                  textColor: AppColor.black,
-                  onPressed: () =>
-                      notifier.signIn(ref, SocialLoginPlatform.kakao),
-                  icon: SvgPicture.asset(AppAsset.kakao),
-                ),
-                const Gap(16),
-                _buildSocialButton(
-                  text: '네이버로 계속하기',
-                  backgroundColor: AppColor.naver,
-                  textColor: AppColor.white,
-                  onPressed: () => onClickedNaverSignInButton(ref: ref),
-                  icon: SvgPicture.asset(AppAsset.naver),
-                ),
-                const Gap(16),
+                // _buildSocialButton(
+                //   text: '카카오로 계속하기',
+                //   backgroundColor: AppColor.kakao,
+                //   textColor: AppColor.black,
+                //   onPressed: () =>
+                //       notifier.signIn(ref, SocialLoginPlatform.kakao),
+                //   icon: SvgPicture.asset(AppAsset.kakao),
+                // ),
+                // const Gap(16),
+                // _buildSocialButton(
+                //   text: '네이버로 계속하기',
+                //   backgroundColor: AppColor.naver,
+                //   textColor: AppColor.white,
+                //   onPressed: () => onClickedNaverSignInButton(ref: ref),
+                //   icon: SvgPicture.asset(AppAsset.naver),
+                // ),
+                // const Gap(16),
                 _buildSocialButton(
                   borderColor: AppColor.gray300,
                   text: 'Google로 계속하기',
