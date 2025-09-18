@@ -6,7 +6,7 @@ import 'package:doit_doit/presentation/widget/component/button/base_button.dart'
 import 'package:doit_doit/presentation/widget/component/drop_down/cool_drop_down.dart';
 import 'package:doit_doit/presentation/widget/component/form_field/cool_form_field_widget.dart';
 import 'package:doit_doit/presentation/page/home/todo_event.dart';
-import 'package:doit_doit/presentation/provider/todo/create_todo_provider.dart';
+import 'package:doit_doit/presentation/provider/todo/update_todo_provider.dart';
 import 'package:doit_doit/presentation/widget/base/base_page.dart';
 import 'package:doit_doit/presentation/widget/common/rounded_container.dart';
 import 'package:flutter/material.dart';
@@ -52,12 +52,13 @@ class _UpdateTodoPageState extends ConsumerState<UpdateTodoPage>
 
   @override
   Widget build(BuildContext context) {
-    AppLog.d(widget.todoModel.toString());
-
-    final createState = ref.watch(createTodoProvider);
-    final isSubmitting = createState.isLoading;
+    final updateState = ref.watch(updateTodoProvider);
+    final isSubmitting = updateState.isLoading;
     final GlobalKey priorityKey = GlobalKey();
     final bool canCreate = _title.trim().isNotEmpty;
+
+    // 로그
+    AppLog.d(widget.todoModel.toString());
 
     // 업데이트 상태 리스너
     updateTodoListeners(ref);
@@ -162,7 +163,8 @@ class _UpdateTodoPageState extends ConsumerState<UpdateTodoPage>
           SafeArea(
             top: false,
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 12.0),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
               child: BaseButton(
                 onPressed: canCreate && !isSubmitting
                     ? () {

@@ -73,7 +73,7 @@ class _CreateTodoPageState extends ConsumerState<CreateTodoPage>
                     },
                     minLines: 1,
                     maxLines: 2,
-                    hintColor: AppColor.gray400, // ✅ 필요 시 변경 가능
+                    hintColor: AppColor.gray400,
                   ),
 
                   const Gap(12),
@@ -95,7 +95,6 @@ class _CreateTodoPageState extends ConsumerState<CreateTodoPage>
 
                   const Gap(12),
 
-                  // 우선순위: 심플하고 깔끔한 선택박스
                   Padding(
                     padding: const EdgeInsets.only(bottom: 4),
                     child: Text(
@@ -157,7 +156,7 @@ class _CreateTodoPageState extends ConsumerState<CreateTodoPage>
             ),
           ),
 
-          // 하단 고정 버튼 (간결하고 명확)
+          // 하단 고정 버튼
           SafeArea(
             top: false,
             child: Padding(
@@ -169,7 +168,7 @@ class _CreateTodoPageState extends ConsumerState<CreateTodoPage>
                         final model = TodoModel(
                           title: _title.trim(),
                           description: _description?.trim(),
-                          priority: _priorityText ?? '보통',
+                          priority: _priorityText ?? '긴급',
                           isComplete: isComplete,
                         );
 

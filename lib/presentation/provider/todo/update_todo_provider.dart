@@ -22,7 +22,7 @@ class UpdateTodo extends _$UpdateTodo {
       result.fold(
         onSuccess: (_) {
           // 리스트 재로딩
-          ref.invalidate(fetchTodoProvider);
+          ref.read(fetchTodoProvider.notifier).refresh();
 
           state = const AsyncData(null);
         },
