@@ -17,6 +17,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter/services.dart';
 
 class CompletePage extends ConsumerWidget with TodoState {
   const CompletePage({super.key});
@@ -32,7 +33,10 @@ class CompletePage extends ConsumerWidget with TodoState {
           Padding(
             padding: EdgeInsets.only(right: 16.w),
             child: BaseButton(
-              onPressed: () => context.push(AppRoute.profile.path),
+              onPressed: () {
+                HapticFeedback.selectionClick();
+                context.push(AppRoute.profile.path);
+              },
               child: CircleAvatar(
                 backgroundColor: AppColor.primary500,
                 child: SvgPicture.asset(AppAsset.userIcon),

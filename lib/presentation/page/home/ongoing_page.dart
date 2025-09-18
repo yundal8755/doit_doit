@@ -16,6 +16,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 class OnGoingPage extends ConsumerStatefulWidget {
@@ -38,7 +39,10 @@ class _OnGoingPageState extends ConsumerState<OnGoingPage>
           Padding(
             padding: EdgeInsets.only(right: 16.w),
             child: BaseButton(
-              onPressed: () => context.push(AppRoute.profile.path),
+              onPressed: () {
+                HapticFeedback.selectionClick();
+                context.push(AppRoute.profile.path);
+              },
               child: CircleAvatar(
                 backgroundColor: AppColor.primary500,
                 child: SvgPicture.asset(AppAsset.userIcon),

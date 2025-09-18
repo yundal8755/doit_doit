@@ -7,6 +7,7 @@ import 'package:doit_doit/presentation/widget/component/button/base_button.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 
 class TodoCard extends StatefulWidget {
@@ -40,6 +41,8 @@ class _TodoCardState extends State<TodoCard> {
 
     return BaseButton(
       onPressed: () {
+        // 햅틱 피드백
+        HapticFeedback.selectionClick();
         setState(() {
           currentModel = currentModel.copyWith(
             isComplete: !currentModel.isComplete,
