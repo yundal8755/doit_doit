@@ -25,7 +25,8 @@ class SplashPage extends ConsumerWidget {
         }
       },
       loading: () => const Scaffold(
-        body: Center(child: CircularProgressIndicator()),
+        backgroundColor: Colors.white,
+        body: Center(child: SizedBox()),
       ),
       error: (error, _) => Scaffold(
         body: Center(
