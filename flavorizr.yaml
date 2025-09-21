@@ -1,14 +1,14 @@
 flavors:
   prod:
     app:
-      name: "prod-doitdoit"
+      name: "두잇두잇"
     android:
       applicationId: "com.example.prod.doitdoit"
     ios:
       bundleId: "com.example.prod.doitdoit"
   dev:
     app:
-      name: "dev-doitdoit"
+      name: "[DEV]두잇두잇"
     android:
       applicationId: "com.example.dev.doitdoit"
     ios:
