@@ -4,58 +4,59 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: ">=3.6.0 <4.0.0"   # ✅ lottie ^3.3.0을 위해 최소 3.6.0으로 올림
+  sdk: ">=3.6.0 <4.0.0" 
 
 dependencies:
   flutter:
     sdk: flutter
 
   # 📦 의존성 패키지 (a~z 순 정렬)
-  cached_network_image: ^3.4.1       # 네트워크 이미지 캐싱
-  cloud_firestore: ^5.6.12           # Firebase Cloud Firestore DB
-  cupertino_icons: ^1.0.8            # iOS 스타일 아이콘
-  easy_localization: ^3.0.8          # 다국어/다언어 지원
-  firebase_auth: ^5.7.0              # Firebase 인증 (이메일/소셜 로그인)
-  firebase_core: ^3.14.0             # Firebase Core 초기화
-  flutter_bounceable: ^1.2.0         # 탭 시 애니메이션 효과
-  flutter_dotenv: ^6.0.0             # .env 환경변수 관리
-  flutter_flavorizr: ^2.3.1          # Flavor 환경 분리 자동화
-  flutter_riverpod: ^2.6.1           # Riverpod 상태관리
-  flutter_screenutil: ^5.9.3         # 반응형 UI (해상도 대응)
-  flutter_secure_storage: ^9.2.4     # 보안 스토리지 (Keychain/Keystore)
-  url_launcher: ^6.1.10              # 외부 브라우저로 URL 열기
-  flutter_slidable: ^3.1.2           # 리스트 슬라이드 액션
-  flutter_svg: ^2.1.0                # SVG 이미지 렌더링
-  freezed: ^2.5.7                    # 불변 객체/데이터 클래스 생성
-  gap: ^3.0.1                        # 위젯 간 간격(Spacing) 간단 처리
-  go_router: ^15.1.2                 # 라우팅 관리
-  google_sign_in: ^6.2.2             # 구글 로그인
-  hive: ^2.2.3                       # 로컬 NoSQL DB
-  image_picker: ^1.1.2               # 갤러리/카메라 이미지 선택
-  json_annotation: ^4.9.0            # JSON 직렬화 어노테이션
-  json_serializable: ^6.9.0          # JSON 코드 자동 생성
-  kakao_flutter_sdk: ^1.9.3          # 카카오 로그인 SDK
-  logger: ^2.6.0                     # 로그 출력 도구
-  lottie: ^3.3.0                     # 로티 애니메이션
-  naver_login_sdk: ^3.0.2            # 네이버 로그인
-  permission_handler: ^12.0.1        # 권한 요청/체크
-  riverpod_annotation: ^2.6.1        # Riverpod 코드 생성 어노테이션
-  sign_in_with_apple: ^7.0.1         # 애플 로그인
-  connectivity_plus: ^7.0.0
-  internet_connection_checker_plus: ^2.8.0
-  flutter_native_splash: ^2.4.4
+  cached_network_image: ^3.4.1               # 네트워크 이미지 캐싱
+  cloud_firestore: ^5.6.12                   # Firebase Cloud Firestore (실시간 DB)
+  connectivity_plus: ^7.0.0                  # 네트워크 연결 상태 확인
+  cupertino_icons: ^1.0.8                    # iOS 스타일 아이콘
+  easy_localization: ^3.0.8                  # 다국어 지원
+  firebase_auth: ^5.7.0                      # Firebase 인증 (이메일/소셜 로그인)
+  firebase_core: ^3.14.0                     # Firebase Core 초기화
+  flutter_bounceable: ^1.2.0                 # 버튼/위젯 탭 애니메이션 효과
+  flutter_dotenv: ^6.0.0                     # .env 환경 변수 관리
+  flutter_flavorizr: ^2.3.1                  # Flavor 환경 분리 자동화
+  flutter_native_splash: ^2.4.4              # 앱 스플래시 화면 설정
+  flutter_riverpod: ^2.6.1                   # Riverpod 상태 관리
+  flutter_screenutil: ^5.9.3                 # 반응형 UI (화면 해상도 대응)
+  flutter_secure_storage: ^9.2.4             # 안전한 로컬 저장소 (Keychain/Keystore)
+  flutter_slidable: ^3.1.2                   # 리스트 항목 슬라이드 액션
+  flutter_svg: ^2.1.0                        # SVG 이미지 렌더링
+  freezed: ^2.5.7                            # 데이터 클래스/불변 객체 생성
+  gap: ^3.0.1                                # 위젯 간격(Spacing) 처리
+  go_router: ^15.1.2                         # 라우팅 관리
+  google_sign_in: ^6.2.2                     # 구글 로그인
+  hive: ^2.2.3                               # 로컬 NoSQL DB
+  image_picker: ^1.1.2                       # 카메라/갤러리 이미지 선택
+  internet_connection_checker_plus: ^2.8.0   # 인터넷 연결 체크
+  json_annotation: ^4.9.0                    # JSON 직렬화 어노테이션
+  json_serializable: ^6.9.0                  # JSON 코드 자동 생성
+  kakao_flutter_sdk: ^1.9.3                  # 카카오 로그인 SDK
+  logger: ^2.6.0                             # 로그 출력 도구
+  lottie: ^3.3.0                             # 로티 애니메이션
+  naver_login_sdk: ^3.0.2                    # 네이버 로그인 SDK
+  permission_handler: ^12.0.1                # 권한 요청/체크
+  riverpod_annotation: ^2.6.1                # Riverpod 코드 생성 어노테이션
+  sign_in_with_apple: ^7.0.1                 # 애플 로그인
+  url_launcher: ^6.1.10                      # 외부 브라우저로 URL 열기
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   # 🛠️ 개발 전용 패키지 (a~z 순 정렬)
-  build_runner: ^2.4.13              # 코드 생성 실행기
-  custom_lint: ^0.7.0                # 사용자 정의 린트 규칙
-  flutter_lints: ^4.0.0              # Flutter 권장 린트 규칙
-  riverpod_generator: ^2.6.3         # Riverpod 관련 코드 자동 생성
-  riverpod_lint: ^2.6.3              # Riverpod 전용 린트 규칙
-  flutter_launcher_icons: ^0.14.4
+  build_runner: ^2.4.13                      # 코드 생성 실행기
+  custom_lint: ^0.7.0                        # 사용자 정의 린트 규칙
+  flutter_launcher_icons: ^0.14.4            # 앱 런처 아이콘 생성
+  flutter_lints: ^4.0.0                      # Flutter 권장 린트 규칙
+  riverpod_generator: ^2.6.3                 # Riverpod 코드 자동 생성기
+  riverpod_lint: ^2.6.3                      # Riverpod 린트 규칙
+
 
 
 flutter:
