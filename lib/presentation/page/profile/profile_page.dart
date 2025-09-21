@@ -15,6 +15,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProfilePage extends ConsumerWidget {
   const ProfilePage({super.key});
@@ -76,13 +77,23 @@ class ProfilePage extends ConsumerWidget {
               _buildTile(
                 assetName: AppAsset.privacyPolicyIcon,
                 title: '개인정보 처리방침',
-                onTap: () {},
+                onTap: () async {
+                  final uri = Uri.parse(
+                      'https://showy-repair-fd3.notion.site/275df3b9d92180f9903ffac1481bd383');
+                  if (!await launchUrl(uri,
+                      mode: LaunchMode.externalApplication)) {
+                    // 실패 시 간단한 SnackBar로 알림
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('페이지를 열 수 없습니다')),
+                    );
+                  }
+                },
               ),
-              _buildTile(
-                assetName: AppAsset.termsOfServiceIcon,
-                title: '서비스 이용약관',
-                onTap: () {},
-              ),
+              // _buildTile(
+              //   assetName: AppAsset.termsOfServiceIcon,
+              //   title: '서비스 이용약관',
+              //   onTap: () {},
+              // ),
 
               const Spacer(),
 
