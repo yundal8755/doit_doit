@@ -63,6 +63,6 @@ class DevFirebaseOptions {
     messagingSenderId: '965384658339',
     projectId: 'dailydaily-dev',
     storageBucket: 'dailydaily-dev.firebasestorage.app',
-    iosBundleId: 'com.example.dev.doitdoit',
+    iosBundleId: 'com.dateu.dev.doitdoit',
   );
 }

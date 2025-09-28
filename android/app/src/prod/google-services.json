@@ -7,17 +7,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:17406977885:android:a62cd6d3639d26b67aeab4",
+        "mobilesdk_app_id": "1:17406977885:android:4146d49136e492737aeab4",
         "android_client_info": {
-          "package_name": "com.example.prod.doitdoit"
+          "package_name": "com.dateu.prod.doitdoit"
         }
       },
       "oauth_client": [
         {
-          "client_id": "17406977885-5vc6sqg9da0202imdqjr6stscegjihb4.apps.googleusercontent.com",
+          "client_id": "17406977885-hv75kkik2r6igqgu4g0k5tlfd3ojmt5n.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.prod.doitdoit",
+            "package_name": "com.dateu.prod.doitdoit",
             "certificate_hash": "9482e8511dc4f457e88ae0be8041df12b5e84946"
           }
         },

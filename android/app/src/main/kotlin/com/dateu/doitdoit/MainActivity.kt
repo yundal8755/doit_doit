@@ -1,4 +1,4 @@
-package com.dateu.prod.doit_doit
+package com.dateu.prod.doitdoit
 
 import io.flutter.embedding.android.FlutterActivity
 

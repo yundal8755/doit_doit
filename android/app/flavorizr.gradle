@@ -4,12 +4,12 @@ android {
     productFlavors {
         prod {
             dimension "flavor-type"
-            applicationId "com.example.prod.doitdoit"
+            applicationId "com.dateu.prod.doitdoit"
             resValue "string", "app_name", "두잇두잇"
         }
         dev {
             dimension "flavor-type"
-            applicationId "com.example.dev.doitdoit"
+            applicationId "com.dateu.dev.doitdoit"
             resValue "string", "app_name", "[DEV]두잇두잇"
         }
     }

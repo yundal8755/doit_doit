@@ -63,6 +63,6 @@ class ProdFirebaseOptions {
     messagingSenderId: '17406977885',
     projectId: 'dailydaily-prod-d68f1',
     storageBucket: 'dailydaily-prod-d68f1.firebasestorage.app',
-    iosBundleId: 'com.example.dev.doitdoit',
+    iosBundleId: 'com.dateu.dev.doitdoit',
   );
 }
