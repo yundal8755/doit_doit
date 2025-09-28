@@ -101,7 +101,6 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				"dev/GoogleService-Info.plist",
-				"prod/GoogleService-Info.plist",
 			);
 			target = 97C146ED1CF9000F007C117D /* Runner */;
 		};
@@ -651,7 +650,7 @@
 					"$(PROJECT_DIR)/Flutter",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.prod.doitdoit;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dateu.prod.doitdoit;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
@@ -1181,7 +1180,7 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.prod.doitdoit;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dateu.prod.doitdoit;
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -1260,7 +1259,7 @@
 					"$(PROJECT_DIR)/Flutter",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.prod.doitdoit;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dateu.prod.doitdoit;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;

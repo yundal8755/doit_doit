@@ -5,11 +5,11 @@ flavors:
     android:
       applicationId: "com.dateu.prod.doitdoit"
     ios:
-      bundleId: "com.example.prod.doitdoit"
+      bundleId: "com.dateu.prod.doitdoit"
   dev:
     app:
       name: "[DEV]두잇두잇"
     android:
       applicationId: "com.dateu.dev.doitdoit"
     ios:
-      bundleId: "com.example.dev.doitdoit"
+      bundleId: "com.dateu.dev.doitdoit"
